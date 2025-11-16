@@ -44,28 +44,6 @@ A modern Next.js application for browsing movies, managing watchlists, and writi
 - `bun format` - Format code with Prettier
 - `bun build` - Build for production
 
-## Backlog (Agentic Development Tasks)
-
-These features are planned for implementation using agentic development:
-
-### High Priority
-- [ ] **Infinite Scroll / Pagination** - Load more movies when scrolling
-- [ ] **Search Functionality** - Search movies by title
-- [ ] **Movie Details Page** - Full movie info with cast and trailers
-
-### Medium Priority
-- [ ] **User Authentication** - NextAuth.js integration
-- [ ] **Database Migration** - Move from JSON to PostgreSQL/Prisma
-- [ ] **Filter & Sort** - Filter by genre, sort by rating/date
-- [ ] **TanStack Query Integration** - Better data fetching and caching
-
-### Nice to Have
-- [ ] **Recommendations** - AI-powered movie suggestions
-- [ ] **Social Features** - Share watchlists
-- [ ] **Analytics Dashboard** - Visualize watching habits
-- [ ] **Testing** - Unit and integration tests
-- [ ] **Deployment** - Vercel deployment with CI/CD
-
 ---
 
 Built for Revity's agentic development workshop.
