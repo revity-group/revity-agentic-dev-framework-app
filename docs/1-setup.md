@@ -69,11 +69,13 @@ You can open it using `Cmd+Escape` but if you prefer cli you can connect it usin
 | Action | How |
 |--------|-----|
 | **Continue from previous session** | `claude --continue` |
-| **Rewind to previous checkpoints (undo changes)** | `double Escape` |
-| **Double tap on esc to choose previous commands** | `cmd+option+k` |
+| **Rewind to previous checkpoints** | `double Escape` |
+| **Add selected lines to context** | `cmd+option+k` |
+| **Switch between plan / auto accept modes** | `shift+tab/+tab`|
 | **Jump to the end of the line** | `ctrl+e` |
 | **Jump to the beginning of the line** | `ctrl+a` |
 | **Delete a word** | `ctrl+w` |
+| **Open detailed AI response** | `ctrl+o` |
 
 ---
 
