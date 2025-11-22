@@ -1,6 +1,9 @@
 description: A hands-on workshop for development agentic capabilities
 remote_theme: just-the-docs/just-the-docs
 
+# Logo (replaces title text)
+logo: "/assets/images/revity-logo.svg"
+
 # Colors
 color_scheme: dark
 
