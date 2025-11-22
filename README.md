@@ -1,8 +1,44 @@
-# Movie Watchlist App
+# Claude Code Agentic Workflow Workshop
 
-A modern Next.js application for browsing movies, managing watchlists, and writing reviews. Built to demonstrate agentic development workflows at Revity.
+A hands-on workshop for mastering Claude Code's agentic capabilities.
 
-## Tech Stack
+## Workshop Guide
+
+**Full workshop instructions:** [revity-group.github.io/revity-agentic-dev-framework-app](https://revity-group.github.io/revity-agentic-dev-framework-app/)
+
+---
+
+## Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
+cd revity-agentic-dev-framework-app
+
+# Install dependencies
+bun install
+
+# Set up environment
+cp .env.example .env.local
+# Add your TMDB_API_KEY to .env.local
+
+# Run the app
+bun dev
+```
+
+Get your TMDB API key at [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
+
+---
+
+## About This Project
+
+This is a **Movie Watchlist App** used as a hands-on project for the workshop. Features:
+
+- Browse movies (Popular, Top Rated, Now Playing, Upcoming)
+- Add movies to watchlist
+- Write movie reviews with ratings
+
+### Tech Stack
 
 - Next.js 15 (App Router)
 - TypeScript
@@ -10,39 +46,17 @@ A modern Next.js application for browsing movies, managing watchlists, and writi
 - TMDB API
 - Bun
 
-## Setup
+---
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   bun install
-   ```
-3. Get your TMDB API key at https://www.themoviedb.org/settings/api
-4. Create `.env.local` and add your key:
-   ```
-   TMDB_API_KEY=your_api_key_here
-   ```
-5. Run the dev server:
-   ```bash
-   bun dev
-   ```
-6. Open http://localhost:3000
+## Development Commands
 
-## Current Features
-
-- ✅ Browse movies (Popular, Top Rated, Now Playing, Upcoming)
-- ✅ Add movies to watchlist
-- ✅ Write movie reviews with ratings
-- ✅ File-based storage (JSON)
-- ✅ Modern ESLint v9 + Prettier setup
-
-## Development
-
-- `bun dev` - Start development server
-- `bun lint` - Run ESLint
-- `bun lint:fix` - Auto-fix ESLint issues
-- `bun format` - Format code with Prettier
-- `bun build` - Build for production
+| Command | Description |
+|---------|-------------|
+| `bun dev` | Start development server |
+| `bun lint` | Run ESLint |
+| `bun lint:fix` | Auto-fix ESLint issues |
+| `bun format` | Format code with Prettier |
+| `bun build` | Build for production |
 
 ---
 
