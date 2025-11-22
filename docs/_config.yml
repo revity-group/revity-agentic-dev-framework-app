@@ -4,7 +4,7 @@ remote_theme: just-the-docs/just-the-docs
 baseurl: /revity-agentic-dev-framework-app
 
 # Logo (replaces title text)
-logo: /revity-agentic-dev-framework-app/assets/images/revity-logo.png
+logo: /revity-agentic-dev-framework-app/assets/images/revity-logo.svg
 
 # Colors
 color_scheme: dark
