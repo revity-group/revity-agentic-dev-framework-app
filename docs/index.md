@@ -78,6 +78,4 @@ Same task. Same codebase. Completely different experience.
 - [Conventional Commits](https://www.conventionalcommits.org/)
 - [This Workshop's Source](https://github.com/YOUR_USERNAME/revity-workshop-app)
 
----
 
-*Built with ❤️ by The Revity Group*

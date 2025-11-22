@@ -1,5 +1,4 @@
-title: Claude Code Agentic Workflow Workshop
-description: A hands-on workshop for mastering Claude Code's agentic capabilities
+description: A hands-on workshop for development agentic capabilities
 remote_theme: just-the-docs/just-the-docs
 
 # Colors
@@ -12,8 +11,8 @@ search_enabled: true
 nav_enabled: true
 
 # Footer
-footer_content: "Built by Revity"
+footer_content: 'Built with ❤️ by The Revity Group'
 
 # Back to top link
 back_to_top: true
-back_to_top_text: "Back to top"
+back_to_top_text: 'Back to top'
