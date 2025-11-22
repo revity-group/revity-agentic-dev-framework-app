@@ -1,3 +1,19 @@
 title: Claude Code Agentic Workflow Workshop
 description: A hands-on workshop for mastering Claude Code's agentic capabilities
-theme: jekyll-theme-minimal
+remote_theme: just-the-docs/just-the-docs
+
+# Colors
+color_scheme: dark
+
+# Enable search
+search_enabled: true
+
+# Navigation
+nav_enabled: true
+
+# Footer
+footer_content: "Built by Revity"
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"

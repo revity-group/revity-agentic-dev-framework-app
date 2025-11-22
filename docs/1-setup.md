@@ -1,3 +1,9 @@
+---
+layout: default
+title: 1. Setup & Shortcuts
+nav_order: 2
+---
+
 # Section 1: Setup & Shortcuts
 
 Get Claude Code installed and learn the essential shortcuts.

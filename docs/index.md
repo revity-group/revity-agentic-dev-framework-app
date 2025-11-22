@@ -1,3 +1,9 @@
+---
+layout: home
+title: Home
+nav_order: 1
+---
+
 # Claude Code Agentic Workflow Workshop
 
 Welcome to the hands-on workshop for mastering Claude Code's agentic capabilities.
@@ -74,4 +80,4 @@ Same task. Same codebase. Completely different experience.
 
 ---
 
-*Built by Revity*
+*Built with ❤️ by The Revity Group*
