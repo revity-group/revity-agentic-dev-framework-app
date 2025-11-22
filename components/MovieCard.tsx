@@ -1,23 +1,23 @@
-'use client';
+'use client'
 
-import { Movie } from '@/types/movie';
-import { useState } from 'react';
+import { Movie } from '@/types/movie'
+import { useState } from 'react'
 
 interface MovieCardProps {
-  movie: Movie;
-  onReview: () => void;
+  movie: Movie
+  onReview: () => void
 }
 
 export default function MovieCard({ movie, onReview }: MovieCardProps) {
-  const [isInWatchlist, setIsInWatchlist] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isInWatchlist, setIsInWatchlist] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const posterUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : '/placeholder-movie.jpg';
+    : '/placeholder-movie.jpg'
 
   const addToWatchlist = async () => {
-    setLoading(true);
+    setLoading(true)
     try {
       const response = await fetch('/api/watchlist', {
         method: 'POST',
@@ -27,21 +27,21 @@ export default function MovieCard({ movie, onReview }: MovieCardProps) {
           movieTitle: movie.title,
           posterPath: movie.poster_path,
         }),
-      });
+      })
 
       if (response.ok) {
-        setIsInWatchlist(true);
+        setIsInWatchlist(true)
       } else {
-        const error = await response.json();
-        alert(error.error || 'Failed to add to watchlist');
+        const error = await response.json()
+        alert(error.error || 'Failed to add to watchlist')
       }
     } catch (error) {
-      console.error('Error adding to watchlist:', error);
-      alert('Failed to add to watchlist');
+      console.error('Error adding to watchlist:', error)
+      alert('Failed to add to watchlist')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="overflow-hidden rounded-lg bg-white shadow-lg transition-shadow hover:shadow-xl dark:bg-gray-800">
@@ -52,7 +52,7 @@ export default function MovieCard({ movie, onReview }: MovieCardProps) {
           className="h-full w-full object-cover"
           onError={(e) => {
             e.currentTarget.src =
-              'https://via.placeholder.com/500x750?text=No+Image';
+              'https://via.placeholder.com/500x750?text=No+Image'
           }}
         />
         <div className="absolute right-2 top-2 rounded bg-black bg-opacity-70 px-2 py-1 text-sm font-semibold text-white">
@@ -89,5 +89,5 @@ export default function MovieCard({ movie, onReview }: MovieCardProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

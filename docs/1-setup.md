@@ -13,11 +13,11 @@ Get Claude Code installed and learn the essential shortcuts.
 ## Install Claude Code
 
 ```bash
-# Install globally via npm
-npm install -g @anthropic-ai/claude-code
+# Install via curl (recommended)
+curl -fsSL https://claude.ai/install.sh | bash
 
 # Or via Homebrew (macOS)
-brew install claude-code
+brew install --cask claude-code
 
 # Verify installation
 claude --version
@@ -35,138 +35,45 @@ cd revity-workshop-app
 claude
 ```
 
-On first launch, you'll be prompted for your Anthropic API key.
+On first launch, you'll be prompted to authenticate with Claude Code and setup initial theme and settings.
 
 ---
 
-## Essential Shortcuts
+## IDE Integration (VS Code / Cursor)
 
-Master these shortcuts to work efficiently:
-
-### Navigation & Control
-
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+C` | Stop Claude mid-response |
-| `Escape` | Clear current input |
-| `Ctrl+L` | Clear screen |
-| `/clear` | Clear conversation history |
-| `/compact` | Summarize & reduce context |
-| `/help` | Show all commands |
-
-### Input
-
-| Shortcut | Action |
-|----------|--------|
-| `Enter` | Send message |
-| `Shift+Enter` | New line (multi-line input) |
-| `Tab` | Accept autocomplete suggestion |
-| `↑` / `↓` | Navigate command history |
-
-### File References
-
-| Syntax | What it does |
-|--------|--------------|
-| `@filename` | Reference a specific file |
-| `@folder/` | Reference a folder |
-| `#symbolName` | Reference a code symbol |
+To combine the power of Claude Code and IDEs, you'll need the VS Code extension. Once installed, the chat panel understands which active file you have open and auto adds it to the context. You can also select lines to add to the context.
 
 ---
 
-## Useful Commands
+### Install the Claude Code Extension
 
-```bash
-# Show current settings
-/config
-
-# Show active model
-/model
-
-# Change model
-/model claude-sonnet-4-5-20250929
-
-# Show cost of current session
-/cost
-```
+Open VS Code (or Cursor) and press `Cmd+Shift+X` to open the Extensions view
+Search for **Claude Code for VSCode** and install the official Anthropic extension
+You can open it using `Cmd+Escape` but if you prefer cli you can connect it using `/ide` command.
 
 ---
 
-## VS Code Integration
+### Tips & Tricks
 
-Connect Claude Code to your IDE for automatic context awareness.
+| Action | How |
+|--------|-----|
+| **Open Claude instantly** | `Cmd+Escape` opens the panel. Prefer terminal? Run `claude` from an editor terminal |
+| **Reconnect IDE bridge** | If you see "IDE disconnected," type `/ide` in Claude terminal to re-establish context |
+| **Create a new terminal on side panel** | Open key binding `cmd+shift+p`, search for `create new terminal` , select `create new  terminal in editor area to the side` and add `cmd+t` |
+| **Demostrate how auto adding files to context works** | Open a file and you will see it auto adds to context. You can also select lines within the same file to add to context. |
+| **Setup key binding to include selected lines into context** | I use `cmd+option+k` to include selected lines into context. You can ad this keybinding to claude-code.insertAtMentioned  |
 
-### Install the Extension
 
-1. Open VS Code
-2. Go to Extensions (`Cmd+Shift+X`)
-3. Search for "Claude Code"
-4. Click Install
+## Claude code shortcuts & tips
 
-### Launch Claude Code in VS Code
-
-- **Shortcut**: `Cmd+Esc` (Mac) / `Ctrl+Esc` (Windows/Linux)
-- **Command Palette**: `Cmd+Shift+P` → "Claude Code: Open"
-
-### Why Use the IDE Integration?
-
-When connected to VS Code, Claude Code gets **automatic context**:
-
-| Context | What Claude Sees |
-|---------|------------------|
-| **Open file** | The file you're currently editing |
-| **Selection** | Any highlighted code |
-| **Cursor position** | Where you're working |
-| **Visible files** | Files open in your tabs |
-| **Diagnostics** | Errors and warnings from your linter/compiler |
-
-### Context in Action
-
-Try this:
-1. Open a file in VS Code (e.g., `app/page.tsx`)
-2. Highlight some code
-3. Open Claude Code (`Cmd+Esc`)
-4. Ask: "What does this do?"
-
-Claude will know exactly what code you're referring to - no copy-pasting needed!
-
-### Terminal vs IDE
-
-| Feature | Terminal (`claude`) | VS Code Extension |
-|---------|--------------------|--------------------|
-| Works anywhere | ✅ | VS Code only |
-| Auto file context | ❌ (use `@file`) | ✅ Automatic |
-| See selections | ❌ | ✅ |
-| Inline diagnostics | ❌ | ✅ |
-| Same core features | ✅ | ✅ |
-
-**Recommendation**: Use VS Code integration when actively coding, terminal for quick tasks.
-
----
-
-## Verify Your Setup
-
-Before moving on, make sure:
-
-- [ ] Claude Code CLI is installed (`claude --version` works)
-- [ ] You can launch it in the terminal (`claude` in project root)
-- [ ] VS Code extension is installed and opens (`Cmd+Esc`)
-- [ ] The movie app runs (`bun dev` → visit http://localhost:3000)
-
----
-
-## Try It Out
-
-Ask Claude Code something simple to verify it's working:
-
-```
-What files are in this project?
-```
-
-or
-
-```
-Explain what this project does
-```
+| Action | How |
+|--------|-----|
+| **Continue from previous session** | `claude --continue` |
+| **Rewind to previous checkpoints (undo changes)** | `double Escape` |
+| **Double tap on esc to choose previous commands** | `cmd+option+k` |
+| **Jump to the end of the line** | `ctrl+e` |
+| **Jump to the beginning of the line** | `ctrl+a` |
+| **Delete a word** | `ctrl+w` |
 
 ---
 
