@@ -4,7 +4,7 @@ title: Home
 nav_order: 1
 ---
 
-# Claude Code Agentic Workflow Workshop
+# Revity Agentic Development Workshop
 
 Welcome to the hands-on workshop for mastering Claude Code's agentic capabilities.
 
