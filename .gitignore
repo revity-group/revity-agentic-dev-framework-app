@@ -38,4 +38,5 @@ next-env.d.ts
 
 # data storage
 /data
-.claude/settings.local.json
+.claude/
+.mcp.json

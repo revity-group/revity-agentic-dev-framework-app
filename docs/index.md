@@ -6,13 +6,13 @@ nav_order: 1
 
 # Revity Agentic Development Workshop
 
-Welcome to the hands-on workshop for mastering Claude Code's agentic capabilities.
+Welcome to the hands-on workshop for Agentic Development Setup with Claude Code.
 
 ---
 
 ## Workshop Overview
 
-In this workshop, you'll transform Claude Code from a simple AI assistant into a powerful, automated development partner. You'll learn by doing - implementing the same feature twice (before and after setup) to see the real difference.
+In this workshop, you'll transform Claude Code from a simple AI assistant into a powerful, automated development partner. You'll learn by doing.
 
 ---
 
@@ -35,9 +35,9 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 ## Prerequisites
 
 - Git installed
-- Node.js 18+ or Bun installed
+- Bun installed with homebrew
 - VS Code (recommended)
-- Anthropic API key
+- Claude code installed and authenticated
 
 ---
 
@@ -53,7 +53,7 @@ bun install
 
 # Set up environment
 cp .env.example .env.local
-# Add your TMDB_API_KEY to .env.local
+# Add your TMDB_API_KEY to .env.local by opening the TMDB web page and creating an API key
 
 # Run the app
 bun dev
@@ -63,19 +63,12 @@ bun dev
 
 ## The Challenge
 
-You'll implement **infinite scrolling** for the movie list twice:
-
-1. **First time (Section 2)**: With zero Claude Code setup
-2. **Second time (Section 9)**: With full agentic setup
-
-Same task. Same codebase. Completely different experience.
+TBD
 
 ---
 
 ## Resources
 
-- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Conventional Commits](https://www.conventionalcommits.org/)
-- [This Workshop's Source](https://github.com/YOUR_USERNAME/revity-workshop-app)
+TBD
 
 

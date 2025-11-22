@@ -91,13 +91,55 @@ Master these shortcuts to work efficiently:
 
 ---
 
-## VS Code Integration (Optional)
+## VS Code Integration
 
-If using VS Code, you can also use the Claude Code extension:
+Connect Claude Code to your IDE for automatic context awareness.
 
-1. Install "Claude Code" extension
-2. `Cmd+Shift+P` → "Claude Code: Open"
-3. Same features, integrated in your editor
+### Install the Extension
+
+1. Open VS Code
+2. Go to Extensions (`Cmd+Shift+X`)
+3. Search for "Claude Code"
+4. Click Install
+
+### Launch Claude Code in VS Code
+
+- **Shortcut**: `Cmd+Esc` (Mac) / `Ctrl+Esc` (Windows/Linux)
+- **Command Palette**: `Cmd+Shift+P` → "Claude Code: Open"
+
+### Why Use the IDE Integration?
+
+When connected to VS Code, Claude Code gets **automatic context**:
+
+| Context | What Claude Sees |
+|---------|------------------|
+| **Open file** | The file you're currently editing |
+| **Selection** | Any highlighted code |
+| **Cursor position** | Where you're working |
+| **Visible files** | Files open in your tabs |
+| **Diagnostics** | Errors and warnings from your linter/compiler |
+
+### Context in Action
+
+Try this:
+1. Open a file in VS Code (e.g., `app/page.tsx`)
+2. Highlight some code
+3. Open Claude Code (`Cmd+Esc`)
+4. Ask: "What does this do?"
+
+Claude will know exactly what code you're referring to - no copy-pasting needed!
+
+### Terminal vs IDE
+
+| Feature | Terminal (`claude`) | VS Code Extension |
+|---------|--------------------|--------------------|
+| Works anywhere | ✅ | VS Code only |
+| Auto file context | ❌ (use `@file`) | ✅ Automatic |
+| See selections | ❌ | ✅ |
+| Inline diagnostics | ❌ | ✅ |
+| Same core features | ✅ | ✅ |
+
+**Recommendation**: Use VS Code integration when actively coding, terminal for quick tasks.
 
 ---
 
@@ -105,8 +147,9 @@ If using VS Code, you can also use the Claude Code extension:
 
 Before moving on, make sure:
 
-- [ ] Claude Code is installed (`claude --version` works)
-- [ ] You can launch it in the project (`claude` in project root)
+- [ ] Claude Code CLI is installed (`claude --version` works)
+- [ ] You can launch it in the terminal (`claude` in project root)
+- [ ] VS Code extension is installed and opens (`Cmd+Esc`)
 - [ ] The movie app runs (`bun dev` → visit http://localhost:3000)
 
 ---
