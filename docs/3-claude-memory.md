@@ -6,61 +6,87 @@ nav_order: 5
 
 # Section 3: CLAUDE.md
 
-Give Claude persistent memory about your project.
+Give Claude persistent memory about your project and high level standards.
 
 ---
 
 ## What is CLAUDE.md?
 
-A markdown file that Claude reads automatically at the start of every conversation. It contains project context, conventions, and instructions that you don't want to repeat.
+Markdown files Claude loads at startup. They give Claude memory about your project's conventions, architecture, and patterns.
 
-**Locations:**
-- `./CLAUDE.md` - Project-level (checked into repo)
-- `~/.claude/CLAUDE.md` - User-level (personal preferences)
+## How does it work?
+
+Files merge hierarchically from enterprise → user (~/.claude/CLAUDE.md) → project (./CLAUDE.md). When you reference @components/Button.tsx, Claude also reads CLAUDE.md from that directory and its parents.
+
+---
+
+## Example structure for a Next.js app:
+
+```
+📁 revity-workshop-app
+├── 📄 CLAUDE.md              # Project-wide conventions, tech stack, build commands
+│
+├── 📁 app
+│   ├── 📄 CLAUDE.md          # Routing patterns, page structure, data fetching
+│   ├── 📄 page.tsx
+│   ├── 📄 layout.tsx
+│   └── 📁 api
+│       └── 📄 CLAUDE.md      # API conventions, error handling, response formats
+│
+├── 📁 components
+│   ├── 📄 CLAUDE.md          # Component patterns, naming conventions, prop types
+│   ├── 📄 MovieCard.tsx
+│   └── 📁 ui
+│       └── 📄 button.tsx
+│
+└── 📁 hooks
+    ├── 📄 CLAUDE.md          # Hook patterns, naming conventions, return types
+    └── 📄 useInfiniteScroll.ts
+```
 
 ---
 
 ## Create Your CLAUDE.md
 
-Create a file called `CLAUDE.md` in your project root:
+For this workshop, we'll create a single root-level `CLAUDE.md` to demonstrate the concept.
+
+### The Task
+
+in claude code session. Type slash command `/init` and then type the following:
 
 ```text
-# Movie Watchlist App
+Create a summary of Project-wide conventions, tech stack, build commands. Make sure to include that we want to follow the same pattern and not introduce new patterns if not necessary. Also we use ShadCN for UI components. Make sure to always use ShadCN first and for loading states use the Skeleton component from ShadCN and not generic loading spinners. Also do not pollute app/ files with business logic, extract it to components/ or hooks/ if needed. You should always put API hooks in hooks/ directory because this allows reusability and maintainability and is a good practice recommended by react. Also make sure you add a full up to date repository structure to the CLAUDE.md file for full visibility of the project and each high level directory purpose, and keep the visualization to high level, no need to add each dingle file.
 
-## Tech Stack
-- Next.js 15 (App Router)
-- TypeScript
-- Tailwind CSS
-- TMDB API
-- Bun
+```
 
-## Project Structure
-- `src/app/` - Next.js app router pages
-- `src/components/` - React components
-- `src/lib/` - Utilities and API clients
-- `src/types/` - TypeScript types
+Now let's use the same prompt we used before and try again
 
-## Conventions
-- Use functional components with hooks
-- Prefer named exports
-- Use Tailwind for styling (no CSS modules)
-- API calls go through `src/lib/tmdb.ts`
+```text
+Add infinite scrolling to the movie list.
 
-## Commands
-- `bun dev` - Start development server
-- `bun lint` - Run ESLint
-- `bun build` - Build for production
+Requirements:
+- When the user scrolls near the bottom of the page, load more movies
+- Show a loading indicator while fetching
+- Handle the "no more movies" state
+- Handle errors gracefully
+- Then create a new Branch and commit the changes.
 ```
 
 ---
 
-## Try It
+## Observe
 
-1. Create the `CLAUDE.md` file with the content above
-2. Start a new Claude Code session
-3. Ask: "What tech stack does this project use?"
+- [ ] Claude code Should now ideally only read what is necessary for the implementation and not the whole project because it already has the reference from its memory.
+- [ ] It should also be able to use the conventions we have defined and it should be able to pick up on putting reusable hooks into the preferred structure.
+- [ ] It should have now known that for loading components, it should be using the modern skeleton UI rather than the traditional spinner UI.
 
-Claude should answer from memory without exploring the codebase.
+---
+
+## Catch Up
+
+```bash
+git checkout workshop/section-3-claude-md
+```
 
 ---
 
