@@ -14,10 +14,10 @@ Welcome to the Agentic Development Workshop. Before we dive into hands-on exerci
 
 We'll start with a presentation covering:
 
-- What is agentic development?
-- Claude Code overview and capabilities
-- Why proper setup matters
-- Workshop goals and structure
+- LLMs: How they work and their capabilities
+- Agents: Autonomous AI that plans, executes, and iterates
+- MCP (Model Context Protocol): Connecting AI to external tools and data
+- Agents in the SDLC: Where AI fits in the development lifecycle
 
 **[View Presentation Slides](https://docs.google.com/presentation/d/1KIsab4vbWrsKOCZXdm4srwZn0aDUO7CwQgQBINpvVOE/edit?slide=id.g3a648889e3e_2_1677)**
 

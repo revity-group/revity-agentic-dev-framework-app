@@ -20,7 +20,7 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 
 | # | Section | What You'll Learn |
 |---|---------|-------------------|
-| 0 | [Introduction](./0-intro.md) | Workshop overview, key concepts, Q&A |
+| 0 | [Introduction](./0-intro.md) | LLMs, Agents, MCP, Agents in SDLC |
 | 1 | [Setup & Shortcuts](./1-setup.md) | Install Claude Code, essential shortcuts |
 | 2 | [Baseline Task](./2-baseline.md) | Implement infinite scroll (no setup) |
 | 3 | [CLAUDE.md](./3-claude-memory.md) | Project memory and conventions |
@@ -62,14 +62,6 @@ bun dev
 
 ---
 
-## The Challenge
-
-TBD
-
----
-
 ## Resources
 
 TBD
-
-
