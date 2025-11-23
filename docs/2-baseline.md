@@ -41,4 +41,4 @@ Requirements:
 
 ---
 
-[← Back to Setup](./1-setup.md) | [Next →](./3-claude-md.md)
+[← Back to Setup](./1-setup.md) | [Next: CLAUDE.md →](./3-claude-memory.md)
