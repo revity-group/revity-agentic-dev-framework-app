@@ -6,7 +6,9 @@ nav_order: 4
 
 # Section 2: Baseline Task
 
-Add an implementation of infinite scrolling to the movie list.
+Currently our application does not have pagination so we don't get all the movies loaded as we scroll. We need to add this functionality.
+
+Use your barebone cloth setup to achieve this.
 
 ---
 
