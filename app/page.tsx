@@ -1,34 +1,31 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Movie } from '@/types/movie'
+import { useMovies } from '@/hooks/useMovies'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 
+type MovieCategory = 'popular' | 'top_rated' | 'now_playing' | 'upcoming'
+
+function MovieSkeleton() {
+  return (
+    <div className="space-y-3">
+      <Skeleton className="aspect-[2/3] w-full rounded-lg" />
+      <Skeleton className="h-4 w-3/4" />
+      <Skeleton className="h-4 w-1/2" />
+    </div>
+  )
+}
+
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [loading, setLoading] = useState(true)
-  const [category, setCategory] = useState('popular')
+  const [category, setCategory] = useState<MovieCategory>('popular')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
 
-  useEffect(() => {
-    fetchMovies()
-  }, [category])
-
-  const fetchMovies = async () => {
-    setLoading(true)
-    try {
-      const response = await fetch(`/api/movies?category=${category}`)
-      const data = await response.json()
-      setMovies(data.results || [])
-    } catch (error) {
-      console.error('Error fetching movies:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { movies, loading, loadingMore, error, hasMore, loadMoreRef, retry } =
+    useMovies(category)
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -72,23 +69,48 @@ export default function Home() {
         {loading ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="space-y-3">
-                <Skeleton className="aspect-[2/3] w-full rounded-lg" />
-                <Skeleton className="h-4 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
-              </div>
+              <MovieSkeleton key={i} />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-                onReview={() => setSelectedMovie(movie)}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  onReview={() => setSelectedMovie(movie)}
+                />
+              ))}
+            </div>
+
+            {error && (
+              <div className="mt-8 text-center">
+                <p className="mb-4 text-red-500">{error}</p>
+                <Button onClick={retry} variant="outline">
+                  Try Again
+                </Button>
+              </div>
+            )}
+
+            {loadingMore && (
+              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <MovieSkeleton key={i} />
+                ))}
+              </div>
+            )}
+
+            {!loadingMore && !error && !hasMore && movies.length > 0 && (
+              <p className="mt-8 text-center text-gray-500 dark:text-gray-400">
+                You&apos;ve reached the end of the list
+              </p>
+            )}
+
+            {!loadingMore && !error && hasMore && (
+              <div ref={loadMoreRef} className="mt-8 h-10" />
+            )}
+          </>
         )}
 
         {selectedMovie && (
