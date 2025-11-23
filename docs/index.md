@@ -24,7 +24,7 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 | 1 | [Setup & Shortcuts](./1-setup.md) | Install Claude Code, essential shortcuts |
 | 2 | [Baseline Task](./2-baseline.md) | Implement infinite scroll (no setup) |
 | 3 | [CLAUDE.md](./3-claude-memory.md) | Project memory and conventions |
-| 4 | Slash Commands | *Coming soon* |
+| 4 | [Slash Commands](./4-commands.md) | Pre-loaded workflows for common tasks |
 | 5 | Hooks | *Coming soon* |
 | 6 | MCP Servers | *Coming soon* |
 | 7 | Skills | *Coming soon* |
