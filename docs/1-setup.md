@@ -79,4 +79,83 @@ You can open it using `Cmd+Escape` but if you prefer cli you can connect it usin
 
 ---
 
+## Claude settings & configuration
+
+1. Enterprise: `/etc/claude-code/managed-settings.json` (highest priority)
+2. Project Local: `.claude/settings.local.json` (personal, git-ignored)
+3. Project Shared: `.claude/settings.json` (team settings)
+4. User Global: `~/.claude/settings.json` (personal defaults)
+
+## Example of settings.json setup
+
+### Personal user settings.json
+
+- Create `~/.claude/settings.json` file if it doesnt exist: `mkdir -p ~/.claude && touch ~/.claude/settings.json`
+- Add the following content to the file: Installs status line : [https://github.com/sirmalloc/ccstatusline]
+
+  ```json
+
+  {
+    "statusLine": {
+      "type": "command",
+      "command": "npx -y ccstatusline@latest",
+      "padding": 0
+    }
+  }
+  ```
+
+  ### Project local and shared settings.json
+
+  It is best practice to always set the project's deny list to avoid leaking sensitive information to the AI, in case of a rogue MCP or prompt poisoning
+
+  - In claude run  `/permissions`
+  - Tab over to deny and add permission rule `Read(./.env.*)` 
+  - Choose settings local 
+  - Then you will see a file called `.claude/settings.local.json`
+
+A recommendation of sharable settings.json (shared with team) as well as settings.local.json (only project local) files is as follows:
+
+```json settings.json
+
+{
+    "permissions": {
+        "allow": [
+            "Bash(grep:*)",
+            "Bash(cat:*)",
+            "Bash(mkdir:*)"
+        ],
+        "ask": [],
+        "defaultMode": "acceptEdits",
+        "deny": [
+            "Read(./.env)",
+            "Read(./.env.*)",
+            "Read(./secrets/**)",
+            "Read(./config/credentials.json)",
+            "Read(./build)"
+        ]
+    },
+    "alwaysThinkingEnabled": true
+}
+```
+
+```json settings.local.json
+{
+    "permissions": {
+        "allow": ["Read(//Users/alireza/.claude/**)"],
+        "ask": [],
+        "deny": []
+    }
+}
+```
+
+Now try asking claude to read the .env file
+
+```text
+Read the .env file
+```
+
+Claude should be denied to read the .env file.
+
+---
+
 [← Back to Overview](./index.md) | [Next: Baseline Task →](./2-baseline.md)
