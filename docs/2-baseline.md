@@ -32,9 +32,10 @@ Requirements:
 ## While You Work, Notice
 
 - [ ] Does Claude know your project structure , or does it have to scan multiple files to understand the project?
-- [ ] In this codebase we want to follow convetions and best practices as follows:
+- Bare in mind that everytime you start a new session, Claude will have to scan the entire codebase to understand the project.
+- [ ] In this codebase we want to follow conventions and best practices as follows:
   - [ ] No raw HTML elements, only use shadcn components
-  - [ ] Do not pollute app/ files with business logic, extract it to components/
+  - [ ] Do not pollute app/ files with business logic, extract it to components/ or hooks/
   - [ ] Do not use raw spinners for component loading states, use modern Skeleton UI component
 - [ ] Do we have to explicitly mention to Claude that we want to follow above conventions?
 
