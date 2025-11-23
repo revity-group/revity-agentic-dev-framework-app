@@ -30,13 +30,29 @@ Slash commands are shortcuts for prompts you use often. Instead of typing the sa
 
 ## Experience the Problem
 
-Let's feel the pain first. Make a small change to any file, then stage it:
+Let's feel the pain. Make a few small changes to a few diff files:
 
 ```bash
 git add .
 ```
 
-Now ask Claude to write a commit message:
+### Attempt 1: The lazy prompt
+
+```text
+commit my changes
+```
+
+**What happens:** Claude writes something... but probably not in your team's format. Maybe it's too verbose. Maybe it doesn't follow conventional commits. You end up editing it anyway.
+
+### Attempt 2: Be more specific
+
+```text
+Write a commit message for my staged changes
+```
+
+**What happens:** Better, but still generic. Claude doesn't know you use conventional commits, or that your team prefers `feat` over `feature`.
+
+### Attempt 3: The full prompt (every. single. time.)
 
 ```text
 Look at my staged changes and write a conventional commit message.
@@ -49,11 +65,14 @@ Types: feat, fix, docs, style, refactor, test, chore
 Keep the subject under 50 characters, imperative mood.
 ```
 
-### While You Work, Notice
+**What happens:** Finally works! But you just typed a bunch of words. And you'll type them again. And again. 10+ times a day.
 
-- [ ] How long was that prompt to type?
-- [ ] If you commit 10 times a day, how often do you type this?
-- [ ] Does everyone on your team use the same commit format?
+### The Real Pain
+
+- [ ] You typed a paragraph just to get a one-line commit message
+- [ ] Tomorrow you'll forget the exact format and type something slightly different
+- [ ] Your teammate uses a different prompt and gets different results
+- [ ] None of this is in version control
 
 ---
 
@@ -67,7 +86,7 @@ Now let's save that prompt as a reusable command.
 mkdir -p .claude/commands
 ```
 
-### Step 2: Create the command file
+### Step 2: Create a basic command file
 
 Create `.claude/commands/commit.md`:
 
@@ -86,29 +105,85 @@ Types: feat, fix, docs, style, refactor, test, chore
 Keep the subject under 50 characters, imperative mood.
 ```
 
----
-
-## Test It
-
-### 1. Stage some changes
-
-```bash
-git add .
-```
-
-### 2. Run your new command
+### Step 3: Test the basic version
 
 ```text
 /commit
 ```
 
-### 3. Notice the difference
+It works, but Claude doesn't actually *see* your changes or know your conventions.
 
-| Without Command | With `/commit` |
-|-----------------|----------------|
-| Type full paragraph every time | Type 7 characters |
-| Everyone's prompt is different | Same workflow for whole team |
-| Easy to forget format details | Format is baked in |
+---
+
+## Level Up: Dynamic Commands
+
+Commands become powerful when they inject **real data**:
+
+| Syntax | What It Does | Example |
+|--------|--------------|---------|
+| `@file` | Inject file contents | `@.claude/conventions/git.md` |
+| `!command` | Inject shell output | `!git diff --staged --stat` |
+| `$ARGUMENTS` | Capture user input | `/deploy $ARGUMENTS` |
+
+### Step 4: Upgrade your command
+
+Replace `.claude/commands/commit.md` with:
+
+```markdown
+---
+description: Smart commit - analyze changes and create logical commits
+---
+
+Analyze my git state and help me create clean, logical commits.
+
+## Conventions
+
+@.claude/conventions/git.md
+
+## Current State
+
+**Staged changes:**
+!git diff --staged --stat
+
+**Unstaged changes:**
+!git diff --stat
+
+**Untracked files:**
+!git ls-files --others --exclude-standard
+
+## Your Task
+
+1. Review what's staged vs unstaged
+2. Decide: should these be one commit or split into multiple logical commits?
+3. If splitting makes sense, tell me what to stage/unstage
+4. Once we agree, write the commit message(s) following the conventions above
+5. Execute the commit(s)
+```
+
+---
+
+## Test the Smart Version
+
+### 1. Make some changes to different files
+
+```bash
+# Edit a component, a doc, and maybe a config file
+```
+
+### 2. Run the upgraded command
+
+```text
+/commit
+```
+
+### 3. Notice what's different now
+
+| Basic Command | Smart Command |
+|---------------|---------------|
+| Claude guesses at your changes | Claude **sees** actual git state |
+| Generic commit format | **Your team's** conventions injected |
+| One commit only | Suggests **logical splits** when needed |
+| You run git commands | Claude **executes** commits for you |
 
 ---
 

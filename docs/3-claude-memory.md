@@ -12,9 +12,9 @@ Give Claude persistent memory about your project and high level standards.
 
 ## What is CLAUDE.md?
 
-Markdown files Claude loads at startup. They give Claude memory about your project's conventions, architecture, and patterns.
+Markdown files Claude loads at startup. They give Claude memory about your project's conventions, architecture, and patterns
 
-## How does it work?
+
 
 Files merge hierarchically from enterprise → user (~/.claude/CLAUDE.md) → project (./CLAUDE.md). When you reference @components/Button.tsx, Claude also reads CLAUDE.md from that directory and its parents.
 
