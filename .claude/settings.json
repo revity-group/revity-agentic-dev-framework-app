@@ -1,0 +1,16 @@
+{
+    "permissions": {
+        "allow": [
+            "Bash(grep:*)",
+            "Bash(cat:*)",
+            "Bash(mkdir:*)"
+        ],
+        "ask": [],
+        "defaultMode": "acceptEdits",
+        "deny": [
+            "Read(./.env)",
+            "Read(./.env.*)"
+        ]
+    },
+    "alwaysThinkingEnabled": true
+}
