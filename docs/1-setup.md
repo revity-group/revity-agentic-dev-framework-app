@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 1. Setup & Shortcuts
-nav_order: 2
+nav_order: 3
 ---
 
 # Section 1: Setup & Shortcuts
@@ -115,8 +115,9 @@ You can open it using `Cmd+Escape` but if you prefer cli you can connect it usin
 
 A recommendation of sharable settings.json (shared with team) as well as settings.local.json (only project local) files is as follows:
 
-```json settings.json
+```json 
 
+# settings.json
 {
     "permissions": {
         "allow": [
@@ -138,7 +139,9 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 }
 ```
 
-```json settings.local.json
+```json
+
+# settings.local.json
 {
     "permissions": {
         "allow": ["Read(//Users/alireza/.claude/**)"],
@@ -147,6 +150,8 @@ A recommendation of sharable settings.json (shared with team) as well as setting
     }
 }
 ```
+
+Go ahead and add your local settings to gitignore. as this is specific to you and not your team
 
 Now try asking claude to read the .env file
 
@@ -158,4 +163,14 @@ Claude should be denied to read the .env file.
 
 ---
 
-[← Back to Overview](./index.md) | [Next: Baseline Task →](./2-baseline.md)
+## Catch Up
+
+If you fell behind or want to see the completed setup:
+
+```bash
+git checkout workshop/section-1-setup
+```
+
+---
+
+[← Back to Introduction](./0-intro.md) | [Next: Baseline Task →](./2-baseline.md)
