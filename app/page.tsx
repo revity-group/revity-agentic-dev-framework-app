@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { Movie } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
+import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([])
@@ -40,54 +42,42 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <button
+            <Button
               onClick={() => setCategory('popular')}
-              className={`rounded-lg px-6 py-2 font-medium transition-colors ${
-                category === 'popular'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
+              variant={category === 'popular' ? 'default' : 'outline'}
             >
               Popular
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setCategory('top_rated')}
-              className={`rounded-lg px-6 py-2 font-medium transition-colors ${
-                category === 'top_rated'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
+              variant={category === 'top_rated' ? 'default' : 'outline'}
             >
               Top Rated
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setCategory('now_playing')}
-              className={`rounded-lg px-6 py-2 font-medium transition-colors ${
-                category === 'now_playing'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
+              variant={category === 'now_playing' ? 'default' : 'outline'}
             >
               Now Playing
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setCategory('upcoming')}
-              className={`rounded-lg px-6 py-2 font-medium transition-colors ${
-                category === 'upcoming'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
+              variant={category === 'upcoming' ? 'default' : 'outline'}
             >
               Upcoming
-            </button>
+            </Button>
           </div>
         </header>
 
         {loading ? (
-          <div className="py-12 text-center">
-            <p className="text-gray-600 dark:text-gray-400">
-              Loading movies...
-            </p>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div key={i} className="space-y-3">
+                <Skeleton className="aspect-[2/3] w-full rounded-lg" />
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+              </div>
+            ))}
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">

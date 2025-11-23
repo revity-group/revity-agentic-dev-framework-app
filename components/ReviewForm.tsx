@@ -2,6 +2,18 @@
 
 import { Movie } from '@/types/movie'
 import { useState, FormEvent } from 'react'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Slider } from '@/components/ui/slider'
 
 interface ReviewFormProps {
   movie: Movie
@@ -11,7 +23,7 @@ interface ReviewFormProps {
 export default function ReviewForm({ movie, onClose }: ReviewFormProps) {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
-  const [rating, setRating] = useState(5)
+  const [rating, setRating] = useState([5])
   const [review, setReview] = useState('')
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -29,7 +41,7 @@ export default function ReviewForm({ movie, onClose }: ReviewFormProps) {
           movieTitle: movie.title,
           userName,
           email,
-          rating,
+          rating: rating[0],
           review,
         }),
       })
@@ -52,121 +64,96 @@ export default function ReviewForm({ movie, onClose }: ReviewFormProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg bg-white dark:bg-gray-800">
-        <div className="p-6">
-          <div className="mb-6 flex items-start justify-between">
-            <div>
-              <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
-                Review: {movie.title}
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Share your thoughts about this movie
-              </p>
-            </div>
-            <button
-              onClick={onClose}
-              className="text-2xl text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-            >
-              ×
-            </button>
+    <Dialog open onOpenChange={onClose}>
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>Review: {movie.title}</DialogTitle>
+          <DialogDescription>
+            Share your thoughts about this movie
+          </DialogDescription>
+        </DialogHeader>
+
+        {submitted ? (
+          <div className="py-8 text-center">
+            <div className="mb-4 text-6xl">✓</div>
+            <h3 className="mb-2 text-2xl font-bold text-green-600">
+              Review Submitted!
+            </h3>
+            <p className="text-muted-foreground">
+              Thank you for your review. It has been saved successfully.
+            </p>
           </div>
-
-          {submitted ? (
-            <div className="py-8 text-center">
-              <div className="mb-4 text-6xl">✓</div>
-              <h3 className="mb-2 text-2xl font-bold text-green-600">
-                Review Submitted!
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Thank you for your review. It has been saved successfully.
-              </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="userName">Your Name</Label>
+              <Input
+                id="userName"
+                type="text"
+                required
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="John Doe"
+              />
             </div>
-          ) : (
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                    placeholder="John Doe"
-                  />
-                </div>
 
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                    placeholder="john@example.com"
-                  />
-                </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="john@example.com"
+              />
+            </div>
 
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Rating: {rating}/10
-                  </label>
-                  <input
-                    type="range"
-                    min="1"
-                    max="10"
-                    value={rating}
-                    onChange={(e) => setRating(Number(e.target.value))}
-                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
-                  />
-                  <div className="mt-1 flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                    <span>1</span>
-                    <span>5</span>
-                    <span>10</span>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Your Review
-                  </label>
-                  <textarea
-                    required
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    rows={6}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                    placeholder="What did you think about this movie?"
-                  />
-                </div>
-
-                <div className="flex gap-4 pt-4">
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="flex-1 rounded-lg bg-gray-200 px-4 py-3 font-medium text-gray-800 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="flex-1 rounded-lg bg-purple-600 px-4 py-3 font-medium text-white transition-colors hover:bg-purple-700 disabled:bg-gray-400"
-                  >
-                    {loading ? 'Submitting...' : 'Submit Review'}
-                  </button>
-                </div>
+            <div className="space-y-2">
+              <Label>Rating: {rating[0]}/10</Label>
+              <Slider
+                value={rating}
+                onValueChange={setRating}
+                min={1}
+                max={10}
+                step={1}
+                className="w-full"
+              />
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>1</span>
+                <span>5</span>
+                <span>10</span>
               </div>
-            </form>
-          )}
-        </div>
-      </div>
-    </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="review">Your Review</Label>
+              <Textarea
+                id="review"
+                required
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                rows={6}
+                placeholder="What did you think about this movie?"
+              />
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onClose}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={loading} className="flex-1">
+                {loading ? 'Submitting...' : 'Submit Review'}
+              </Button>
+            </div>
+          </form>
+        )}
+      </DialogContent>
+    </Dialog>
   )
 }
