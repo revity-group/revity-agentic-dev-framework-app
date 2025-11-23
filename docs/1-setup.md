@@ -115,8 +115,9 @@ You can open it using `Cmd+Escape` but if you prefer cli you can connect it usin
 
 A recommendation of sharable settings.json (shared with team) as well as settings.local.json (only project local) files is as follows:
 
-```json settings.json
+```json 
 
+# settings.json
 {
     "permissions": {
         "allow": [
@@ -138,7 +139,9 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 }
 ```
 
-```json settings.local.json
+```json
+
+# settings.local.json
 {
     "permissions": {
         "allow": ["Read(//Users/alireza/.claude/**)"],
