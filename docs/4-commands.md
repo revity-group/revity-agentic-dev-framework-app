@@ -13,7 +13,7 @@ Turn repetitive prompts into reusable one-word commands.
 ## What Are Slash Commands?
 
 Slash commands are shortcuts for prompts you use often. Instead of typing the same instructions repeatedly, you save them once and invoke them with `/command-name`.
-
+ad
 **Think of them like:**
 - Shell aliases for your AI workflow
 - Saved prompts that your whole team can share
@@ -42,7 +42,7 @@ git add .
 commit my changes
 ```
 
-**What happens:** Claude writes something... but probably not in your team's format. Maybe it's too verbose. Maybe it doesn't follow conventional commits. You end up editing it anyway.
+**Notice:** Does it follow your team's commit format? Conventional commits?
 
 ### Attempt 2: Be more specific
 
@@ -50,7 +50,7 @@ commit my changes
 Write a commit message for my staged changes
 ```
 
-**What happens:** Better, but still generic. Claude doesn't know you use conventional commits, or that your team prefers `feat` over `feature`.
+**Notice:** Better, but does Claude know your conventions? `feat` vs `feature`?
 
 ### Attempt 3: The full prompt (every. single. time.)
 
@@ -65,7 +65,7 @@ Types: feat, fix, docs, style, refactor, test, chore
 Keep the subject under 50 characters, imperative mood.
 ```
 
-**What happens:** Finally works! But you just typed a bunch of words. And you'll type them again. And again. 10+ times a day.
+**Notice:** This works - but you just typed a paragraph for a one-line commit message.
 
 ### The Real Pain
 
@@ -121,8 +121,7 @@ Commands become powerful when they inject **real data**:
 
 | Syntax | What It Does | Example |
 |--------|--------------|---------|
-| `@file` | Inject file contents | `@.claude/conventions/git.md` |
-| `!command` | Inject shell output | `!git diff --staged --stat` |
+| `!command` | Inject shell output | `!git diff --staged` |
 | `$ARGUMENTS` | Capture user input | `/deploy $ARGUMENTS` |
 
 ### Step 4: Upgrade your command
@@ -138,7 +137,9 @@ Analyze my git state and help me create clean, logical commits.
 
 ## Conventions
 
-@.claude/conventions/git.md
+- Format: `type(scope): subject`
+- Types: feat, fix, docs, style, refactor, test, chore
+- Subject under 50 characters, imperative mood
 
 ## Current State
 
@@ -156,9 +157,100 @@ Analyze my git state and help me create clean, logical commits.
 1. Review what's staged vs unstaged
 2. Decide: should these be one commit or split into multiple logical commits?
 3. If splitting makes sense, tell me what to stage/unstage
-4. Once we agree, write the commit message(s) following the conventions above
+4. Write the commit message(s) following the conventions above
 5. Execute the commit(s)
 ```
+
+---
+
+## Test the Smart Version
+
+### 1. Make some changes to different files
+
+```bash
+# Edit a component, a doc, and maybe a config file
+```
+
+### 2. Run the upgraded command
+
+```text
+/commit
+```
+
+### 3. Notice what's different now
+
+| Basic Command | Smart Command |
+|---------------|---------------|
+| Claude guesses at your changes | Claude **sees** actual git state |
+| Generic commit format | **Your team's** conventions injected |
+| One commit only | Suggests **logical splits** when needed |
+| You run git commands | Claude **executes** commits for you |
+
+---
+
+## Try It Yourself
+
+Create a `/review` command that reviews your uncommitted changes.
+
+### The Task
+
+Create `.claude/commands/review.md`:
+
+```markdown
+---
+description: Review uncommitted changes before committing
+---
+
+Review my uncommitted changes and check for:
+- Bugs or logic errors
+- Missing error handling
+- Code style issues
+- Anything I might have forgotten
+
+Be concise. Only mention real issues.
+```
+
+Test it:
+
+```text
+/review
+```
+
+---
+
+## Built-in Commands Worth Knowing
+
+| Command | What It Does |
+|---------|--------------|
+| `/init` | Create CLAUDE.md for your project |
+| `/help` | See all available commands (including yours!) |
+| `/compact` | Reduce context size without losing everything |
+| `/cost` | See token usage |
+| `/doctor` | Diagnose issues with your setup |
+
+---
+
+## Command Features (Reference)
+
+| Feature | Syntax | Example |
+|---------|--------|---------|
+| Arguments | `$ARGUMENTS` | `/fix-issue 123` → `$ARGUMENTS = "123"` |
+| Positional | `$1`, `$2` | `/deploy prod v1.2` → `$1="prod"` |
+| Shell output | `!command` | `!git status` injects output |
+| File content | `@file` | `@package.json` injects file |
+
+---
+
+## Advanced: Structured Commands (Optional)
+
+After you're comfortable with basic commands, you can add structure for validation and consistent output:
+
+| Scenario | Basic Output | Structured Output |
+|----------|--------------|-------------------|
+| Success | "Here's your commit message: feat(ui): add button..." | `STATUS=OK MESSAGE="feat(ui): add button"` |
+| No staged changes | "I notice you haven't staged anything..." | `STATUS=FAIL ERROR="no staged changes"` |
+
+Ask your workshop facilitator about `/create-command` if you want to explore this pattern.
 
 ---
 
