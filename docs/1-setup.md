@@ -6,36 +6,67 @@ nav_order: 3
 
 # Section 1: Setup & Shortcuts
 
-Get Claude Code installed and learn the essential shortcuts.
+Get your development environment and Claude Code installed, then learn the essential shortcuts.
 
 ---
 
-## Install Claude Code
+## Install Flox
+
+Flox manages your development environment, ensuring everyone has the same setup across all platforms.
 
 ```bash
-# Install via curl (recommended)
-curl -fsSL https://claude.ai/install.sh | bash
-
-# Or via Homebrew (macOS)
-brew install --cask claude-code
+# Install Flox (macOS/Linux)
+curl -fsSL https://flox.dev/install | bash
 
 # Verify installation
-claude --version
+flox --version
 ```
+
+Learn more at [flox.dev](https://flox.dev)
+
+---
+
+## Set Up Project Environment (One Command!)
+
+```bash
+# Navigate to project
+cd revity-agentic-dev-framework-app
+
+# Activate Flox environment (installs EVERYTHING automatically)
+flox activate
+```
+
+### What Gets Installed Automatically
+
+When you run `flox activate`, the environment installs:
+
+1. **Node.js** - JavaScript runtime
+2. **Bun** - Fast package manager and runtime  
+3. **Claude Code** - AI-powered coding assistant
+4. **Project dependencies** - Runs `bun install` automatically via hook
+
+That's it! No manual installation of tools needed. Everything your team needs is defined in `.flox/env/manifest.toml` and installed automatically.
 
 ---
 
 ## First Launch
 
 ```bash
-# Navigate to project
-cd revity-workshop-app
+# Make sure you're in the Flox environment (if not already activated)
+flox activate
 
-# Launch Claude Code
+# Launch Claude Code (already installed by Flox!)
 claude
 ```
 
 On first launch, you'll be prompted to authenticate with Claude Code and setup initial theme and settings.
+
+### Why This Works
+
+The Flox manifest (`.flox/env/manifest.toml`) includes:
+- All required packages (Node.js, Bun, Claude Code)
+- An activation hook that runs `bun install` automatically
+- Consistent versions across all team members and platforms
 
 ---
 
