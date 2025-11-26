@@ -30,11 +30,7 @@ ad
 
 ## Experience the Problem
 
-Let's feel the pain. Make a few small changes to a few diff files:
-
-```bash
-git add .
-```
+Let's feel the pain. Make a few small changes to a few diff files
 
 ### Attempt 1: The lazy prompt
 
