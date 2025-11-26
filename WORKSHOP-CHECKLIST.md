@@ -4,12 +4,28 @@
 
 ## Pre-Workshop Setup (Before Participants Arrive)
 
-- [ ] Ensure Claude Code is installed and accessible
+### Facilitator Setup
+- [ ] Ensure Flox is installed (`flox --version`)
+- [ ] Clone the repo and run `flox activate` to verify environment setup
 - [ ] Test TMDB API key is working
-- [ ] Verify the app runs locally (`bun dev`)
-- [ ] Prepare demo environment
+- [ ] Verify the app runs (`bun dev` after activation)
+- [ ] Test that Claude Code launches (`claude --version`)
+- [ ] Prepare demo environment with Flox activated
+
+### Participant Pre-requisites (Share Before Workshop)
 - [ ] Share repo link with participants
-- [ ] Ask participants to use VScode for this workshop to keep things consistent
+- [ ] Ask participants to install Flox: `curl -fsSL https://flox.dev/install | bash`
+- [ ] Ask participants to clone repo and run `flox activate` (installs Node.js, Bun, Claude Code, and dependencies automatically)
+- [ ] Ask participants to get a TMDB API key and add to `.env.local`
+- [ ] Ask participants to use VS Code for this workshop to keep things consistent
+- [ ] Remind participants to authenticate Claude Code on first launch
+
+### What Flox Handles Automatically
+- ✅ Node.js installation
+- ✅ Bun installation  
+- ✅ Claude Code installation
+- ✅ Running `bun install` via activation hook
+- ✅ Consistent environment across all participants
 
 ---
 

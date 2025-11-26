@@ -1,0 +1,380 @@
+{
+  "lockfile-version": 1,
+  "manifest": {
+    "version": 1,
+    "install": {
+      "bun": {
+        "pkg-path": "bun"
+      },
+      "claude-code": {
+        "pkg-path": "claude-code"
+      },
+      "nodejs": {
+        "pkg-path": "nodejs"
+      }
+    },
+    "hook": {
+      "on-activate": "  # -> Set variables, create files and directories\n  # -> Perform initialization steps, e.g. create a python venv\n  # -> Useful environment variables:\n  #      - FLOX_ENV_PROJECT=/home/user/example\n  #      - FLOX_ENV=/home/user/example/.flox/run\n  #      - FLOX_ENV_CACHE=/home/user/example/.flox/cache\n  bun install\n"
+    },
+    "profile": {},
+    "options": {}
+  },
+  "packages": [
+    {
+      "attr_path": "bun",
+      "broken": false,
+      "derivation": "/nix/store/1cwnpgb3wcrm1wi4ks8n0cnzsja77nhi-bun-1.3.2.drv",
+      "description": "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one",
+      "install_id": "bun",
+      "license": "[ MIT, LGPL-2.1-only ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "bun-1.3.2",
+      "pname": "bun",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T17:33:04.664853Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.3.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/g6f8f0rm7vhn7mld018x0q9zgnk07z0g-bun-1.3.2"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "bun",
+      "broken": false,
+      "derivation": "/nix/store/jhrmm85gmzqhi9cwvslfpnpfzzvdsxfs-bun-1.3.2.drv",
+      "description": "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one",
+      "install_id": "bun",
+      "license": "[ MIT, LGPL-2.1-only ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "bun-1.3.2",
+      "pname": "bun",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T18:08:08.507525Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.3.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/hic2g8c9xp4zam3gf0nv91jr8d3wjn32-bun-1.3.2"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "bun",
+      "broken": false,
+      "derivation": "/nix/store/6xqq7balgd4ysj4jw9a61v12ik9hpbxk-bun-1.3.2.drv",
+      "description": "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one",
+      "install_id": "bun",
+      "license": "[ MIT, LGPL-2.1-only ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "bun-1.3.2",
+      "pname": "bun",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T18:41:42.772734Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.3.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/3wqb0g131a54yj26sghklr8dbagx9rg2-bun-1.3.2"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "bun",
+      "broken": false,
+      "derivation": "/nix/store/3rg5kzzqqalmcpn90qp82xd7iwiyrf24-bun-1.3.2.drv",
+      "description": "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one",
+      "install_id": "bun",
+      "license": "[ MIT, LGPL-2.1-only ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "bun-1.3.2",
+      "pname": "bun",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T19:18:39.806381Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.3.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/a9gabjjwk0617csjlgm5f6gz5fv9jq11-bun-1.3.2"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "claude-code",
+      "broken": false,
+      "derivation": "/nix/store/7c20axj61mmrp53iwdxrxpjf8ghpc7al-claude-code-2.0.49.drv",
+      "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
+      "install_id": "claude-code",
+      "license": "Unfree",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "claude-code-2.0.49",
+      "pname": "claude-code",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T17:33:04.851361Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": true,
+      "version": "2.0.49",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/ljkva2fmc30128ifrcibkhkp2wlr9kjb-claude-code-2.0.49"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "claude-code",
+      "broken": false,
+      "derivation": "/nix/store/zwas5s4wpzma3c3n4krhgn6kiajbj59a-claude-code-2.0.49.drv",
+      "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
+      "install_id": "claude-code",
+      "license": "Unfree",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "claude-code-2.0.49",
+      "pname": "claude-code",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T18:08:08.785950Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": true,
+      "version": "2.0.49",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/yirla42ypf85bhqdjbvf2710ax1ri8w0-claude-code-2.0.49"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "claude-code",
+      "broken": false,
+      "derivation": "/nix/store/fz06kvvqyq4qgl7qxj32lnivrw7c3g4v-claude-code-2.0.49.drv",
+      "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
+      "install_id": "claude-code",
+      "license": "Unfree",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "claude-code-2.0.49",
+      "pname": "claude-code",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T18:41:42.955079Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": true,
+      "version": "2.0.49",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/sl11w7d3d0s8rq04gisr38cij1c4kmx7-claude-code-2.0.49"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "claude-code",
+      "broken": false,
+      "derivation": "/nix/store/h15m2kmizih7d9sndflyr6parydqg4l0-claude-code-2.0.49.drv",
+      "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
+      "install_id": "claude-code",
+      "license": "Unfree",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "claude-code-2.0.49",
+      "pname": "claude-code",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T19:18:40.066615Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": true,
+      "version": "2.0.49",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/m89wlmm9jbvk50smbd0fxdxp9izfckdb-claude-code-2.0.49"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nodejs",
+      "broken": false,
+      "derivation": "/nix/store/qn2ya2cwp8bnlzzlndigkjrc5cb08kwy-nodejs-22.21.1.drv",
+      "description": "Event-driven I/O framework for the V8 JavaScript engine",
+      "install_id": "nodejs",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "nodejs-22.21.1",
+      "pname": "nodejs",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T17:33:26.981887Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "22.21.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dev": "/nix/store/bkir3agnj2cvpx80a0z1lj50pg2dhddi-nodejs-22.21.1-dev",
+        "libv8": "/nix/store/ivbmw7d10pxzkrz5397bimhqwwlrc8gp-nodejs-22.21.1-libv8",
+        "out": "/nix/store/92igwjsd6av0pg8dvygirhdwahwq2sh7-nodejs-22.21.1"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nodejs",
+      "broken": false,
+      "derivation": "/nix/store/v21as4jlvqh2qs8glb1w5kbjrb1bgc96-nodejs-22.21.1.drv",
+      "description": "Event-driven I/O framework for the V8 JavaScript engine",
+      "install_id": "nodejs",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "nodejs-22.21.1",
+      "pname": "nodejs",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T18:08:50.213411Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "22.21.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dev": "/nix/store/1akvaqvrp0cf6pd7mkqy7m3gnzc3wfd7-nodejs-22.21.1-dev",
+        "libv8": "/nix/store/ykj9hi9qv7gwxnbg2vh6ca00w9zsbhm0-nodejs-22.21.1-libv8",
+        "out": "/nix/store/hps7k16bd9isj7pfsjzg7q0wgvrw47kn-nodejs-22.21.1"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nodejs",
+      "broken": false,
+      "derivation": "/nix/store/kb90gm20fllkjw1h62l5gqx65rnqhn8g-nodejs-22.21.1.drv",
+      "description": "Event-driven I/O framework for the V8 JavaScript engine",
+      "install_id": "nodejs",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "nodejs-22.21.1",
+      "pname": "nodejs",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T18:42:04.992741Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "22.21.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dev": "/nix/store/haa4773lz7wfhnql05181azh4z5141r7-nodejs-22.21.1-dev",
+        "libv8": "/nix/store/0pswqdxlx8y0v54gq0ixwps19agv6bds-nodejs-22.21.1-libv8",
+        "out": "/nix/store/wfjyiwara336j7r1v0ia3kib8779wzwf-nodejs-22.21.1"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nodejs",
+      "broken": false,
+      "derivation": "/nix/store/k16sz3xygmjy31qpnni5qyj98fxfznap-nodejs-22.21.1.drv",
+      "description": "Event-driven I/O framework for the V8 JavaScript engine",
+      "install_id": "nodejs",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
+      "name": "nodejs-22.21.1",
+      "pname": "nodejs",
+      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+      "rev_count": 900642,
+      "rev_date": "2025-11-22T18:20:33Z",
+      "scrape_date": "2025-11-24T19:19:20.193638Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "22.21.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dev": "/nix/store/l1idqv7ff0m2kbcqnn1yr415wyga1wxf-nodejs-22.21.1-dev",
+        "libv8": "/nix/store/farc7vk89kr367hsx0qchmahf6i6sbk1-nodejs-22.21.1-libv8",
+        "out": "/nix/store/l85fis49agvp5q1ild1rfh4rrgmn92sr-nodejs-22.21.1"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    }
+  ]
+}

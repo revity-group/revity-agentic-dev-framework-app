@@ -15,18 +15,29 @@ A hands-on workshop for mastering Claude Code's agentic capabilities.
 git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
 cd revity-agentic-dev-framework-app
 
-# Install dependencies
-bun install
+# Activate Flox environment (installs everything automatically)
+flox activate
 
-# Set up environment
+# Set up environment variables
 cp .env.example .env.local
 # Add your TMDB_API_KEY to .env.local
 
-# Run the app
+# The app is ready! Development server starts automatically, or run:
 bun dev
 ```
 
 Get your TMDB API key at [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
+
+### What is Flox?
+
+Flox provides a consistent development environment across all platforms. Running `flox activate` automatically installs and configures:
+
+- **Node.js** - JavaScript runtime
+- **Bun** - Fast package manager and runtime
+- **Claude Code** - AI-powered coding assistant
+- **Project dependencies** - Runs `bun install` automatically
+
+No manual setup required! Learn more at [flox.dev](https://flox.dev)
 
 ---
 
