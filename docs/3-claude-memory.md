@@ -16,7 +16,9 @@ Markdown files Claude loads at startup. They give Claude memory about your proje
 
 
 
-Files merge hierarchically from enterprise → user (~/.claude/CLAUDE.md) → project (./CLAUDE.md). When you reference @components/Button.tsx, Claude also reads CLAUDE.md from that directory and its parents.
+Files are loaded hierarchically with enterprise taking highest precedence, followed by user (~/.claude/CLAUDE.md), then project (./CLAUDE.md or ./.claude/CLAUDE.md).
+
+**How it works:** When working in a directory, Claude reads CLAUDE.md files from that directory up to the project root. Nested CLAUDE.md files in other directories are only loaded when Claude reads files from those specific areas, keeping context efficient.
 
 ---
 
@@ -83,9 +85,13 @@ Requirements:
 
 ## Observe
 
-- [ ] Claude code Should now ideally only read what is necessary for the implementation and not the whole project because it already has the reference from its memory.
-- [ ] It should also be able to use the conventions we have defined and it should be able to pick up on putting reusable hooks into the preferred structure.
-- [ ] It should have now known that for loading components, it should be using the modern skeleton UI rather than the traditional spinner UI.
+Check if Claude:
+
+- [ ] Uses information from CLAUDE.md to make better decisions
+- [ ] Follows the documented conventions (e.g., hooks in `hooks/` directory)
+- [ ] Uses ShadCN Skeleton components for loading states (as specified in CLAUDE.md)
+
+This demonstrates how CLAUDE.md gives you some control over Claude's architectural decisions by providing persistent memory about your project's conventions.
 
 ---
 
@@ -109,6 +115,7 @@ With CLAUDE.md memory, Claude should:
 2. **Create test file** at `hooks/useMovies.test.ts` (next to the code)
 
 3. **Follow AAA pattern** in the test structure:
+
    ```typescript
    describe('useMovies', () => {
      it('should fetch movies on mount', () => {
@@ -127,14 +134,14 @@ With CLAUDE.md memory, Claude should:
 
 ### Observe
 
-- [ ] Claude installs vitest and wires up configuration automatically
-- [ ] Test file is created as `hooks/useMovies.test.ts` (correct naming)
-- [ ] Test file is placed next to the code it tests
-- [ ] Tests follow the AAA pattern with clear comments
-- [ ] External dependencies (fetch, IntersectionObserver) are mocked
-- [ ] Test names are descriptive and explain expected behavior
+Check if Claude:
 
-This demonstrates how CLAUDE.md guides Claude to make the right architectural decisions without being explicitly told each time.
+- [ ] Follows the testing conventions from CLAUDE.md
+- [ ] Places test files according to the documented pattern
+- [ ] Uses the AAA pattern (Arrange, Act, Assert)
+- [ ] Mocks external dependencies appropriately
+
+**Key Insight**: CLAUDE.md gives you some control over Claude's behavior by providing persistent memory about your standards and conventions. While you can't guarantee exact outputs, you can significantly influence the architectural decisions Claude makes without having to repeat yourself every time.
 
 ---
 
