@@ -8,7 +8,7 @@ nav_order: 4
 
 Currently our application does not have pagination so we don't get all the movies loaded as we scroll. We need to add this functionality.
 
-Use your barebone cloth setup to achieve this.
+Use your barebone claude code setup to achieve this.
 
 ---
 
