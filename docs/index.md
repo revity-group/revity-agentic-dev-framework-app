@@ -36,10 +36,9 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 ## Prerequisites
 
 - Git installed
-- [Flox](https://flox.dev) installed
+- Bun installed with homebrew
 - VS Code (recommended)
-
-That's it! Flox handles everything else (Node.js, Bun, Claude Code, dependencies).
+- Claude code installed and authenticated
 
 ---
 
@@ -50,26 +49,16 @@ That's it! Flox handles everything else (Node.js, Bun, Claude Code, dependencies
 git clone https://github.com/YOUR_USERNAME/revity-workshop-app.git
 cd revity-workshop-app
 
-# Activate Flox environment (installs EVERYTHING automatically)
-flox activate
+# Install dependencies
+bun install
 
 # Set up environment
 cp .env.example .env.local
 # Add your TMDB_API_KEY to .env.local by opening the TMDB web page and creating an API key
 
-# Run the app (or it may start automatically!)
+# Run the app
 bun dev
 ```
-
-### What Flox Installs Automatically
-
-Running `flox activate` installs and configures:
-- **Node.js** - JavaScript runtime
-- **Bun** - Package manager and runtime
-- **Claude Code** - AI coding assistant
-- **npm packages** - Runs `bun install` via activation hook
-
-Zero manual setup! Your entire team gets identical environments.
 
 ---
 

@@ -92,7 +92,7 @@ You can open it using `Cmd+Escape` but if you prefer cli you can connect it usin
 | **Reconnect IDE bridge** | If you see "IDE disconnected," type `/ide` in Claude terminal to re-establish context |
 | **Create a new terminal on side panel** | Open key binding `cmd+shift+p`, search for `create new terminal` , select `create new  terminal in editor area to the side` and add `cmd+t` |
 | **Demostrate how auto adding files to context works** | Open a file and you will see it auto adds to context. You can also select lines within the same file to add to context. |
-| **Setup key binding to include selected lines into context** | I use `cmd+option+k` to include selected lines into context. You can ad this keybinding to claude-code.insertAtMentioned  |
+| **Setup key binding to include selected lines into context** | I use `cmd+option+k` to include selected lines into context. You can add this keybinding to claude-code.insertAtMentioned  |
 
 
 ## Claude code shortcuts & tips
@@ -101,7 +101,6 @@ You can open it using `Cmd+Escape` but if you prefer cli you can connect it usin
 |--------|-----|
 | **Continue from previous session** | `claude --continue` |
 | **Rewind to previous checkpoints** | `double Escape` |
-| **Add selected lines to context** | `cmd+option+k` |
 | **Switch between plan / auto accept modes** | `shift+tab/+tab`|
 | **Jump to the end of the line** | `ctrl+e` |
 | **Jump to the beginning of the line** | `ctrl+a` |
@@ -122,7 +121,7 @@ You can open it using `Cmd+Escape` but if you prefer cli you can connect it usin
 ### Personal user settings.json
 
 - Create `~/.claude/settings.json` file if it doesnt exist: `mkdir -p ~/.claude && touch ~/.claude/settings.json`
-- Add the following content to the file: Installs status line : [https://github.com/sirmalloc/ccstatusline]
+- Add the following content to the file: Installs status line : [ccstatusline](https://github.com/sirmalloc/ccstatusline)
 
   ```json
 
@@ -175,7 +174,7 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 # settings.local.json
 {
     "permissions": {
-        "allow": ["Read(//Users/alireza/.claude/**)"],
+        "allow": ["Read(//Users/<username>/.claude/**)"],
         "ask": [],
         "deny": []
     }
