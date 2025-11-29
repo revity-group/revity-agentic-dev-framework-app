@@ -38,16 +38,6 @@ Let's feel the pain. Make a few small changes to a few diff files
 commit my changes
 ```
 
-**Notice:** Does it follow your team's commit format? Conventional commits?
-
-### Attempt 2: Be more specific
-
-```text
-Write a commit message for my staged changes
-```
-
-**Notice:** Better, but does Claude know your conventions? `feat` vs `feature`?
-
 ### Attempt 3: The full prompt (every. single. time.)
 
 ```text

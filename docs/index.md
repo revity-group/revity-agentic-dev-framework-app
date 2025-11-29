@@ -34,153 +34,84 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 
 ---
 
-## Prerequisites
-
-### Option 1: Using Flox (Recommended)
-- Git installed
-- [Flox](https://flox.dev/docs/install-flox/install/) installed
-
-Flox will automatically install:
-- Node.js
-- Bun
-- Claude Code
-- GitHub CLI (gh)
-
-### Option 2: Standard Setup (Mac)
-
-Install the required tools:
-
-```bash
-# Install Homebrew (if not already installed)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install dependencies
-brew install node bun gh
-
-# Install Claude Code
-npm install -g @anthropic-ai/claude-code
-
-# Authenticate Claude Code
-claude auth login
-```
-
-Recommended: VS Code or Cursor
-
-### Windows Users
-
-**To use the Flox path:** Install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) first (one-time setup).
-
-After WSL2 is installed, open your WSL2 terminal and follow the Flox installation steps.
-
-**Alternative:** Skip Flox and use the Manual Setup option below with PowerShell or Git Bash. You'll need to install Node.js, Bun, and Claude Code manually.
-
----
-
 ## Quick Start
 
-### Pre-Workshop Checklist
+### What You'll Need (Checklist)
 
-Before the workshop, make sure you have:
+- [ ] **Git** installed and working
+- [ ] **Code editor** (VS Code or Cursor recommended)
+- [ ] **TMDB API Key** - [Get one here](https://www.themoviedb.org/settings/api) (free)
+- [ ] **Claude Code** installed (we'll share account details soon)
+- [ ] **GitHub account**
 
-- [ ] **Git** installed and configured
-- [ ] **Code editor** ready (VS Code or Cursor recommended)
-- [ ] **TMDB API Key** - [Get it here](https://www.themoviedb.org/settings/api) (free)
-- [ ] **Claude Code account** - Sign up at [claude.ai/code](https://claude.ai/code) if you haven't already
-- [ ] **GitHub account** - For pushing code and creating PRs 
+### Setup Instructions
 
-Choose your setup path below based on your preference:
+**Choose your path based on your current setup:**
 
----
+#### Option 1: Using Flox (Recommended - Zero Config)
 
-### Option 1: Using Flox (Recommended - Zero Config)
+**Best if:** You want everything installed automatically, or you're missing any of the tools above.
 
-**Best for:** First-time setup, ensuring everything works consistently, or if you're missing any tools.
-
-**What Flox installs for you:**
-- ✅ Node.js (JavaScript runtime)
-- ✅ Bun (package manager & test runner)
-- ✅ Claude Code CLI
-- ✅ GitHub CLI (gh)
-- ✅ All project dependencies
-
-**Setup steps:**
+**What Flox does:** Installs Node.js, Bun, Claude Code, GitHub CLI, and all dependencies automatically irrespective of yor environment.
 
 ```bash
-# 1. Install Flox (one-time, if you don't have it)
-curl -fsSL https://install.flox.dev | bash
+# 1. Install Flox if you don't have it: https://flox.dev/docs/install-flox/install/
 
 # 2. Clone the workshop repo
 git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
 cd revity-agentic-dev-framework-app
 
-# 3. Activate Flox environment (installs everything automatically)
+# 3. Activate environment (installs everything)
 flox activate
 
-# 4. Authenticate Claude Code (one-time setup)
-claude auth login
+# 4. Open Claude Code
+claude
 
 # 5. Set up your TMDB API key
 cp .env.example .env.local
-# Open .env.local in your editor and paste your TMDB_API_KEY
+# Open .env.local and add your TMDB_API_KEY
 
 # 6. Start the app
 bun dev
 ```
 
-**Verify it works:** Visit [http://localhost:3000](http://localhost:3000) - you should see the Movie Watchlist app.
+**Windows users:** Install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) first, then follow these steps in your WSL2 terminal. Or skip to Option 2 for manual setup without WSL2.
 
 ---
 
-### Option 2: Manual Setup (I Have the Tools)
+#### Option 2: Manual Setup (I Have the Tools)
 
-**Best for:** You already have Node.js, Bun, and Claude Code installed and want to use your existing setup.
+**Best if:** You already have Node.js, Bun,Github CLI and Claude Code installed.
 
-**Prerequisites you need:**
-- Node.js 18+ or Bun
-- Claude Code CLI (`claude --version` should work)
-- GitHub CLI (optional but helpful for PR creation)
-
-**Setup steps:**
+**Missing tools?** Install with: `brew install node bun` and `brew install --cask claude-code`
 
 ```bash
-# 1. Clone the workshop repo
+# 1. Clone the repo
 git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
 cd revity-agentic-dev-framework-app
 
-# 2. Install project dependencies
+# 2. Install dependencies
 bun install
 
 # 3. Set up your TMDB API key
 cp .env.example .env.local
-# Open .env.local in your editor and paste your TMDB_API_KEY
+# Open .env.local and add your TMDB_API_KEY
 
 # 4. Start the app
 bun dev
 ```
 
-**Verify it works:** Visit [http://localhost:3000](http://localhost:3000) - you should see the Movie Watchlist app.
-
-**Missing tools?** See the [Prerequisites](#prerequisites) section for installation instructions.
-
 ---
 
-### Troubleshooting
+### Verify Your Setup
 
-**App won't start or shows errors?**
+Open [http://localhost:3000](http://localhost:3000) - you should see the Movie Watchlist app.
 
-Try these in order:
-1. Make sure you added your TMDB_API_KEY to `.env.local`
-2. Run `bun install` again
-3. Check if something else is using port 3000 (close it or try a different port)
-
-**Claude Code issues?**
-
-- Run `claude auth login` and follow the prompts
-- Check it's installed: `claude --version`
-
-**Still not working?**
-
-No worries! Drop a message in the workshop Slack or GitHub Issues. We're here to help and will do a setup check at the start of the workshop.
+**If something doesn't work:**
+- Make sure you added your TMDB_API_KEY to `.env.local`
+- Try `bun install` again
+- Check that port 3000 isn't already in use
+- Drop a message in `#tmp-agentic-dev-workshop1` on Slack - we're here to help!
 
 ---
 

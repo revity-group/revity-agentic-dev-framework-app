@@ -38,9 +38,10 @@ flox activate
 When you run `flox activate`, the environment installs:
 
 1. **Node.js** - JavaScript runtime
-2. **Bun** - Fast package manager and runtime  
+2. **Bun** - Fast package manager and runtime
 3. **Claude Code** - AI-powered coding assistant
-4. **Project dependencies** - Runs `bun install` automatically via hook
+4. **GitHub CLI (gh)** - GitHub command-line tool
+5. **Project dependencies** - Runs `bun install` automatically via hook
 
 That's it! No manual installation of tools needed. Everything your team needs is defined in `.flox/env/manifest.toml` and installed automatically.
 

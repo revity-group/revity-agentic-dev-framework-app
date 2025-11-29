@@ -23,8 +23,7 @@ Hey everyone! We're excited to have you join the workshop. To make the most of o
 **What Flox does:** Installs Node.js, Bun, Claude Code, GitHub CLI, and all dependencies automatically.
 
 ```bash
-# 1. Install Flox (if you don't have it)
-curl -fsSL https://install.flox.dev | bash
+# 1. Install Flox if you don't have it: https://flox.dev/docs/install-flox/install/
 
 # 2. Clone the workshop repo
 git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
@@ -33,8 +32,8 @@ cd revity-agentic-dev-framework-app
 # 3. Activate environment (installs everything)
 flox activate
 
-# 4. Authenticate Claude Code
-claude auth login
+# 4. Open Claude Code
+claude
 
 # 5. Set up your TMDB API key
 cp .env.example .env.local
@@ -51,6 +50,8 @@ bun dev
 #### Option 2: Manual Setup (I Have the Tools)
 
 **Best if:** You already have Node.js, Bun, and Claude Code installed.
+
+**Missing tools?** Install with: `brew install node bun` and `brew install --cask claude-code`
 
 ```bash
 # 1. Clone the repo
@@ -78,7 +79,7 @@ Open [http://localhost:3000](http://localhost:3000) - you should see the Movie W
 - Make sure you added your TMDB_API_KEY to `.env.local`
 - Try `bun install` again
 - Check that port 3000 isn't already in use
-- Drop a message in Slack - we're here to help!
+- Drop a message in `#tmp-agentic-dev-workshop1` on Slack - we're here to help!
 
 ### Full Workshop Guide
 
