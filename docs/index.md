@@ -18,8 +18,6 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 
 ## Sections
 
-### Core Workshop (Sections 0-6)
-
 | # | Section | What You'll Learn |
 |---|---------|-------------------|
 | 0 | [Introduction](./0-intro.md) | LLMs, Agents, MCP, and AI in SDLC |
@@ -29,17 +27,10 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 | 4 | [Slash Commands](./4-commands.md) | Reusable workflows and team standards |
 | 5 | [Hooks](./5-hooks.md) | Automate quality checks and validation |
 | 6 | [MCP Servers](./6-mcp.md) | Connect to external tools and services |
-
-### Advanced Topics (Future Sessions)
-
-These advanced topics will be covered in follow-up workshops and the extended online course.
-
-| # | Section | What You'll Learn |
-|---|---------|-------------------|
 | 7 | [SDD](./7-sdd.md) | Specification-Driven Development workflow |
-| 8 | Skills | Custom skills and capabilities |
-| 9 | Subagents & parallel agents | Advanced agent orchestration |
-| 10 | Plugins *(Coming Soon)* | Package & share commands, hooks, and MCP configs across projects |
+| 8 | Skills | *Coming soon* |
+| 9 | Subagents & parallel agents | *Coming soon* |
+| 10 | Plugins | *Coming soon* |
 
 ---
 
