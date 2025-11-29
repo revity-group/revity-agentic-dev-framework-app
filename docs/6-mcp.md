@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 6. MCP Servers
-nav_order: 8
+nav_order: 6
 ---
 
 # Section 6: MCP Servers
