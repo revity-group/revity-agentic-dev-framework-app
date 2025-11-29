@@ -25,7 +25,7 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 | 2 | [Baseline Task](./2-baseline.md) | Implement infinite scroll (no setup) |
 | 3 | [CLAUDE.md](./3-claude-memory.md) | Project memory and conventions |
 | 4 | [Slash Commands](./4-commands.md) | Pre-loaded workflows for common tasks |
-| 5 | [Hooks](./5-hooks.md) | Notifications & frictionless permissions |
+| 5 | [Hooks](./5-hooks.md) | Automate quality checks and validation |
 | 6 | [MCP Servers](./6-mcp.md) | Connect to external tools and services |
 | 7 | [SDD](./7-sdd.md) | Specification-Driven Development workflow |
 | 8 | Skills | *Coming soon* |
