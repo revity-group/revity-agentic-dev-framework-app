@@ -18,18 +18,27 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 
 ## Sections
 
+### Core Workshop (Sections 0-6)
+
 | # | Section | What You'll Learn |
 |---|---------|-------------------|
-| 0 | [Introduction](./0-intro.md) | LLMs, Agents, MCP, Agents in SDLC |
-| 1 | [Setup & Shortcuts](./1-setup.md) | Install Claude Code, essential shortcuts |
-| 2 | [Baseline Task](./2-baseline.md) | Implement infinite scroll (no setup) |
+| 0 | [Introduction](./0-intro.md) | LLMs, Agents, MCP, and AI in SDLC |
+| 1 | [Setup & Shortcuts](./1-setup.md) | Environment setup, IDE integration & surgical selection |
+| 2 | [Baseline Task](./2-baseline.md) | Observe Claude's behavior without guidance |
 | 3 | [CLAUDE.md](./3-claude-memory.md) | Project memory and conventions |
-| 4 | [Slash Commands](./4-commands.md) | Pre-loaded workflows for common tasks |
+| 4 | [Slash Commands](./4-commands.md) | Reusable workflows and team standards |
 | 5 | [Hooks](./5-hooks.md) | Automate quality checks and validation |
 | 6 | [MCP Servers](./6-mcp.md) | Connect to external tools and services |
+
+### Advanced Topics (Future Sessions)
+
+These advanced topics will be covered in follow-up workshops and the extended online course.
+
+| # | Section | What You'll Learn |
+|---|---------|-------------------|
 | 7 | [SDD](./7-sdd.md) | Specification-Driven Development workflow |
-| 8 | Skills | *Coming soon* |
-| 9 | Subagents & parallel agents | *Coming soon* |
+| 8 | Skills | Custom skills and capabilities |
+| 9 | Subagents & parallel agents | Advanced agent orchestration |
 
 ---
 
