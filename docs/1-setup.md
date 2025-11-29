@@ -12,7 +12,7 @@ Get your development environment and Claude Code installed, then learn the essen
 
 ## Install Flox
 
-Flox manages your development environment, ensuring everyone has the same setup across all platforms. To install follow instructions at https://flox.dev/docs/install-flox/install/
+Flox manages your development environment, ensuring everyone has the same setup across all platforms. To install follow instructions at [flox.dev](https://flox.dev/docs/install-flox/install/)
 
 ```bash
 # Verify installation
@@ -77,20 +77,92 @@ To combine the power of Claude Code and IDEs, you'll need the VS Code extension.
 
 Open VS Code (or Cursor) and press `Cmd+Shift+X` to open the Extensions view
 Search for **Claude Code for VSCode** and install the official Anthropic extension
-You can open it using `Cmd+Escape` but if you prefer cli you can connect it using `/ide` command.
+You can open it using `Cmd+Escape` , however in this workshop we will be focusing on the CLI experience. So in order to connect the extension to claude code CLI, type slash command `/ide` and connect your IDE.
 
 ---
 
-### Tips & Tricks
+### Tips & Tricks + some preferences I find useful
 
 | Action | How |
 |--------|-----|
 | **Open Claude instantly** | `Cmd+Escape` opens the panel. Prefer terminal? Run `claude` from an editor terminal |
 | **Reconnect IDE bridge** | If you see "IDE disconnected," type `/ide` in Claude terminal to re-establish context |
-| **Create a new terminal on side panel** | Open key binding `cmd+shift+p`, search for `create new terminal` , select `create new  terminal in editor area to the side` and add `cmd+t` |
-| **Demostrate how auto adding files to context works** | Open a file and you will see it auto adds to context. You can also select lines within the same file to add to context. |
-| **Setup key binding to include selected lines into context** | I use `cmd+option+k` to include selected lines into context. You can add this keybinding to claude-code.insertAtMentioned  |
+| **Create a new terminal on side panel** | Open keybindings shortcuts with `cmd+shift+p`, search for `create new terminal` , select `create new  terminal in editor area to the side` and add `cmd+t`  - My preference is normally bottom terminal for development and top terminal for claude |
+| **Demonstrate how auto adding files to context works** | Open a file and you will see it auto adds to context. You can also select lines within the same file to add to context. |
+| **Setup key binding to include selected lines into context(surgical selection)** | I use `cmd+option+k` to include selected lines into context. You can add this keybinding to claude-code.insertAtMentioned  |
 
+---
+
+## Surgical Selection Demo: Multi-File API Validation
+
+Now that you know how to select lines and add them to context, let's demonstrate the power of surgical selection with a practical example.
+
+### The Problem: Missing Backend Validation
+
+Our app has two API endpoints that only check if fields exist, but don't validate their values:
+- `/api/reviews` - Accepts invalid emails, out-of-range ratings, and short reviews
+- `/api/watchlist` - Accepts string movieIds and whitespace-only titles
+
+### Step 1: Demonstrate the Vulnerability
+
+Open the app in your browser (`bun dev`), open the browser console, and run:
+
+```javascript
+// Bypass review validation
+fetch('/api/reviews', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    movieId: 1,
+    movieTitle: "Test Movie",
+    userName: " ",            // Just whitespace
+    email: "notanemail",      // Invalid format
+    rating: 999,              // Way out of range
+    review: "x"               // Too short
+  })
+}).then(r => r.json()).then(console.log)
+
+// Bypass watchlist validation
+fetch('/api/watchlist', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    movieId: "abc",           // String instead of number
+    movieTitle: "   ",        // Just whitespace
+    posterPath: null
+  })
+}).then(r => r.json()).then(console.log)
+```
+
+Both requests succeed! Check `data/reviews.json` and `data/watchlist.json` - invalid data was saved.
+
+### Step 2: Surgical Selection Fix
+
+1. **Open both API files** in your IDE:
+   - `app/api/reviews/route.ts`
+   - `app/api/watchlist/route.ts`
+
+2. **Select validation blocks:**
+   - In `reviews/route.ts`: Select lines 46-54 (validation logic)
+   - In `watchlist/route.ts`: Select lines 46-54 (validation logic)
+
+3. **Add both selections to context** using `Cmd+Option+K` (or your configured keybinding)
+
+4. **Prompt Claude:**
+   ```
+   Add proper validation with specific error messages:
+   - Reviews: validate email format, rating range 1-10, minimum review length 10 chars
+   - Watchlist: validate movieId is a positive number, movieTitle is non-empty string
+   - Both: return specific field-level error messages instead of generic "Missing required fields"
+   ```
+
+5. **Review the changes:** Claude will add coordinated validation to both files with specific, helpful error messages
+
+6. **Test again:** Run the same fetch commands - now they return proper validation errors!
+
+This demonstrates how surgical selection allows Claude to understand relationships between files and make intelligent, coordinated improvements.
+
+---
 
 ## Claude code shortcuts & tips
 
