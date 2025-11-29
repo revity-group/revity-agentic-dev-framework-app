@@ -12,12 +12,9 @@ Get your development environment and Claude Code installed, then learn the essen
 
 ## Install Flox
 
-Flox manages your development environment, ensuring everyone has the same setup across all platforms.
+Flox manages your development environment, ensuring everyone has the same setup across all platforms. To install follow instructions at https://flox.dev/docs/install-flox/install/
 
 ```bash
-# Install Flox (macOS/Linux)
-curl -fsSL https://flox.dev/install | bash
-
 # Verify installation
 flox --version
 ```
