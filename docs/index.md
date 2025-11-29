@@ -39,6 +39,7 @@ These advanced topics will be covered in follow-up workshops and the extended on
 | 7 | [SDD](./7-sdd.md) | Specification-Driven Development workflow |
 | 8 | Skills | Custom skills and capabilities |
 | 9 | Subagents & parallel agents | Advanced agent orchestration |
+| 10 | Plugins *(Coming Soon)* | Package & share commands, hooks, and MCP configs across projects |
 
 ---
 
