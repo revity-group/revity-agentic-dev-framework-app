@@ -145,6 +145,151 @@ Check if Claude:
 
 ---
 
+## File Referencing in CLAUDE.md
+
+**Before continuing:** If you created tests for useMovies in the previous section, discard them now. We'll recreate them after setting up file referencing to demonstrate the difference.
+
+As your conventions grow, CLAUDE.md can become large and hard to maintain. You can modularize it by extracting detailed conventions into separate files and referencing them.
+
+### Why Use File References?
+
+- **Modularity**: Keep CLAUDE.md concise, with detailed rules in focused files
+- **Maintainability**: Update specific conventions without editing the main file
+- **Organization**: Group related conventions (testing, API patterns, UI rules, etc.)
+
+### The Demonstration
+
+Let's expand our testing conventions and extract them to a separate file.
+
+#### Step 1: Create Detailed Testing Conventions
+
+Create a new file at `.claude/conventions/unit-test-rules.md`:
+
+```markdown
+# Unit Test Rules
+
+## Test Naming Convention
+
+Use the pattern: `"should [action] when [condition]"`
+
+**Good:**
+- `"should fetch movies successfully when API returns valid data"`
+- `"should handle error when API request fails"`
+
+**Avoid:**
+- `"test fetch"` (not descriptive)
+- `"it works"` (unclear what is being tested)
+
+## Mock Data Organization
+
+- Prefix all mock data with `mock` (e.g., `mockMovies`, `mockResponse`)
+- Define mock data at the top of the describe block for reusability
+- Keep mock data realistic and representative of actual API responses
+
+## Test Structure
+
+- **Always use `beforeEach`** for test cleanup and mock resets
+- **Group related tests** with nested `describe` blocks
+- **One focus per test**: Each test should verify one specific behavior
+
+## Assertions
+
+- Use `toEqual()` for objects and arrays (deep equality)
+- Use `toBe()` for primitives and referential equality
+- Use `toHaveLength()` for array length checks
+- Prefer specific matchers over generic ones
+
+## Async Testing
+
+- Always use `async/await` with `waitFor` for async operations
+- Never use arbitrary timeouts - let `waitFor` handle timing
+- Test both loading and loaded states explicitly
+```
+
+#### Step 2: Update CLAUDE.md to Reference the File
+
+Update the `### Testing` section in your `CLAUDE.md` (around line 91-100):
+
+**Before:**
+```markdown
+### Testing
+
+- **Framework**: Vitest
+- **Pattern**: Follow AAA pattern (Arrange, Act, Assert) for all unit tests
+- **Naming**: Test files must be named `*.test.ts` or `*.test.tsx`
+- **Location**: Place test files next to the code they test
+- **Best practices**:
+  - Use descriptive test names that explain what is being tested
+  - Mock external dependencies (API calls, external services)
+  - Test behavior, not implementation details
+```
+
+**After:**
+```markdown
+### Testing
+
+- **Framework**: Vitest
+- **Pattern**: Follow AAA pattern (Arrange, Act, Assert) for all unit tests
+- **Naming**: Test files must be named `*.test.ts` or `*.test.tsx`
+- **Location**: Place test files next to the code they test
+
+For detailed testing conventions and best practices, see @./.claude/conventions/unit-test-rules.md
+```
+
+#### Step 3: Retry the Same Prompt
+
+Now that we've set up file referencing, let's use the **exact same prompt** from earlier to see how Claude's behavior improves:
+
+```text
+Add unit tests for the useMovies hook
+```
+
+This demonstrates how the same prompt produces better results when Claude has access to detailed conventions via file referencing.
+
+### What Claude Should Do
+
+With the file-referenced conventions, Claude should now create a **much more comprehensive test file** at `hooks/useMovies.test.ts` that:
+
+1. **Includes the file header comment** (as specified in the referenced conventions)
+2. **Organizes tests into nested describe blocks**:
+   - Initialization tests
+   - Success cases
+   - Error handling
+   - Edge cases
+3. **Follows the referenced conventions**:
+   - Test names: "should [action] when [condition]"
+   - Mock data with `mock` prefix at the top of describe blocks
+   - Use `beforeEach` for cleanup
+   - Use appropriate matchers (`toEqual`, `toBe`, `toHaveLength`)
+   - Use `async/await` with `waitFor`
+
+### Observe
+
+Check if Claude:
+
+- [ ] Reads and applies conventions from `.claude/conventions/unit-test-rules.md`
+- [ ] Adds the file header comment at the top of the test file
+- [ ] Organizes tests using nested `describe` blocks (Initialization, Success cases, Error handling, Edge cases)
+- [ ] Uses the exact test naming pattern: "should [action] when [condition]"
+- [ ] Organizes mock data with `mock` prefix at the top of describe blocks
+- [ ] Uses `beforeEach` for test cleanup
+- [ ] Chooses appropriate assertion matchers (`toEqual`, `toBe`, `toHaveLength`)
+
+**Key Insight**: File referencing via @ imports provides several benefits:
+
+1. **Modularity & Organization**: Break large CLAUDE.md into focused, topic-specific files (testing rules, API patterns, etc.)
+2. **Maintainability**: Update specific conventions without editing the main file
+3. **Team Flexibility**: Import files from user home directories (`@~/.claude/my-project-instructions.md`) for personal preferences not checked into the repo
+4. **Recursive Imports**: Files can import other files (max depth 5), enabling nested organization
+
+Note: Files imported via @ syntax are loaded at launch, giving Claude comprehensive access to all conventions. This is different from nested CLAUDE.md files in subtrees, which are only loaded when Claude reads files in those specific directories.
+
+Here is an example of how you can influence Claude's behavior to be customised to your personal preferences:
+
+- Add `@~/.claude/info.md` to your CLAUDE.md file and then create a new file called `info.md` in your personal .claude directory and add something personal to you. In my case I will tell claude about my cat and who are my favorite artists.
+- Then open a new claude instance and try asking claude about you. It's kinda cool!.
+---
+
 ## Catch Up
 
 ```bash
