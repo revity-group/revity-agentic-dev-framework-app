@@ -137,4 +137,4 @@ git checkout workshop/section-6-mcp
 
 ---
 
-[← Back to Hooks](./5-hooks.md) | [Next: Skills →](./7-skills.md)
+[← Back to Hooks](./5-hooks.md) | [Next: SDD →](./7-sdd.md)

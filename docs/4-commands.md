@@ -13,7 +13,7 @@ Turn repetitive prompts into reusable one-word commands.
 ## What Are Slash Commands?
 
 Slash commands are shortcuts for prompts you use often. Instead of typing the same instructions repeatedly, you save them once and invoke them with `/command-name`.
-ad
+
 **Think of them like:**
 - Shell aliases for your AI workflow
 - Saved prompts that your whole team can share

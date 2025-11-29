@@ -247,7 +247,7 @@ Update your `.claude/settings.json`:
           "hooks": [
             {
               "type": "command",
-              "command": "bun run .claude/hooks/PostToolUse.ts",
+              "command": "bun .claude/hooks/PostToolUse.ts",
               "timeout": 60
             }
           ]
@@ -349,6 +349,83 @@ Run: bun lint
                         ↓
                      Claude sees errors and fixes
 ```
+
+---
+
+## Bonus: Context Injection Hook (UserPromptSubmit)
+
+So far we've used **PostToolUse** hooks to validate output. But what about injecting context *before* Claude processes your prompt?
+
+**UserPromptSubmit** hooks run before each prompt, letting you add context like:
+- Current time and timezone
+- Project state
+- Environment info
+
+### The Task
+
+Create `.claude/hooks/UserPromptSubmit.ts`:
+
+```typescript
+// Inject current time and timezone into every conversation
+const now = new Date()
+
+const context = `
+[Context]
+- Current time: ${now.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' })}
+- Timezone: Australia/Melbourne (AEDT)
+- Day: ${now.toLocaleDateString('en-AU', { weekday: 'long' })}
+`
+
+console.log(context)
+```
+
+### Configure It
+
+Add to your `.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun .claude/hooks/UserPromptSubmit.ts",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Note:** Empty `matcher` means it runs on every prompt.
+
+### Try It
+
+Ask Claude:
+
+```text
+What time is it?
+```
+
+### Observe
+
+- [ ] Claude now knows your current time and timezone
+- [ ] Context is injected before every prompt
+- [ ] Useful for time-sensitive tasks and scheduling
+
+### Why This Matters
+
+Without this hook, Claude doesn't know:
+- Your local time
+- Your timezone
+- What day it is for you
+
+With this hook, Claude can give time-aware responses like "It's late on a Friday night in Melbourne, maybe save this for Monday?"
 
 ---
 
