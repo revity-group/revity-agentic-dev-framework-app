@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 0. Introduction
-nav_order: 2
+nav_order: 0
 ---
 
 # Section 0: Introduction

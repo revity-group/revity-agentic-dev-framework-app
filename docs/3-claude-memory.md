@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 3. CLAUDE.md
-nav_order: 5
+nav_order: 3
 ---
 
 # Section 3: CLAUDE.md

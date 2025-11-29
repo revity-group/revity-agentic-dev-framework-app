@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 1. Setup & Shortcuts
-nav_order: 3
+nav_order: 1
 ---
 
 # Section 1: Setup & Shortcuts

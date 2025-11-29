@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 4. Slash Commands
-nav_order: 6
+nav_order: 4
 ---
 
 # Section 4: Slash Commands
