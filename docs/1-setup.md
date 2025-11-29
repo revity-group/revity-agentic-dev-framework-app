@@ -210,13 +210,13 @@ This demonstrates how surgical selection allows Claude to understand relationshi
   It is best practice to always set the project's deny list to avoid leaking sensitive information to the AI, in case of a rogue MCP or prompt poisoning
 
   - In claude run  `/permissions`
-  - Tab over to deny and add permission rule `Read(./.env.*)` 
-  - Choose settings local 
-  - Then you will see a file called `.claude/settings.local.json`
+  - Tab over to deny and add permission rule `Read(./.env.*)`
+  - Choose `Project Settings`
+  - Then you will see a file called `.claude/settings.json`
 
 A recommendation of sharable settings.json (shared with team) as well as settings.local.json (only project local) files is as follows:
 
-```json 
+```json
 
 # settings.json
 {
@@ -232,11 +232,9 @@ A recommendation of sharable settings.json (shared with team) as well as setting
             "Read(./.env)",
             "Read(./.env.*)",
             "Read(./secrets/**)",
-            "Read(./config/credentials.json)",
-            "Read(./build)"
+            "Read(./build)",
         ]
-    },
-    "alwaysThinkingEnabled": true
+    }
 }
 ```
 
@@ -245,10 +243,11 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 # settings.local.json
 {
     "permissions": {
-        "allow": ["Read(//Users/<username>/.claude/**)"],
+        "allow": ["Read(//Users/<username>/.claude/**)", "Write(//Users/<username>/.claude/**)"],
         "ask": [],
         "deny": []
-    }
+    },
+    "alwaysThinkingEnabled": true
 }
 ```
 
