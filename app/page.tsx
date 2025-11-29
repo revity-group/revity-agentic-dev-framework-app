@@ -5,7 +5,6 @@ import { Movie } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
 import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([])
@@ -69,27 +68,15 @@ export default function Home() {
           </div>
         </header>
 
-        {loading ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="space-y-3">
-                <Skeleton className="aspect-[2/3] w-full rounded-lg" />
-                <Skeleton className="h-4 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-                onReview={() => setSelectedMovie(movie)}
-              />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {movies.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              onReview={() => setSelectedMovie(movie)}
+            />
+          ))}
+        </div>
 
         {selectedMovie && (
           <ReviewForm
