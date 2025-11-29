@@ -1,34 +1,28 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Movie } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useMovies } from '@/hooks/useMovies'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import { Loader2 } from 'lucide-react'
 
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('popular')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
 
-  useEffect(() => {
-    fetchMovies()
-  }, [category])
+  const { movies, loading, loadingMore, error, hasMore, loadMore } =
+    useMovies(category)
 
-  const fetchMovies = async () => {
-    setLoading(true)
-    try {
-      const response = await fetch(`/api/movies?category=${category}`)
-      const data = await response.json()
-      setMovies(data.results || [])
-    } catch (error) {
-      console.error('Error fetching movies:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const sentinelRef = useInfiniteScroll({
+    onLoadMore: loadMore,
+    hasMore,
+    isLoading: loadingMore,
+    threshold: 300,
+  })
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -69,6 +63,13 @@ export default function Home() {
           </div>
         </header>
 
+        {error && (
+          <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-center text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
+            <p className="font-medium">Error loading movies</p>
+            <p className="text-sm">{error}</p>
+          </div>
+        )}
+
         {loading ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {Array.from({ length: 10 }).map((_, i) => (
@@ -80,15 +81,39 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-                onReview={() => setSelectedMovie(movie)}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  onReview={() => setSelectedMovie(movie)}
+                />
+              ))}
+            </div>
+
+            {/* Loading more indicator */}
+            {loadingMore && (
+              <div className="mt-8 flex justify-center">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                  <Loader2 className="h-6 w-6 animate-spin" />
+                  <span>Loading more movies...</span>
+                </div>
+              </div>
+            )}
+
+            {/* No more movies message */}
+            {!hasMore && movies.length > 0 && (
+              <div className="mt-8 text-center text-gray-600 dark:text-gray-400">
+                <p className="text-sm">
+                  You've reached the end of the list. No more movies to load.
+                </p>
+              </div>
+            )}
+
+            {/* Infinite scroll sentinel */}
+            <div ref={sentinelRef} className="h-10" />
+          </>
         )}
 
         {selectedMovie && (
