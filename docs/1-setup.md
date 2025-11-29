@@ -149,11 +149,13 @@ Both requests succeed! Check `data/reviews.json` and `data/watchlist.json` - inv
 3. **Add both selections to context** using `Cmd+Option+K` (or your configured keybinding)
 
 4. **Prompt Claude:**
-   ```
+
+   ```text
+
    Add proper validation with specific error messages:
    - Reviews: validate email format, rating range 1-10, minimum review length 10 chars
    - Watchlist: validate movieId is a positive number, movieTitle is non-empty string
-   - Both: return specific field-level error messages instead of generic "Missing required fields"
+   - Both: return specific field-level error messages
    ```
 
 5. **Review the changes:** Claude will add coordinated validation to both files with specific, helpful error messages
