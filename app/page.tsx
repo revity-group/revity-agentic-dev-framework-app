@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Movie } from '@/types/movie'
+import { Movie, WatchlistItem } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
 import { Button } from '@/components/ui/button'
@@ -11,10 +11,26 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('popular')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
+  const [watchlistIds, setWatchlistIds] = useState<Set<number>>(new Set())
 
   useEffect(() => {
     fetchMovies()
   }, [category])
+
+  useEffect(() => {
+    fetchWatchlist()
+  }, [])
+
+  const fetchWatchlist = async () => {
+    try {
+      const response = await fetch('/api/watchlist')
+      const data: WatchlistItem[] = await response.json()
+      const ids = new Set(data.map((item) => Number(item.movieId)))
+      setWatchlistIds(ids)
+    } catch (error) {
+      console.error('Error fetching watchlist:', error)
+    }
+  }
 
   const fetchMovies = async () => {
     setLoading(true)
@@ -27,6 +43,18 @@ export default function Home() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleWatchlistChange = (movieId: number, inWatchlist: boolean) => {
+    setWatchlistIds((prev) => {
+      const updated = new Set(prev)
+      if (inWatchlist) {
+        updated.add(movieId)
+      } else {
+        updated.delete(movieId)
+      }
+      return updated
+    })
   }
 
   return (
@@ -73,6 +101,8 @@ export default function Home() {
             <MovieCard
               key={movie.id}
               movie={movie}
+              isInWatchlist={watchlistIds.has(movie.id)}
+              onWatchlistChange={handleWatchlistChange}
               onReview={() => setSelectedMovie(movie)}
             />
           ))}

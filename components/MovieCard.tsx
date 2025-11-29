@@ -8,11 +8,17 @@ import { Badge } from '@/components/ui/badge'
 
 interface MovieCardProps {
   movie: Movie
+  isInWatchlist: boolean
+  onWatchlistChange: (movieId: number, inWatchlist: boolean) => void
   onReview: () => void
 }
 
-export default function MovieCard({ movie, onReview }: MovieCardProps) {
-  const [isInWatchlist, setIsInWatchlist] = useState(false)
+export default function MovieCard({
+  movie,
+  isInWatchlist,
+  onWatchlistChange,
+  onReview,
+}: MovieCardProps) {
   const [loading, setLoading] = useState(false)
 
   const posterUrl = movie.poster_path
@@ -33,7 +39,7 @@ export default function MovieCard({ movie, onReview }: MovieCardProps) {
       })
 
       if (response.ok) {
-        setIsInWatchlist(true)
+        onWatchlistChange(movie.id, true)
       } else {
         const error = await response.json()
         alert(error.error || 'Failed to add to watchlist')
