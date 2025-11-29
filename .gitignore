@@ -38,5 +38,7 @@ next-env.d.ts
 
 # data storage
 /data
-.claude/
-.mcp.json
+
+# AI personal
+.claude/settings.local.json
+.claude/personal-planning/
