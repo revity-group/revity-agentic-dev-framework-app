@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 5. Hooks
-nav_order: 5
+nav_order: 7
 ---
 
 # Section 5: Hooks

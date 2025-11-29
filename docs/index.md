@@ -29,7 +29,7 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 | 6 | [MCP Servers](./6-mcp.md) | Connect to external tools and services |
 | 7 | [SDD](./7-sdd.md) | Specification-Driven Development workflow |
 | 8 | Skills | *Coming soon* |
-| 9 | Subagents & parallel agents| *Coming soon* |
+| 9 | Subagents & parallel agents | *Coming soon* |
 
 ---
 

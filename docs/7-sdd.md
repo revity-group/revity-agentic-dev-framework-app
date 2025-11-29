@@ -1,9 +1,9 @@
 ---
 layout: default
-title: SDD
-nav_order: 7
+title: 7. SDD
+nav_order: 9
 ---
 
-# Specification-Driven Development
+# Section 7: Specification-Driven Development
 
 TBD by @poborin

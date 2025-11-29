@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 2. Baseline Task
-nav_order: 2
+nav_order: 4
 ---
 
 # Section 2: Baseline Task

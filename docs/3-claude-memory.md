@@ -1,7 +1,7 @@
 ---
 layout: default
-title: 3. CLAUDE.md
-nav_order: 3
+title: 3. Claude Memory
+nav_order: 5
 ---
 
 # Section 3: CLAUDE.md
