@@ -26,15 +26,23 @@ Instead of Claude being limited to the tools built into Claude Code, MCP lets yo
 
 Without MCP:
 ```text
-You: "Search for the latest Next.js 15 documentation"
-Claude: "I can't browse the web, but based on my training data..."
+You: "Test the movie search functionality in the browser"
+Claude: "I can't control a browser, but I can help you write test code..."
 ```
 
-With MCP (using a browser or search server):
+With MCP (using Playwright):
 ```text
-You: "Search for the latest Next.js 15 documentation"
-Claude: *uses web search MCP server*
-Claude: "Here's what I found from the official Next.js docs..."
+You: "Test the infinite scroll feature we built in Section 2"
+Claude: *uses Playwright MCP server*
+Claude: *opens Firefox, navigates to app, scrolls to bottom*
+Claude: "Infinite scroll is working! Loaded 3 pages of movies automatically"
+```
+
+Or with Context7 for up-to-date documentation:
+```text
+You: "What's new in Next.js 15?"
+Claude: *uses Context7 to fetch official docs*
+Claude: "Here's what's new from the official Next.js 15 documentation..."
 ```
 
 ---

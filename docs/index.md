@@ -27,9 +27,9 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 | 4 | [Slash Commands](./4-commands.md) | Pre-loaded workflows for common tasks |
 | 5 | [Hooks](./5-hooks.md) | Notifications & frictionless permissions |
 | 6 | [MCP Servers](./6-mcp.md) | Connect to external tools and services |
-| 7 | Skills | *Coming soon* |
-| 8 | Subagents & parallel agents| *Coming soon* |
-| 9 | SDD | *Coming soon* |
+| 7 | [SDD](./7-sdd.md) | Specification-Driven Development workflow |
+| 8 | Skills | *Coming soon* |
+| 9 | Subagents & parallel agents| *Coming soon* |
 
 ---
 
