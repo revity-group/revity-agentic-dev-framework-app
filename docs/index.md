@@ -67,7 +67,7 @@ Recommended: VS Code or Cursor
 
 ### Windows Users
 
-**To use the Flox path:** Install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) first (5-10 minutes, one-time setup).
+**To use the Flox path:** Install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) first (one-time setup).
 
 After WSL2 is installed, open your WSL2 terminal and follow the Flox installation steps.
 
@@ -83,7 +83,7 @@ Before the workshop, make sure you have:
 
 - [ ] **Git** installed and configured
 - [ ] **Code editor** ready (VS Code or Cursor recommended)
-- [ ] **TMDB API Key** - [Get it here](https://www.themoviedb.org/settings/api) (free, takes 2 minutes)
+- [ ] **TMDB API Key** - [Get it here](https://www.themoviedb.org/settings/api) (free)
 - [ ] **Claude Code account** - Sign up at [claude.ai/code](https://claude.ai/code) if you haven't already
 - [ ] **GitHub account** - For pushing code and creating PRs 
 
