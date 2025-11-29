@@ -1,3 +1,5 @@
+@~/.claude/info.md
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
@@ -94,10 +96,8 @@ bun format:check     # Check formatting without making changes
 - **Pattern**: Follow AAA pattern (Arrange, Act, Assert) for all unit tests
 - **Naming**: Test files must be named `*.test.ts` or `*.test.tsx`
 - **Location**: Place test files next to the code they test
-- **Best practices**:
-  - Use descriptive test names that explain what is being tested
-  - Mock external dependencies (API calls, external services)
-  - Test behavior, not implementation details
+
+For detailed testing conventions and best practices, see @./.claude/conventions/unit-test-rules.md
 
 ### Styling
 
