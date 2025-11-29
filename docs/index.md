@@ -165,20 +165,21 @@ bun dev
 
 ### Troubleshooting
 
-**Can't start the app?**
-- Make sure you added your TMDB_API_KEY to `.env.local`
-- Try `bun install` again to ensure all dependencies are installed
-- Check that port 3000 is not already in use
+**App won't start or shows errors?**
 
-**Claude Code not working?**
-- Run `claude auth login` to authenticate
-- Make sure you have an active Claude Code subscription
-- Try `claude --version` to verify installation
+Try these in order:
+1. Make sure you added your TMDB_API_KEY to `.env.local`
+2. Run `bun install` again
+3. Check if something else is using port 3000 (close it or try a different port)
 
-**Still stuck?**
-- Check the workshop's GitHub Issues
-- Ask in the workshop chat/Slack
-- We'll do a setup check at the start of the workshop
+**Claude Code issues?**
+
+- Run `claude auth login` and follow the prompts
+- Check it's installed: `claude --version`
+
+**Still not working?**
+
+No worries! Drop a message in the workshop Slack or GitHub Issues. We're here to help and will do a setup check at the start of the workshop.
 
 ---
 
