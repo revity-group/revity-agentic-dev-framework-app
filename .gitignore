@@ -40,5 +40,4 @@ next-env.d.ts
 /data
 
 # AI personal
-.claude/settings.local.json
 .claude/personal-planning/
