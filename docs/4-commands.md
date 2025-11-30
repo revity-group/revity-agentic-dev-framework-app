@@ -38,7 +38,7 @@ Let's feel the pain. Make a few small changes to a few diff files
 commit my changes
 ```
 
-### Attempt 3: The full prompt (every. single. time.)
+### Attempt 2: The full prompt (every. single. time.)
 
 ```text
 Look at my staged changes and write a conventional commit message.
@@ -48,7 +48,7 @@ type(scope): subject
 
 Types: feat, fix, docs, style, refactor, test, chore
 
-Keep the subject under 50 characters, imperative mood.
+Keep the subject under 50 characters, imperative mood. Do not mention anything todo with claude or ai.
 ```
 
 **Notice:** This works - but you just typed a paragraph for a one-line commit message.
@@ -88,7 +88,7 @@ type(scope): subject
 
 Types: feat, fix, docs, style, refactor, test, chore
 
-Keep the subject under 50 characters, imperative mood.
+Keep the subject under 50 characters, imperative mood. Do not mention anything todo with claude or ai.
 ```
 
 ### Step 3: Test the basic version
@@ -97,7 +97,7 @@ Keep the subject under 50 characters, imperative mood.
 /commit
 ```
 
-It works, but Claude doesn't actually *see* your changes or know your conventions.
+It works - Claude can still run `git diff` via tool calls if it decides to. But behavior varies, and you're spending extra reasoning steps and tool calls each time.
 
 ---
 
@@ -114,38 +114,65 @@ Commands become powerful when they inject **real data**:
 
 Replace `.claude/commands/commit.md` with:
 
-```markdown
+````markdown
 ---
-description: Smart commit - analyze changes and create logical commits
+description: Create a conventional commit message and commit staged changes
+allowed-tools: Bash(git diff), Bash(git log), Bash(git add), Bash(git commit), Bash(git status)
+model: claude-haiku-4-5-20251001
 ---
 
-Analyze my git state and help me create clean, logical commits.
+# Conventional Commit Context
 
-## Conventions
+- shows working tree state (staged, unstaged, untracked files)
+<git_status>
+!`git status`
+</git_status>
 
-- Format: `type(scope): subject`
-- Types: feat, fix, docs, style, refactor, test, chore
-- Subject under 50 characters, imperative mood
+- shows the actual staged changes (what will be committed)
+<staged_diff>
+!`git diff --cached`
+</staged_diff>
 
-## Current State
+- shows the actual unstaged changes (what is not staged for commit)
+<unstaged_diff>
+!`git diff`
+</unstaged_diff>
 
-**Staged changes:**
-!git diff --staged --stat
+- shows the recent commits (last 5 commits,to match style/conventions)
+<recent_commits>
+!`git log --oneline -5`
+</recent_commits>
 
-**Unstaged changes:**
-!git diff --stat
+## Instructions
 
-**Untracked files:**
-!git ls-files --others --exclude-standard
+Review the changes above and commit using conventional commit format:
 
-## Your Task
-
-1. Review what's staged vs unstaged
-2. Decide: should these be one commit or split into multiple logical commits?
-3. If splitting makes sense, tell me what to stage/unstage
-4. Write the commit message(s) following the conventions above
-5. Execute the commit(s)
+```text
+<type>(<scope>): <description>
 ```
+
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`
+
+Scope: Use folder/feature name (e.g., `auth`, `api`, `ui`). Omit if change is broad.
+
+For breaking changes, add \`\`!\`\` after type: `feat(api)!: remove deprecated endpoint`
+
+If changes are unrelated, split into logical commits. Otherwise, one commit is fine.
+
+Never mention AI / Claude in the commit message.
+
+Prefer one line commit message if feasible. If not, use multiple lines to describe the changes. but keep it under 50 words.
+
+### Staging
+
+- If changes are already staged, commit only what's staged
+- If nothing is staged, review unstaged changes carefully before staging
+- Avoid `git add -A` if sensitive files (.env, credentials) might be included
+
+```bash
+git commit -m "type(scope): description"
+```
+````
 
 ---
 
@@ -167,52 +194,10 @@ Analyze my git state and help me create clean, logical commits.
 
 | Basic Command | Smart Command |
 |---------------|---------------|
-| Claude guesses at your changes | Claude **sees** actual git state |
+| Claude decides to run `git diff` (extra step) | Git state **pre-injected** instantly |
+| Behavior varies each run | **Predictable**, consistent results |
 | Generic commit format | **Your team's** conventions injected |
-| One commit only | Suggests **logical splits** when needed |
-| You run git commands | Claude **executes** commits for you |
-
----
-
-## Try It Yourself
-
-Create a `/review` command that reviews your uncommitted changes.
-
-### The Task
-
-Create `.claude/commands/review.md`:
-
-```markdown
----
-description: Review uncommitted changes before committing
----
-
-Review my uncommitted changes and check for:
-- Bugs or logic errors
-- Missing error handling
-- Code style issues
-- Anything I might have forgotten
-
-Be concise. Only mention real issues.
-```
-
-Test it:
-
-```text
-/review
-```
-
----
-
-## Built-in Commands Worth Knowing
-
-| Command | What It Does |
-|---------|--------------|
-| `/init` | Create CLAUDE.md for your project |
-| `/help` | See all available commands (including yours!) |
-| `/compact` | Reduce context size without losing everything |
-| `/cost` | See token usage |
-| `/doctor` | Diagnose issues with your setup |
+| Uses tool calls (slower) | Context ready **before** Claude reasons |
 
 ---
 
@@ -227,16 +212,32 @@ Test it:
 
 ---
 
-## Advanced: Structured Commands (Optional)
+## Built-in Commands Worth Knowing (there are more. Please refer Claude Code documentation [here](https://code.claude.com/docs/en/slash-commands#built-in-slash-commands))
 
-After you're comfortable with basic commands, you can add structure for validation and consistent output:
-
-| Scenario | Basic Output | Structured Output |
-|----------|--------------|-------------------|
-| Success | "Here's your commit message: feat(ui): add button..." | `STATUS=OK MESSAGE="feat(ui): add button"` |
-| No staged changes | "I notice you haven't staged anything..." | `STATUS=FAIL ERROR="no staged changes"` |
-
-Ask your workshop facilitator about `/create-command` if you want to explore this pattern.
+| Command | What It Does |
+|---------|--------------|
+| `/clear` | Clear conversation history |
+| `/compact [instructions]` | Compact conversation with optional focus instructions |
+| `/config` | Open the Settings interface (Config tab) |
+| `/context` | Visualize current context usage as a colored grid |
+| `/cost` | Show token usage statistics |
+| `/doctor` | Checks the health of your Claude Code installation |
+| `/exit` | Exit the REPL |
+| `/export [filename]` | Export the current conversation to a file or clipboard |
+| `/help` | Get usage help |
+| `/hooks` | Manage hook configurations for tool events |
+| `/ide` | Manage IDE integrations and show status |
+| `/init` | Initialize project with CLAUDE.md guide |
+| `/install-github-app` | Set up Claude GitHub Actions for a repository |
+| `/mcp` | Manage MCP server connections and OAuth authentication |
+| `/memory` | Edit CLAUDE.md memory files |
+| `/model` | Select or change the AI model |
+| `/permissions` | View or update permissions |
+| `/pr-comments` | View pull request comments |
+| `/review` | Request code review |
+| `/rewind` | Rewind the conversation and/or code |
+| `/security-review` | Complete a security review of pending changes on the current branch |
+| `/todos` | List current todo items |
 
 ---
 
