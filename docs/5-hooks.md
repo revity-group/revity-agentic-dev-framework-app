@@ -6,382 +6,182 @@ nav_order: 7
 
 # Section 5: Hooks
 
-Automate quality checks and validation by running shell commands at key points in Claude's workflow.
+Automate workflows and validation by executing shell commands at key points in Claude Code's lifecycle.
 
 ---
 
 ## What Are Hooks?
 
-Hooks are shell commands or scripts that execute automatically when specific events happen in Claude Code. Think of them as automated quality gates that run:
+Hooks are shell commands or scripts that execute automatically when specific events happen in Claude Code. Think of them as automated quality gates that run at different points in Claude's lifecycle.
+Hooks run automatically without Claude needing to decide to run them, and without you needing to approve each check.
 
-- **After file edits** - Lint code, format files, run quick checks
-- **After file writes** - Run tests, validate structure, check coverage
-- **Before/after any tool** - Custom validation, logging, notifications
+### Available Hook Types
 
-Hooks let Claude get immediate feedback about code quality without you having to manually run checks.
+**Tool-related:**
+- `PreToolUse` - Before Claude uses any tool (can block/allow)
+- `PostToolUse` - After Claude uses any tool
+- `PermissionRequest` - When permission dialog is shown (can allow/deny)
 
----
+**User interaction:**
+- `UserPromptSubmit` - When user submits a prompt (can block)
+- `Notification` - When Claude Code sends notifications
 
-## Why Use Hooks?
+**Session lifecycle:**
+- `SessionStart` - At the beginning of sessions
+- `SessionEnd` - At the end of sessions
 
-Without hooks:
-```text
-You: "Add error handling to MovieCard"
-Claude: *edits file*
-You: *manually run* `bun lint`
-You: *see errors* "Claude, you have lint errors"
-Claude: *fixes errors*
-```
+**Stopping:**
+- `Stop` - When Claude attempts to stop
+- `SubagentStop` - When a subagent attempts to stop
 
-With hooks:
-```text
-You: "Add error handling to MovieCard"
-Claude: *edits file*
-Hook: *automatically runs* `bun lint`
-Claude: *sees feedback immediately* "Let me fix those lint errors"
-```
+**Maintenance:**
+- `PreCompact` - Before conversation history is compacted
 
 ---
 
-## Step 1: Your First Hook (Simple Echo)
-
-Let's start with the simplest possible hook - just echo a message when Claude edits a file.
+## Step 1: Your First Hook with `/hooks`
+The fastest way to create a hook is using Claude Code's built-in `/hooks` command. Let's start with a simple demo to see hooks in action.
 
 ### The Task
 
-Add this to your `.claude/settings.json`:
+Run the `/hooks` command in Claude Code:
+
+```text
+/hooks
+```
+
+When prompted:
+1. Select **UserPromptSubmit** as the hook type
+2. Press Enter to add a new hook
+3. Set the command to: `echo when you finished say I AM DONE`
+4. Add it to your **settings**
+
+### What Gets Created
+
+After running `/hooks`, check your project. You'll now have a `.claude` directory with a `settings.local.json` file containing:
 
 ```json
 {
-  "permissions": {
-    "hooks": {
-      "PostToolUse": [
-        {
-          "matcher": "Edit",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "echo '✅ File edited successfully!'",
-              "timeout": 5
-            }
-          ]
-        }
-      ]
-    }
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo when you finished say I AM DONE"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
-**What this does:**
-- **PostToolUse**: Runs after a tool is used
-- **matcher: "Edit"**: Only triggers after the Edit tool
-- **command**: Simple echo statement
-- **timeout**: Maximum seconds to wait (5s)
+The hook configuration has:
+- **matcher**: Empty string means it runs on every prompt (no filtering)
+- **hooks**: An array of commands to execute
+- **type**: "command" indicates a shell command
+- **command**: The actual shell command to run
 
 ### Try It
 
-Now ask Claude:
+Send any message to Claude:
 
 ```text
-Add a comment to the MovieCard component explaining what it does
+Hi there!
 ```
 
 ### Observe
 
-- [ ] After Claude edits the file, you see: `✅ File edited successfully!`
-- [ ] The hook runs automatically without Claude or you triggering it
-- [ ] The edit still completes normally
+- [ ] You see "when you finished say I AM DONE" printed before Claude responds
+- [ ] Claude actually says "I AM DONE" at the end of its response (it received the hook output!)
+- [ ] The hook runs on every prompt submission
+- [ ] It's working! But...
 
 ---
 
-## Step 2: Context-Aware Hooks
+## Why Simple Shell Hooks Don't Scale
 
-Let's make the hook more useful by showing which file was edited.
+The `echo hello` hook works for demos, but it has serious limitations for real automation:
 
-### The Task
+- **No access to context** - What tool was used? What file was edited?
+- **No conditional logic** - Can't say "only lint TypeScript files"
+- **No blocking** - Can't prevent bad edits from going through
+- **No feedback to Claude** - Can't send errors back for Claude to fix
 
-Update your `.claude/settings.json`:
+To do anything useful, you'd need to parse JSON input from stdin, use tools like `jq`, handle escape sequences, and manually construct JSON output. It gets messy fast.
 
-```json
-{
-  "permissions": {
-    "hooks": {
-      "PostToolUse": [
-        {
-          "matcher": "Edit|Write",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "echo '📝 Modified: $CLAUDE_TOOL_INPUT_FILE_PATH'",
-              "timeout": 5
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
-```
-
-**What's new:**
-- **matcher: "Edit|Write"**: Triggers after Edit OR Write
-- **$CLAUDE_TOOL_INPUT_FILE_PATH**: Environment variable with the file path
-
-### Try It
-
-```text
-Add a new prop to MovieCard for showing the release year
-```
-
-### Observe
-
-- [ ] You see which file was modified: `📝 Modified: /path/to/MovieCard.tsx`
-- [ ] Hook provides context about what changed
-- [ ] Works for both Edit and Write operations
+There's a better way.
 
 ---
 
-## Step 3: Running Real Checks (Linting)
+## Step 2: TypeScript Hooks with the Claude Agent SDK
 
-Now let's use hooks for their real purpose - automatic code quality checks.
+For real automation, we use TypeScript hooks with the official SDK.
 
-### The Task
+### Why This Pattern Scales
 
-Update your `.claude/settings.json`:
+| Feature | Shell Hooks | TypeScript + SDK |
+|---------|-------------|------------------|
+| **Type safety** | None | SDK types catch errors at write-time |
+| **Input parsing** | Complex jq/bash pipes | One-line: `Bun.stdin.json()` |
+| **Logic** | Awkward shell scripts | Full TypeScript |
+| **Ecosystem** | Limited | Any npm package |
 
-```json
-{
-  "permissions": {
-    "hooks": {
-      "PostToolUse": [
-        {
-          "matcher": "Edit|Write",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "echo '🔍 Running linter...' && bun lint",
-              "timeout": 30
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
+### Set Up the Hooks Directory
+
+Create a hooks directory and initialize it:
+
+```bash
+mkdir -p .claude/hooks
+cd .claude/hooks
+bun init -y
+bun add @anthropic-ai/claude-code-sdk
 ```
 
-**What this does:**
-- Runs ESLint on the entire codebase after every edit/write
-- Shows you any linting errors immediately
-- Timeout increased to 30s to allow lint to complete
-
-### Try It
-
-```text
-Add a poorly formatted function to MovieCard (missing semicolons, wrong quotes, etc)
-```
-
-### Observe
-
-- [ ] Lint runs automatically after the edit
-- [ ] You see any ESLint errors in the output
-- [ ] Claude can see the errors and fix them if needed
-
-**Note:** This lints the whole codebase. For larger projects, you might want to lint only the changed file.
+This gives you:
+- A dedicated directory for hook scripts
+- TypeScript support out of the box
+- Type definitions for all hook inputs/outputs
 
 ---
 
-## Step 4: TypeScript Hooks (Full Power)
+## Step 3: Context Injection Hook (UserPromptSubmit)
 
-For complex logic like "only run tests if they exist" or "block edits that fail linting", you need TypeScript hooks.
+Let's replace that simple `echo hello` with something useful - injecting context into every conversation.
 
-### The Task
+### The Problem
 
-The `.claude/hooks/PostToolUse.ts` file already exists in your project. Let's understand what it does:
+Without context injection, Claude doesn't know:
+- Your local time
+- Your timezone
+- What day it is for you
 
-```typescript
-// 1. Read input from Claude about what tool was used
-const input: PostToolUseHookInput = await Bun.stdin.json()
-
-// 2. Only process Edit and Write tools
-if (input.tool_name !== 'Edit' && input.tool_name !== 'Write') {
-  process.exit(0)
-}
-
-// 3. Only process TypeScript files
-const filePath = toolInput.file_path
-if (!filePath.endsWith('.ts') && !filePath.endsWith('.tsx')) {
-  process.exit(0)
-}
-
-// 4. Run linting
-const lintResult = Bun.spawnSync(['bun', 'lint'], { ... })
-
-// 5. If lint fails, BLOCK the edit
-if (lintResult.exitCode !== 0) {
-  await Bun.write(Bun.stdout, JSON.stringify({
-    decision: 'block',
-    reason: `Linting failed:\n${lintOutput}`,
-  }))
-  process.exit(2)
-}
-```
-
-**Key features:**
-- **Smart filtering**: Only runs on `.ts` and `.tsx` files
-- **Blocking**: Can prevent edits that fail quality checks
-- **Feedback to Claude**: Sends lint errors back to Claude to fix
-- **TypeScript**: Full programming language for complex logic
-
-### Configure It
-
-Update your `.claude/settings.json`:
-
-```json
-{
-  "permissions": {
-    "hooks": {
-      "PostToolUse": [
-        {
-          "matcher": "Edit|Write",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "bun .claude/hooks/PostToolUse.ts",
-              "timeout": 60
-            }
-          ]
-        }
-      ]
-    }
-  }
-}
-```
-
-### Try It
-
-```text
-Add a new utility function in lib/ with intentional linting errors (unused variables, wrong formatting)
-```
-
-### Observe
-
-- [ ] Hook runs only for TypeScript files
-- [ ] Linting errors are caught
-- [ ] Claude receives the error feedback
-- [ ] Claude automatically fixes the errors
-- [ ] Hook runs again and passes
-
----
-
-## Step 5: Adding Test Automation
-
-Let's extend the TypeScript hook to also run tests.
-
-### The Task
-
-The test automation is already in `PostToolUse.ts` but commented out. Let's understand it:
-
-```typescript
-// Uncomment this section in .claude/hooks/PostToolUse.ts
-
-// Check if tests exist
-const hasTests = Bun.spawnSync([
-  'bash', '-c',
-  "find . -name '*.test.ts' -o -name '*.test.tsx' | grep -q ."
-], { cwd: input.cwd }).exitCode === 0
-
-if (hasTests) {
-  console.error('🧪 Running tests...')
-  const testResult = Bun.spawnSync(['bunx', 'vitest', 'run'], { ... })
-
-  if (testResult.exitCode !== 0) {
-    // Block the edit if tests fail
-    await Bun.write(Bun.stdout, JSON.stringify({
-      decision: 'block',
-      reason: `Tests failed:\n${testOutput}`,
-    }))
-    process.exit(2)
-  }
-}
-```
-
-To enable this, uncomment lines 59-99 in `.claude/hooks/PostToolUse.ts`.
-
-### Try It (After uncommenting)
-
-```text
-Add a new function to hooks/useMovies.ts that breaks existing tests
-```
-
-### Observe
-
-- [ ] Tests run automatically after the edit
-- [ ] Failing tests block the edit
-- [ ] Claude sees the test output
-- [ ] Claude can fix the implementation or tests
-
----
-
-## Hook Lifecycle Flow
-
-```text
-You: "Add error handling to MovieCard"
-     ↓
-Claude: Uses Edit tool to modify MovieCard.tsx
-     ↓
-PostToolUse Hook: Triggered
-     ↓
-Check: Is it TypeScript? → Yes
-     ↓
-Run: bun lint
-     ↓
-     ├─ Lint passes → ✅ Allow edit
-     │                   ↓
-     │                (Optional) Run tests
-     │                   ↓
-     │                   ├─ Tests pass → ✅ Complete
-     │                   └─ Tests fail → ❌ Block edit
-     │
-     └─ Lint fails → ❌ Block edit
-                        ↓
-                     Send errors to Claude
-                        ↓
-                     Claude sees errors and fixes
-```
-
----
-
-## Bonus: Context Injection Hook (UserPromptSubmit)
-
-So far we've used **PostToolUse** hooks to validate output. But what about injecting context *before* Claude processes your prompt?
-
-**UserPromptSubmit** hooks run before each prompt, letting you add context like:
-- Current time and timezone
-- Project state
-- Environment info
-
-### The Task
+### Create the Hook
 
 Create `.claude/hooks/UserPromptSubmit.ts`:
 
 ```typescript
+/**
+ * UserPromptSubmit hook - Injects context before every prompt
+ * Uses @anthropic-ai/claude-code-sdk for type safety
+ */
+
 // Inject current time and timezone into every conversation
 const now = new Date()
 
-const context = `
-[Context]
+const context = `[Context]
 - Current time: ${now.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' })}
-- Timezone: Australia/Melbourne (AEDT)
-- Day: ${now.toLocaleDateString('en-AU', { weekday: 'long' })}
-`
+- Timezone: Australia/Melbourne
+- Day: ${now.toLocaleDateString('en-AU', { weekday: 'long' })}`
 
 console.log(context)
 ```
 
 ### Configure It
 
-Add to your `.claude/settings.json`:
+Update your `.claude/settings.json`:
 
 ```json
 {
@@ -416,39 +216,287 @@ What time is it?
 
 - [ ] Claude now knows your current time and timezone
 - [ ] Context is injected before every prompt
-- [ ] Useful for time-sensitive tasks and scheduling
+- [ ] Claude can give time-aware responses like "It's Sunday evening in Melbourne"
 
-### Why This Matters
+---
 
-Without this hook, Claude doesn't know:
-- Your local time
-- Your timezone
-- What day it is for you
+## Step 4: Linting Hook (PostToolUse)
 
-With this hook, Claude can give time-aware responses like "It's late on a Friday night in Melbourne, maybe save this for Monday?"
+Now let's add a hook that enforces code quality by running the linter after every file edit.
+
+### The Problem
+
+Without automated linting:
+- Claude might introduce code style issues
+- Errors aren't caught until you manually run `bun lint`
+- You have to remember to check after every change
+
+### Create the Hook
+
+Create `.claude/hooks/PostToolUse.ts`:
+
+```typescript
+/**
+ * PostToolUse hook - Runs linter after file edits
+ * Uses @anthropic-ai/claude-code-sdk for type safety
+ */
+import type { PostToolUseHookInput } from '@anthropic-ai/claude-code-sdk'
+
+// 1. Read input from Claude about what tool was used
+const input: PostToolUseHookInput = await Bun.stdin.json()
+
+// 2. Only process Edit and Write tools
+if (input.tool_name !== 'Edit' && input.tool_name !== 'Write') {
+  process.exit(0)
+}
+
+// 3. Get the file path from tool input
+const toolInput = input.tool_input as { file_path?: string }
+const filePath = toolInput.file_path
+
+if (!filePath) {
+  process.exit(0)
+}
+
+// 4. Only process TypeScript files
+if (!filePath.endsWith('.ts') && !filePath.endsWith('.tsx')) {
+  process.exit(0)
+}
+
+// 5. Run linting
+console.error('🔍 Running linter...')
+const lintResult = Bun.spawnSync(['bun', 'lint'], {
+  cwd: input.cwd,
+  stdout: 'pipe',
+  stderr: 'pipe',
+})
+
+const lintOutput = lintResult.stdout.toString() + lintResult.stderr.toString()
+
+// 6. If lint fails, BLOCK the edit and send errors to Claude
+if (lintResult.exitCode !== 0) {
+  console.error('❌ Linting failed!')
+  console.error(lintOutput)
+
+  await Bun.write(
+    Bun.stdout,
+    JSON.stringify({
+      decision: 'block',
+      reason: `Linting failed:\n${lintOutput}`,
+    })
+  )
+  process.exit(2)
+}
+
+console.error('✅ Linting passed!')
+process.exit(0)
+```
+
+### Key Features
+
+- **Type safety**: `PostToolUseHookInput` from the SDK catches errors at write-time
+- **Smart filtering**: Only runs on `.ts` and `.tsx` files
+- **Blocking**: Can prevent edits that fail quality checks (exit code 2)
+- **Feedback to Claude**: Sends lint errors back so Claude can fix them
+
+### Configure It
+
+Update your `.claude/settings.json` to include both hooks:
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun .claude/hooks/UserPromptSubmit.ts",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun .claude/hooks/PostToolUse.ts",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Try It
+
+Ask Claude to introduce a linting error:
+
+```text
+Add a new utility function in lib/utils.ts with an unused variable
+```
+
+### Observe
+
+- [ ] Hook runs only for TypeScript files
+- [ ] Linting errors are caught
+- [ ] Claude receives the error feedback
+- [ ] Claude automatically fixes the errors
+- [ ] Hook runs again and passes
+
+---
+
+## Step 5: Adding Test Automation (Optional)
+
+Extend the PostToolUse hook to also run tests after edits.
+
+### Add to PostToolUse.ts
+
+After the linting section, add:
+
+```typescript
+// 7. Check if tests exist
+const hasTests = Bun.spawnSync(
+  ['bash', '-c', "find . -name '*.test.ts' -o -name '*.test.tsx' | grep -q ."],
+  { cwd: input.cwd }
+).exitCode === 0
+
+if (hasTests) {
+  console.error('🧪 Running tests...')
+  const testResult = Bun.spawnSync(['bunx', 'vitest', 'run'], {
+    cwd: input.cwd,
+    stdout: 'pipe',
+    stderr: 'pipe',
+  })
+
+  const testOutput = testResult.stdout.toString() + testResult.stderr.toString()
+
+  if (testResult.exitCode !== 0) {
+    console.error('❌ Tests failed!')
+    console.error(testOutput)
+
+    await Bun.write(
+      Bun.stdout,
+      JSON.stringify({
+        decision: 'block',
+        reason: `Tests failed:\n${testOutput}`,
+      })
+    )
+    process.exit(2)
+  }
+
+  console.error('✅ Tests passed!')
+}
+```
+
+---
+
+## Hook Lifecycle Flow
+
+```text
+You: "Add error handling to MovieCard"
+     ↓
+Claude: Uses Edit tool to modify MovieCard.tsx
+     ↓
+PostToolUse Hook: Triggered
+     ↓
+Check: Is it TypeScript? → Yes
+     ↓
+Run: bun lint
+     ↓
+     ├─ Lint passes → ✅ Allow edit
+     │                   ↓
+     │                (Optional) Run tests
+     │                   ↓
+     │                   ├─ Tests pass → ✅ Complete
+     │                   └─ Tests fail → ❌ Block edit
+     │
+     └─ Lint fails → ❌ Block edit
+                        ↓
+                     Send errors to Claude
+                        ↓
+                     Claude sees errors and fixes
+```
 
 ---
 
 ## Hook Best Practices
 
-1. **Start simple** - Begin with echo, add complexity gradually
-2. **Use timeouts** - Prevent hooks from hanging forever
+1. **Start with `/hooks`** - Quick way to scaffold, then migrate to TypeScript
+2. **Use the SDK** - Type safety prevents runtime surprises
 3. **Filter wisely** - Only run checks on relevant files
-4. **Provide feedback** - Use `console.error()` for messages Claude sees
-5. **Block sparingly** - Only block for critical failures
-6. **Test your hooks** - Make sure they work before relying on them
+4. **Use timeouts** - Prevent hooks from hanging forever
+5. **Provide feedback** - Use `console.error()` for messages Claude sees
+6. **Block sparingly** - Only block for critical failures
 
 ---
 
-## Observe
+## Hook Execution Types
 
-After setting up hooks, you should see:
+Claude Code supports two distinct hook execution types:
 
-- [ ] Automatic linting after every TypeScript file edit
-- [ ] Lint errors sent back to Claude for fixing
-- [ ] (Optional) Tests running automatically
-- [ ] Faster development loop - no manual checking needed
-- [ ] Higher code quality - catches issues immediately
+### Type: Command
+
+Shell commands that execute locally. This is what we've used throughout this workshop.
+
+```json
+{
+  "type": "command",
+  "command": "bun .claude/hooks/PostToolUse.ts",
+  "timeout": 60
+}
+```
+
+- **Execution**: Runs locally as a bash/shell command
+- **Use case**: Deterministic rule enforcement (linting, tests, formatting)
+- **Speed**: Fast (local execution)
+- **Control**: Exit codes determine behavior (0 = success, 2 = block)
+
+### Type: Prompt
+
+LLM-based hooks that use AI to evaluate whether to allow actions.
+
+```json
+{
+  "type": "prompt",
+  "prompt": "Evaluate if this code change follows our security guidelines: $ARGUMENTS"
+}
+```
+
+- **Execution**: Sends input to Haiku (a fast LLM) for evaluation
+- **Use case**: Context-aware evaluation that's hard to express as rules
+- **Speed**: Slower (requires API call)
+- **Control**: Returns structured JSON with decisions like `"approve"` or `"block"`
+
+### When to Use Each
+
+| Scenario | Use |
+|----------|-----|
+| Run linter after edits | `command` |
+| Check if all tasks complete before stopping | `prompt` |
+| Format code on save | `command` |
+| Evaluate if code follows security guidelines | `prompt` |
+| Inject context into prompts | `command` |
+
+---
+
+## Summary: Shell vs TypeScript Hooks
+
+| Approach | Use When |
+|----------|----------|
+| `/hooks` + shell | Quick demos, simple echo/notifications |
+| TypeScript + SDK | Real automation, conditional logic, blocking |
+
+The TypeScript + SDK approach gives you:
+- **Type safety**: SDK types catch errors at write-time
+- **One-line parsing**: `Bun.stdin.json()` replaces complex pipes
+- **NPM ecosystem**: Use any package for advanced automation
 
 ---
 
