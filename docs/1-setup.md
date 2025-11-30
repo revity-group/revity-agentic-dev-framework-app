@@ -254,7 +254,7 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 }
 ```
 
-Go ahead and add your local settings to gitignore. as this is specific to you and not your team (This workshop repo has already been configured to ignore your local settings.json file)
+Go ahead and add your local settings to gitignore. as this is specific to you and not your team.
 
 Now try asking claude to read the .env file
 
@@ -262,7 +262,7 @@ Now try asking claude to read the .env file
 Read the .env file
 ```
 
-Claude should be denied to read the .env file.
+Claude should be denied to read the .env.local file.
 
 ---
 
