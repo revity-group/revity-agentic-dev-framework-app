@@ -6,7 +6,7 @@ model: claude-haiku-4-5-20251001
 
 # Create Pull Request Context
 
-Read @.claude/conventions/pr-commands.md file and use the commands to get the commit context.
+Read @.claude/conventions/commit-commands.md file and use the commands to get the commit context.
 
 <current_branch>
 !`git branch --show-current`
@@ -44,7 +44,7 @@ Read @.claude/conventions/pr-commands.md file and use the commands to get the co
 2. **Verify not on main** - if on main branch, stop and inform the user.
 3. **Check if PR already exists** - if a PR exists, show the URL and ask if user wants to update it with `gh pr edit`.
 
-If you need to commit. Follow the instructions in @.claude/commands/commit.md file.
+If you need to commit. Follow the instructions in @.claude/commands/commit-rules.md file.
 
 ### Step 1: Push the Branch
 
