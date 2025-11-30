@@ -29,13 +29,15 @@ Requirements:
 
 ---
 
-## While You Work, Notice
+## While Claude is Working, Notice
 
 ### Project Understanding
+
 - [ ] Does Claude know your project structure, or does it have to scan multiple files to understand the project?
   - Bear in mind that every time you start a new session, Claude will have to scan the entire codebase to understand the project.
 
 ### Code Organization
+
 - [ ] Claude will most probably add most components in the main page (`app/page.tsx`) instead of creating separate component files.
 - [ ] In this codebase we want to follow conventions and best practices as follows:
   - [ ] No raw HTML elements, only use shadcn components
@@ -43,6 +45,7 @@ Requirements:
   - [ ] Do not use raw spinners for component loading states, use modern Skeleton UI component
 
 ### Explicit Instructions
+
 - [ ] Do we have to explicitly mention to Claude that we want to follow the above conventions?
 
 ---
