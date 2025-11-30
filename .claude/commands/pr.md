@@ -1,6 +1,6 @@
 ---
 description: Create a new GitHub PR with a well-formatted description
-allowed-tools: Bash(git status), Bash(git branch), Bash(git log), Bash(git diff), Bash(git push), Bash(git rev-parse), Bash(gh pr create), Bash(gh pr view:*), Bash(gh pr edit), Bash(echo:*), SlashCommand:/commit
+allowed-tools: Bash(git status), Bash(git branch), Bash(git log), Bash(git diff), Bash(git push),Bash(git pull), Bash(git rev-parse), Bash(gh pr create), Bash(gh pr view:*), Bash(gh pr edit), Bash(echo:*)
 model: claude-haiku-4-5-20251001
 ---
 
@@ -38,11 +38,9 @@ model: claude-haiku-4-5-20251001
 
 ### Pre-checks
 
-1. **Check for uncommitted changes** - if there are uncommitted changes, stop and ask the user to commit first. DO NOT try committing yourself. Your job is to create the PR.
+1. **Check for uncommitted changes** - if there are uncommitted changes, stop and ask the user to commit first. DO NOT try committing yourself. Your job is to create the PR. If we need to pull, just pull and then stop.
 2. **Verify not on main** - if on main branch, stop and inform the user.
 3. **Check if PR already exists** - if a PR exists, show the URL and ask if user wants to update it with `gh pr edit`.
-
-If you need to commit. Follow the instructions in @.claude/conventions/commit-rules.md file.
 
 ### Step 1: Push the Branch
 
