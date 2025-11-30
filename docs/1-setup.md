@@ -222,13 +222,8 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 # settings.json
 {
     "permissions": {
-        "allow": [
-            "Bash(grep:*)",
-            "Bash(cat:*)",
-            "Bash(mkdir:*)"
-        ],
+        "allow": [],
         "ask": [],
-        "defaultMode": "acceptEdits",
         "deny": [
             "Read(./.env)",
             "Read(./.env.*)",
@@ -244,15 +239,22 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 # settings.local.json
 {
     "permissions": {
-        "allow": ["Read(//Users/<username>/.claude/**)", "Write(//Users/<username>/.claude/**)"],
+        "allow": [
+          "Read(//Users/<username>/.claude/**)", 
+          "Write(//Users/<username>/.claude/**)",
+          "Bash(grep:*)",
+          "Bash(cat:*)",
+          "Bash(mkdir:*)"
+        ],
         "ask": [],
         "deny": []
     },
+    "defaultMode": "acceptEdits",
     "alwaysThinkingEnabled": true
 }
 ```
 
-Go ahead and add your local settings to gitignore. as this is specific to you and not your team
+Go ahead and add your local settings to gitignore. as this is specific to you and not your team (This workshop repo has already been configured to ignore your local settings.json file)
 
 Now try asking claude to read the .env file
 
