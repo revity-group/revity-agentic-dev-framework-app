@@ -12,9 +12,7 @@ Give Claude persistent memory about your project and high level standards.
 
 ## What is CLAUDE.md?
 
-Markdown files Claude loads at startup. They give Claude memory about your project's conventions, architecture, and patterns
-
-
+Markdown files Claude loads at startup. They give Claude memory about your project's conventions, architecture, and patterns.
 
 Files are loaded hierarchically with enterprise taking highest precedence, followed by user `~/.claude/CLAUDE.md`, then project `./CLAUDE.md` or `./.claude/CLAUDE.md`.
 
@@ -188,10 +186,12 @@ Use the pattern: `"should [action] when [condition]"`
 
 - **Always include top file header comment**:
 
-/**
- * Unit tests for [component/hook name]
- * Following conventions from .claude/conventions/unit-test-rules.md
- */
+  ```typescript
+  /**
+   * Unit tests for [component/hook name]
+   * Following conventions from .claude/conventions/unit-test-rules.md
+   */
+  ```
 
 - **Always use `beforeEach`** for test cleanup and mock resets
 - **Group related tests** with nested `describe` blocks
@@ -211,7 +211,7 @@ Use the pattern: `"should [action] when [condition]"`
 - Test both loading and loaded states explicitly
 ```
 
-#### Step 2: Update CLAUDE.md to Reference the File
+### Step 2: Update CLAUDE.md to Reference the File
 
 Update the `### Testing` section in your `CLAUDE.md`:
 
@@ -233,7 +233,7 @@ Update the `### Testing` section in your `CLAUDE.md`:
 For detailed testing conventions and best practices, see @./.claude/conventions/unit-test-rules.md
 ```
 
-#### Step 3: Retry the Same Prompt
+### Step 3: Retry the Same Prompt
 
 Now that we've set up file referencing, let's use the **exact same prompt** from earlier to see how Claude's behavior improves:
 
@@ -284,7 +284,8 @@ Note: Files imported via @ syntax are loaded at launch, giving Claude comprehens
 Here is an example of how you can influence Claude's behavior to be customised to your personal preferences:
 
 - Add `@~/.claude/info.md` to your CLAUDE.md file and then create a new file called `info.md` in your personal .claude directory and add something personal to you. In my case I will tell claude about my cat and who are my favorite artists.
-- Then open a new claude instance and try asking claude about you. It's kinda cool!.
+- Then open a new claude instance and try asking claude about you. It's kinda cool!
+
 ---
 
 ## Catch Up
