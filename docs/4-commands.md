@@ -182,9 +182,11 @@ Let's break down the structure of a slash command:
 
 | Section | Purpose |
 |---------|---------|
-| **Frontmatter** | YAML metadata between `---` markers: description, allowed-tools, model |
+| **Front matter** | YAML metadata between `---` markers: description, allowed-tools, model |
 | **Context Injection** | Shell output injected with `!` syntax before Claude sees the prompt |
 | **Instructions** | The actual prompt Claude follows to complete the task |
+
+> **Why Haiku?** You don't need a powerful model to write a commit message. By setting `model: claude-haiku-4-5-20251001` in the front matter, routine tasks run significantly faster and cheaper.
 
 ---
 
@@ -300,6 +302,16 @@ gh pr create --base main --fill-first
 # Make sure you're on a feature branch with commits
 /pr
 ```
+
+---
+
+## Share Your Commands
+
+With `/commit` and `/pr`, you've got two key pieces of your git workflow automated. Imagine building out the rest: `/branch`, `/push`, `/fix-pipeline`, `/lint`, `/vitest`...
+
+Commands are just markdown files in `.claude/commands/` - commit them to your repo and your whole team gets the same workflows. Or share them across projects.
+
+> **Coming Soon:** We're building a marketplace for sharable Claude Code configurations at [revity-claude-code-marketplace](https://github.com/revity-group/revity-claude-code-marketplace) - commands, hooks, and CLAUDE.md templates you can drop into any project.
 
 ---
 
