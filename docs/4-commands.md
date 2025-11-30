@@ -6,7 +6,7 @@ nav_order: 6
 
 # Section 4: Slash Commands
 
-Turn repetitive prompts into reusable one-word commands.
+Turn repetitive prompts into reusable one-word commands. And give LLM pre injected context to help it perform the task.
 
 ---
 
@@ -159,9 +159,9 @@ For breaking changes, add \`\`!\`\` after type: `feat(api)!: remove deprecated e
 
 If changes are unrelated, split into logical commits. Otherwise, one commit is fine.
 
-Never mention AI / Claude in the commit message.
+NEVER EVER mention AI / Claude in the commit message. No need to announce code is co authored by AI.
 
-Prefer one line commit message if feasible. If not, use multiple lines to describe the changes. but keep it under 50 words.
+ALWAYS use one line commit message and be clear.
 
 ### Staging
 
@@ -173,6 +173,18 @@ Prefer one line commit message if feasible. If not, use multiple lines to descri
 git commit -m "type(scope): description"
 ```
 ````
+
+### Slash Command Anatomy
+
+Let's break down the structure of a slash command:
+
+![Slash Command Anatomy](./assets/images/slash-command-anatomy.png)
+
+| Section | Purpose |
+|---------|---------|
+| **Frontmatter** | YAML metadata between `---` markers: description, allowed-tools, model |
+| **Context Injection** | Shell output injected with `!` syntax before Claude sees the prompt |
+| **Instructions** | The actual prompt Claude follows to complete the task |
 
 ---
 
@@ -212,7 +224,88 @@ git commit -m "type(scope): description"
 
 ---
 
-## Built-in Commands Worth Knowing (there are more. Please refer Claude Code documentation [here](https://code.claude.com/docs/en/slash-commands#built-in-slash-commands))
+## Example 2: PR Command
+
+Here's another command that creates GitHub PRs with rich context injection and conditional logic.
+
+Create `.claude/commands/pr.md`:
+
+````markdown
+---
+description: Create a new GitHub PR with a well-formatted description
+allowed-tools: Bash(git status), Bash(git branch), Bash(git log), Bash(git diff), Bash(git push), Bash(git pull), Bash(git rev-parse), Bash(gh pr create), Bash(gh pr view:*), Bash(gh pr edit), Bash(echo:*)
+model: claude-haiku-4-5-20251001
+---
+
+# Create Pull Request Context
+
+<current_branch>
+!`git branch --show-current`
+</current_branch>
+
+<branch_status>
+!`git status --short`
+</branch_status>
+
+<commits_on_branch>
+!`git log main..HEAD --oneline`
+</commits_on_branch>
+
+<commit_details>
+!`git log main..HEAD --pretty=format:"### %s%n%n%b%n---"`
+</commit_details>
+
+<full_diff_stat>
+!`git diff main..HEAD --stat`
+</full_diff_stat>
+
+<files_changed>
+!`git diff main..HEAD --name-only`
+</files_changed>
+
+<existing_pr>
+!`gh pr view --json number,title,state,url --jq '"PR #\(.number): \(.title) [\(.state)]\nURL: \(.url)"' 2>/dev/null || echo "No PR exists for this branch"`
+</existing_pr>
+
+## Instructions
+
+### Pre-checks
+
+1. **Check for uncommitted changes** - if there are uncommitted changes, stop and ask the user to commit first.
+2. **Verify not on main** - if on main branch, stop and inform the user.
+3. **Check if PR already exists** - if a PR exists, show the URL and ask if user wants to update it.
+
+### Create the PR
+
+**Single commit branch** - use `--fill-first` to auto-fill from commit:
+```bash
+gh pr create --base main --fill-first
+```
+
+**Multi-commit branch** - craft a custom description using conventional format.
+````
+
+### What Makes This Command Powerful
+
+| Feature | How It's Used |
+|---------|---------------|
+| **Rich context** | Branch status, commits, diffs all pre-injected |
+| **Conditional logic** | Instructions handle edge cases (uncommitted changes, existing PR) |
+| **Tool restrictions** | `allowed-tools` limits to only git/gh commands needed |
+| **Cheaper model** | Uses `claude-haiku` for cost efficiency on routine tasks |
+
+### Test It
+
+```bash
+# Make sure you're on a feature branch with commits
+/pr
+```
+
+---
+
+## Built-in Commands Worth Knowing (there are more.
+
+Please refer [Claude Code documentation](https://code.claude.com/docs/en/slash-commands#built-in-slash-commands))
 
 | Command | What It Does |
 |---------|--------------|
