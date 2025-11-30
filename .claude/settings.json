@@ -1,8 +1,13 @@
 {
   "permissions": {
-    "allow": [],
+    "allow": [
+      "Read(./.env.example)"
+    ],
     "deny": [
-      "Read(./.env.*)"
+      "Read(./.env)",
+      "Read(./.env.local)",
+      "Read(./secrets/**)",
+      "Read(./build)"
     ],
     "ask": []
   }

@@ -38,9 +38,10 @@ flox activate
 When you run `flox activate`, the environment installs:
 
 1. **Node.js** - JavaScript runtime
-2. **Bun** - Fast package manager and runtime  
+2. **Bun** - Fast package manager and runtime
 3. **Claude Code** - AI-powered coding assistant
-4. **Project dependencies** - Runs `bun install` automatically via hook
+4. **GitHub CLI (gh)** - GitHub command-line tool
+5. **Project dependencies** - Runs `bun install` automatically via hook
 
 That's it! No manual installation of tools needed. Everything your team needs is defined in `.flox/env/manifest.toml` and installed automatically.
 
@@ -155,12 +156,12 @@ Both requests succeed! Check `data/reviews.json` and `data/watchlist.json` - inv
    Add proper validation with specific error messages:
    - Reviews: validate email format, rating range 1-10, minimum review length 10 chars
    - Watchlist: validate movieId is a positive number, movieTitle is non-empty string
-   - Both: return specific field-level error messages
+   - Both: return specific field-level error messages, make sure we show al fields that are not valid.
    ```
 
 5. **Review the changes:** Claude will add coordinated validation to both files with specific, helpful error messages
 
-6. **Test again:** Run the same fetch commands - now they return proper validation errors!
+6. **Test again:** MAke sure you delete the data folder from root, Run the same fetch commands - now they return proper validation errors!
 
 This demonstrates how surgical selection allows Claude to understand relationships between files and make intelligent, coordinated improvements.
 
@@ -221,13 +222,8 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 # settings.json
 {
     "permissions": {
-        "allow": [
-            "Bash(grep:*)",
-            "Bash(cat:*)",
-            "Bash(mkdir:*)"
-        ],
+        "allow": [],
         "ask": [],
-        "defaultMode": "acceptEdits",
         "deny": [
             "Read(./.env)",
             "Read(./.env.*)",
@@ -243,15 +239,22 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 # settings.local.json
 {
     "permissions": {
-        "allow": ["Read(//Users/<username>/.claude/**)", "Write(//Users/<username>/.claude/**)"],
+        "allow": [
+          "Read(//Users/<username>/.claude/**)", 
+          "Write(//Users/<username>/.claude/**)",
+          "Bash(grep:*)",
+          "Bash(cat:*)",
+          "Bash(mkdir:*)"
+        ],
         "ask": [],
         "deny": []
     },
+    "defaultMode": "acceptEdits",
     "alwaysThinkingEnabled": true
 }
 ```
 
-Go ahead and add your local settings to gitignore. as this is specific to you and not your team
+Go ahead and add your local settings to gitignore. as this is specific to you and not your team.
 
 Now try asking claude to read the .env file
 
@@ -259,7 +262,7 @@ Now try asking claude to read the .env file
 Read the .env file
 ```
 
-Claude should be denied to read the .env file.
+Claude should be denied to read the .env.local file.
 
 ---
 

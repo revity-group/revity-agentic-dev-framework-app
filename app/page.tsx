@@ -13,6 +13,7 @@ import { Loader2 } from 'lucide-react'
 export default function Home() {
   const [category, setCategory] = useState('popular')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
+  const [watchlistIds, setWatchlistIds] = useState<Set<number>>(new Set())
 
   const { movies, loading, loadingMore, error, hasMore, loadMore } =
     useMovies(category)
@@ -23,6 +24,18 @@ export default function Home() {
     isLoading: loadingMore,
     threshold: 300,
   })
+
+  const handleWatchlistChange = (movieId: number, inWatchlist: boolean) => {
+    setWatchlistIds((prev) => {
+      const updated = new Set(prev)
+      if (inWatchlist) {
+        updated.add(movieId)
+      } else {
+        updated.delete(movieId)
+      }
+      return updated
+    })
+  }
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">

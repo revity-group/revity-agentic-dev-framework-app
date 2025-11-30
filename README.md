@@ -1,43 +1,89 @@
 # Claude Code Agentic Workflow Workshop
 
-A hands-on workshop for mastering Claude Code's agentic capabilities.
+## Pre-Workshop Setup (Please Complete Before Tomorrow!)
 
-## Workshop Guide
+Hey everyone! We're excited to have you join the workshop. To make the most of our time together, **please complete this setup today** so we can dive straight into the fun stuff tomorrow.
 
-**Full workshop instructions:** [revity-group.github.io/revity-agentic-dev-framework-app](https://revity-group.github.io/revity-agentic-dev-framework-app/)
+### What You'll Need (Checklist)
 
----
+- [ ] **Git** installed and working
+- [ ] **Code editor** (VS Code or Cursor recommended)
+- [ ] **TMDB API Key** - [Get one here](https://www.themoviedb.org/settings/api) (free)
+- [ ] **Claude Code** installed (we'll share account details soon)
+- [ ] **GitHub account**
 
-## Quick Start
+### Setup Instructions
+
+**Choose your path based on your current setup:**
+
+#### Option 1: Using Flox (Recommended - Zero Config)
+
+**Best if:** You want everything installed automatically, or you're missing any of the tools above.
+
+**What Flox does:** Installs Node.js, Bun, Claude Code, GitHub CLI, and all dependencies automatically.
 
 ```bash
-# Clone the repo
+# 1. Install Flox if you don't have it: https://flox.dev/docs/install-flox/install/
+
+# 2. Clone the workshop repo
 git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
 cd revity-agentic-dev-framework-app
 
-# Activate Flox environment (installs everything automatically)
+# 3. Activate environment (installs everything)
 flox activate
 
-# Set up environment variables
-cp .env.example .env.local
-# Add your TMDB_API_KEY to .env.local
+# 4. Open Claude Code
+claude
 
-# The app is ready! Development server starts automatically, or run:
+# 5. Set up your TMDB API key
+cp .env.example .env.local
+# Open .env.local and add your TMDB_API_KEY
+
+# 6. Start the app
 bun dev
 ```
 
-Get your TMDB API key at [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
+**Windows users:** Install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) first, then follow these steps in your WSL2 terminal. Or skip to Option 2 for manual setup without WSL2.
 
-### What is Flox?
+---
 
-Flox provides a consistent development environment across all platforms. Running `flox activate` automatically installs and configures:
+#### Option 2: Manual Setup (I Have the Tools)
 
-- **Node.js** - JavaScript runtime
-- **Bun** - Fast package manager and runtime
-- **Claude Code** - AI-powered coding assistant
-- **Project dependencies** - Runs `bun install` automatically
+**Best if:** You already have Node.js, Bun, and Claude Code installed.
 
-No manual setup required! Learn more at [flox.dev](https://flox.dev)
+**Missing tools?** Install with: `brew install node bun` and `brew install --cask claude-code`
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
+cd revity-agentic-dev-framework-app
+
+# 2. Install dependencies
+bun install
+
+# 3. Set up your TMDB API key
+cp .env.example .env.local
+# Open .env.local and add your TMDB_API_KEY
+
+# 4. Start the app
+bun dev
+```
+
+---
+
+### Verify Your Setup
+
+Open [http://localhost:3000](http://localhost:3000) - you should see the Movie Watchlist app.
+
+**If something doesn't work:**
+- Make sure you added your TMDB_API_KEY to `.env.local`
+- Try `bun install` again
+- Check that port 3000 isn't already in use
+- Drop a message in `#tmp-agentic-dev-workshop1` on Slack - we're here to help!
+
+### Full Workshop Guide
+
+Complete setup instructions and troubleshooting: [revity-group.github.io/revity-agentic-dev-framework-app](https://revity-group.github.io/revity-agentic-dev-framework-app/)
 
 ---
 

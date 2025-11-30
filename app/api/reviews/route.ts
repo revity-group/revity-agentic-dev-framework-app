@@ -46,9 +46,50 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { movieId, movieTitle, userName, email, rating, review } = body
 
-    if (!movieId || !movieTitle || !userName || !email || !rating || !review) {
+    const errors: Record<string, string> = {}
+
+    if (!movieId) {
+      errors.movieId = 'Movie ID is required'
+    } else if (typeof movieId !== 'number' || movieId <= 0) {
+      errors.movieId = 'Movie ID must be a positive number'
+    }
+
+    if (!movieTitle) {
+      errors.movieTitle = 'Movie title is required'
+    } else if (typeof movieTitle !== 'string' || movieTitle.trim() === '') {
+      errors.movieTitle = 'Movie title must be a non-empty string'
+    }
+
+    if (!userName) {
+      errors.userName = 'User name is required'
+    } else if (typeof userName !== 'string' || userName.trim() === '') {
+      errors.userName = 'User name must be a non-empty string'
+    }
+
+    if (!email) {
+      errors.email = 'Email is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.email = 'Email must be a valid email address'
+    }
+
+    if (rating === undefined || rating === null) {
+      errors.rating = 'Rating is required'
+    } else {
+      const ratingNum = Number(rating)
+      if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 10) {
+        errors.rating = 'Rating must be a number between 1 and 10'
+      }
+    }
+
+    if (!review) {
+      errors.review = 'Review is required'
+    } else if (typeof review !== 'string' || review.trim().length < 10) {
+      errors.review = 'Review must be at least 10 characters long'
+    }
+
+    if (Object.keys(errors).length > 0) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Validation failed', errors },
         { status: 400 }
       )
     }

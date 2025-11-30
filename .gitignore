@@ -38,3 +38,6 @@ next-env.d.ts
 
 # data storage
 /data
+
+# AI personal
+.claude/personal-planning/

@@ -13,7 +13,7 @@ Turn repetitive prompts into reusable one-word commands.
 ## What Are Slash Commands?
 
 Slash commands are shortcuts for prompts you use often. Instead of typing the same instructions repeatedly, you save them once and invoke them with `/command-name`.
-ad
+
 **Think of them like:**
 - Shell aliases for your AI workflow
 - Saved prompts that your whole team can share
@@ -37,16 +37,6 @@ Let's feel the pain. Make a few small changes to a few diff files
 ```text
 commit my changes
 ```
-
-**Notice:** Does it follow your team's commit format? Conventional commits?
-
-### Attempt 2: Be more specific
-
-```text
-Write a commit message for my staged changes
-```
-
-**Notice:** Better, but does Claude know your conventions? `feat` vs `feature`?
 
 ### Attempt 3: The full prompt (every. single. time.)
 
