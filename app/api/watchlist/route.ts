@@ -46,9 +46,23 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { movieId, movieTitle, posterPath } = body
 
-    if (!movieId || !movieTitle) {
+    const errors: Record<string, string> = {}
+
+    if (movieId === undefined || movieId === null) {
+      errors.movieId = 'Movie ID is required'
+    } else if (typeof movieId !== 'number' || !Number.isInteger(movieId) || movieId <= 0) {
+      errors.movieId = 'Movie ID must be a positive integer'
+    }
+
+    if (!movieTitle) {
+      errors.movieTitle = 'Movie title is required'
+    } else if (typeof movieTitle !== 'string' || movieTitle.trim() === '') {
+      errors.movieTitle = 'Movie title must be a non-empty string'
+    }
+
+    if (Object.keys(errors).length > 0) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Validation failed', errors },
         { status: 400 }
       )
     }
