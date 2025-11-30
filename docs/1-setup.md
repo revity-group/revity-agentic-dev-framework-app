@@ -156,12 +156,12 @@ Both requests succeed! Check `data/reviews.json` and `data/watchlist.json` - inv
    Add proper validation with specific error messages:
    - Reviews: validate email format, rating range 1-10, minimum review length 10 chars
    - Watchlist: validate movieId is a positive number, movieTitle is non-empty string
-   - Both: return specific field-level error messages
+   - Both: return specific field-level error messages, make sure we show al fields that are not valid.
    ```
 
 5. **Review the changes:** Claude will add coordinated validation to both files with specific, helpful error messages
 
-6. **Test again:** Run the same fetch commands - now they return proper validation errors!
+6. **Test again:** MAke sure you delete the data folder from root, Run the same fetch commands - now they return proper validation errors!
 
 This demonstrates how surgical selection allows Claude to understand relationships between files and make intelligent, coordinated improvements.
 
