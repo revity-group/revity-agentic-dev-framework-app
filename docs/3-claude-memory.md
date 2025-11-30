@@ -157,11 +157,9 @@ As your conventions grow, CLAUDE.md can become large and hard to maintain. You c
 - **Maintainability**: Update specific conventions without editing the main file
 - **Organization**: Group related conventions (testing, API patterns, UI rules, etc.)
 
-### The Demonstration
-
 Let's expand our testing conventions and extract them to a separate file.
 
-#### Step 1: Create Detailed Testing Conventions
+### Step 1: Create Detailed Testing Conventions
 
 Create a new file at `.claude/conventions/unit-test-rules.md`:
 
@@ -208,20 +206,12 @@ Use the pattern: `"should [action] when [condition]"`
 
 #### Step 2: Update CLAUDE.md to Reference the File
 
-Update the `### Testing` section in your `CLAUDE.md` (around line 91-100):
+Update the `### Testing` section in your `CLAUDE.md`:
 
 **Before:**
 ```markdown
 ### Testing
-
-- **Framework**: Vitest
-- **Pattern**: Follow AAA pattern (Arrange, Act, Assert) for all unit tests
-- **Naming**: Test files must be named `*.test.ts` or `*.test.tsx`
-- **Location**: Place test files next to the code they test
-- **Best practices**:
-  - Use descriptive test names that explain what is being tested
-  - Mock external dependencies (API calls, external services)
-  - Test behavior, not implementation details
+# your testing section in CLAUDE.md
 ```
 
 **After:**
