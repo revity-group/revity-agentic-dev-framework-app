@@ -6,6 +6,8 @@ model: claude-haiku-4-5-20251001
 
 # Create Pull Request Context
 
+Read @.claude/conventions/pr-commands.md file and use the commands to get the commit context.
+
 <current_branch>
 !`git branch --show-current`
 </current_branch>
