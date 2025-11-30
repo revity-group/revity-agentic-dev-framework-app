@@ -315,9 +315,9 @@ Commands are just markdown files in `.claude/commands/` - commit them to your re
 
 ---
 
-## Built-in Commands Worth Knowing (there are more.
+## Built-in Commands Worth Knowing
 
-Please refer [Claude Code documentation](https://code.claude.com/docs/en/slash-commands#built-in-slash-commands))
+Please refer [Claude Code documentation](https://code.claude.com/docs/en/slash-commands#built-in-slash-commands) for all available built-in commands.
 
 | Command | What It Does |
 |---------|--------------|
