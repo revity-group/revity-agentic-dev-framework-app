@@ -76,12 +76,25 @@ Native integration with GitHub issues and pull requests, allowing specifications
 The workflow is iterative, not linear. You can move forward, backward, and repeat commands as needed:
 
 ```
-1. Functional Requirements → 2. Edge Cases & Clarification → 3. Technical Design → 4. Execution Plan → 5. Implement → 6. Validate
-           ↓                          ↓                            ↓                    ↓                ↓            ↓
-    /speckit.specify           /speckit.clarify             /speckit.plan        /speckit.tasks    /speckit.implement  /speckit.analyze
-         ↑                           ↑                            ↑                    ↑                              ↓
-         └───────────────────────────┴────────────────────────────┴────────────────────┴──────────────────────────────┘
-                                    (iterate and refine until satisfied)
+1. Functional Requirements
+   /speckit.specify
+        ↓
+2. Edge Cases & Clarification
+   /speckit.clarify
+        ↓
+3. Technical Design
+   /speckit.plan
+        ↓
+4. Execution Plan
+   /speckit.tasks
+        ↓
+5. Implement
+   /speckit.implement
+        ↓
+6. Validate
+   /speckit.analyze
+
+(You can iterate and go back to any step as needed)
 ```
 
 **Understanding Each Command:**
