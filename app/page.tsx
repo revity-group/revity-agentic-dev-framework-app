@@ -101,6 +101,8 @@ export default function Home() {
                   key={movie.id}
                   movie={movie}
                   onReview={() => setSelectedMovie(movie)}
+                  isInWatchlist={watchlistIds.has(movie.id)}
+                  onWatchlistChange={handleWatchlistChange}
                 />
               ))}
             </div>
