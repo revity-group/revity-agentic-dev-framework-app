@@ -186,6 +186,13 @@ Use the pattern: `"should [action] when [condition]"`
 
 ## Test Structure
 
+- **Always include top file header comment**:
+
+/**
+ * Unit tests for [component/hook name]
+ * Following conventions from .claude/conventions/unit-test-rules.md
+ */
+
 - **Always use `beforeEach`** for test cleanup and mock resets
 - **Group related tests** with nested `describe` blocks
 - **One focus per test**: Each test should verify one specific behavior
