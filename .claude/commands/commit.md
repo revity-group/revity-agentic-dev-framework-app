@@ -42,9 +42,9 @@ For breaking changes, add \`\`!\`\` after type: `feat(api)!: remove deprecated e
 
 If changes are unrelated, split into logical commits. Otherwise, one commit is fine.
 
-Never mention AI / Claude in the commit message.
+NEVER EVER mention AI / Claude in the commit message. No need to announce code is co authored by AI.
 
-Prefer one line commit message if feasible. If not, use multiple lines to describe the changes. but keep it under 50 words.
+ALWAYS use one line commit message and be clear.
 
 ### Staging
 
