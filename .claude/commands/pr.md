@@ -38,7 +38,7 @@ model: claude-haiku-4-5-20251001
 
 ### Pre-checks
 
-1. **Check for uncommitted changes** - if there are uncommitted changes, stop and ask the user to commit first. DO NOT try committing yourself. Your job is to create the PR. If we need to pull, just pull and then stop.
+1. **Check for uncommitted changes** - if there are uncommitted changes, stop and ask the user to commit first. DO NOT try committing yourself. Your job is to create the PR. If we need to pull, just pull and then stop. DO NOT ASK FOLLOW UP QUESTIONS WHEN THERE ARE UNCOMMITTED CHANGES.
 2. **Verify not on main** - if on main branch, stop and inform the user.
 3. **Check if PR already exists** - if a PR exists, show the URL and ask if user wants to update it with `gh pr edit`.
 
