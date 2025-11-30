@@ -10,5 +10,29 @@
       "Read(./build)"
     ],
     "ask": []
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run .claude/hooks/UserPromptSubmit.ts"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run .claude/hooks/PostToolUse.ts"
+          }
+        ]
+      }
+    ]
   }
 }
