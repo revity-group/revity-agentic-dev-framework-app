@@ -305,6 +305,16 @@ gh pr create --base main --fill-first
 
 ---
 
+## Share Your Commands
+
+With `/commit` and `/pr`, you've got two key pieces of your git workflow automated. Imagine building out the rest: `/branch`, `/push`, `/fix-pipeline`, `/lint`, `/vitest`...
+
+Commands are just markdown files in `.claude/commands/` - commit them to your repo and your whole team gets the same workflows. Or share them across projects.
+
+> **Coming Soon:** We're building a marketplace for sharable Claude Code configurations at [revity-claude-code-marketplace](https://github.com/revity-group/revity-claude-code-marketplace) - commands, hooks, and CLAUDE.md templates you can drop into any project.
+
+---
+
 ## Built-in Commands Worth Knowing (there are more.
 
 Please refer [Claude Code documentation](https://code.claude.com/docs/en/slash-commands#built-in-slash-commands))
