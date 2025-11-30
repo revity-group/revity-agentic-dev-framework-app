@@ -431,6 +431,18 @@ if (hasTests) {
 
 ---
 
+## More Hook Ideas
+
+| Idea | Hook |
+|------|------|
+| Auto-format with Prettier | `PostToolUse` |
+| Block dangerous bash commands | `PreToolUse` |
+| Load project context at startup | `SessionStart` |
+| Verify task completion before stopping | `Stop` using `prompt` type|
+| Auto-approve safe file reads | `PreToolUse` |
+
+---
+
 ## Catch Up
 
 ```bash
