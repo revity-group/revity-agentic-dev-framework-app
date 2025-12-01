@@ -222,13 +222,10 @@ An example of sharable settings.json as a starting point (shared with team, git 
 # settings.json
 {
   "permissions": {
-    "allow": [],
+    "allow": ["Read(./.env.example)"],
     "ask": [],
     "deny": [
-        "Read(./.env)",
-        "Read(./.env.*)",
-        "Read(./secrets/**)",
-        "Read(./build)"
+        "Read(./.env.local)"
     ]
   }
 }
