@@ -165,7 +165,7 @@ Let's expand our testing conventions and extract them to a separate file.
 
 Create a new file at `.claude/conventions/unit-test-rules.md`:
 
-```markdown
+````markdown
 # Unit Test Rules
 
 ## Test Naming Convention
@@ -213,7 +213,7 @@ Use the pattern: `"should [action] when [condition]"`
 - Always use `async/await` with `waitFor` for async operations
 - Never use arbitrary timeouts - let `waitFor` handle timing
 - Test both loading and loaded states explicitly
-```
+````
 
 ### Step 2: Update CLAUDE.md to Reference the File
 
