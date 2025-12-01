@@ -1,34 +1,27 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Movie, WatchlistItem } from '@/types/movie'
+import { useState } from 'react'
+import { Movie } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useMovies } from '@/hooks/useMovies'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('popular')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [watchlistIds, setWatchlistIds] = useState<Set<number>>(new Set())
 
-  useEffect(() => {
-    fetchMovies()
-  }, [category])
+  const { movies, loading, loadingMore, error, hasMore, loadMore } =
+    useMovies(category)
 
-  const fetchMovies = async () => {
-    setLoading(true)
-    try {
-      const response = await fetch(`/api/movies?category=${category}`)
-      const data = await response.json()
-      setMovies(data.results || [])
-    } catch (error) {
-      console.error('Error fetching movies:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const sentinelRef = useInfiniteScroll({
+    onLoadMore: loadMore,
+    hasMore,
+    isLoading: loadingMore,
+  })
 
   const handleWatchlistChange = (movieId: number, inWatchlist: boolean) => {
     setWatchlistIds((prev) => {
@@ -81,17 +74,58 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-              isInWatchlist={watchlistIds.has(movie.id)}
-              onWatchlistChange={handleWatchlistChange}
-              onReview={() => setSelectedMovie(movie)}
-            />
-          ))}
-        </div>
+        {error && (
+          <div className="rounded-lg bg-red-100 p-4 text-center text-red-700 dark:bg-red-900/20 dark:text-red-400">
+            {error}
+          </div>
+        )}
+
+        {loading ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div key={i} className="space-y-3">
+                <Skeleton className="aspect-[2/3] w-full rounded-lg" />
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/4" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  isInWatchlist={watchlistIds.has(movie.id)}
+                  onWatchlistChange={handleWatchlistChange}
+                  onReview={() => setSelectedMovie(movie)}
+                />
+              ))}
+            </div>
+
+            {/* Infinite scroll sentinel */}
+            <div ref={sentinelRef} className="h-4" />
+
+            {loadingMore && (
+              <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="space-y-3">
+                    <Skeleton className="aspect-[2/3] w-full rounded-lg" />
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-1/4" />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {!hasMore && movies.length > 0 && (
+              <p className="py-8 text-center text-gray-500 dark:text-gray-400">
+                You&apos;ve reached the end of the list
+              </p>
+            )}
+          </>
+        )}
 
         {selectedMovie && (
           <ReviewForm
