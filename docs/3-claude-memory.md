@@ -14,7 +14,11 @@ Give Claude persistent memory about your project and high level standards.
 
 Markdown files Claude loads at startup. They give Claude memory about your project's conventions, architecture, and patterns.
 
-Files are loaded hierarchically with enterprise taking highest precedence, followed by user `~/.claude/CLAUDE.md`, then project `./CLAUDE.md` or `./.claude/CLAUDE.md`.
+For CLAUDE.md files (memory), the hierarchy is:
+
+1. Enterprise (/Library/Application Support/ClaudeCode/CLAUDE.md)
+2. User (~/.claude/CLAUDE.md)
+3. Project (./CLAUDE.md or ./.claude/CLAUDE.md)
 
 **How it works:** When working in a directory, Claude reads CLAUDE.md files from that directory up to the project root. Nested CLAUDE.md files in other directories are only loaded when Claude reads files from those specific areas, keeping context efficient.
 
