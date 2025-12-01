@@ -41,3 +41,6 @@ next-env.d.ts
 
 # AI personal
 .claude/personal-planning/
+
+playwright-report/
+test-results/
