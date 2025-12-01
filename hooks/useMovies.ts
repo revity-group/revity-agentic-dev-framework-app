@@ -42,7 +42,13 @@ export function useMovies(category: string): UseMoviesResult {
         const data = await response.json()
 
         if (append) {
-          setMovies((prev) => [...prev, ...(data.results || [])])
+          setMovies((prev) => {
+            const existingIds = new Set(prev.map((m) => m.id))
+            const newMovies = (data.results || []).filter(
+              (m: Movie) => !existingIds.has(m.id)
+            )
+            return [...prev, ...newMovies]
+          })
         } else {
           setMovies(data.results || [])
         }
