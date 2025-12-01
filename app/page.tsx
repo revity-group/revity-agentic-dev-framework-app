@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useMovies } from '@/hooks/useMovies'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
-import { Loader2 } from 'lucide-react'
 
 export default function Home() {
   const [category, setCategory] = useState('popular')
@@ -109,11 +108,14 @@ export default function Home() {
 
             {/* Loading more indicator */}
             {loadingMore && (
-              <div className="mt-8 flex justify-center">
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                  <span>Loading more movies...</span>
-                </div>
+              <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="space-y-3">
+                    <Skeleton className="aspect-[2/3] w-full rounded-lg" />
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                ))}
               </div>
             )}
 
