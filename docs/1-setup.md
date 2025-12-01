@@ -156,7 +156,7 @@ Both requests succeed! Check `data/reviews.json` and `data/watchlist.json` - inv
    Add proper validation with specific error messages:
    - Reviews: validate email format, rating range 1-10, minimum review length 10 chars
    - Watchlist: validate movieId is a positive number, movieTitle is non-empty string
-   - Both: return specific field-level error messages, make sure we show al fields that are not valid.
+   - Both: return specific field-level error messages, make sure we show all fields that are not valid.
    ```
 
 5. **Review the changes:** Claude will add coordinated validation to both files with specific, helpful error messages
@@ -215,22 +215,19 @@ This demonstrates how surgical selection allows Claude to understand relationshi
   - Choose `Project Settings`
   - Then you will see a file called `.claude/settings.json`
 
-A recommendation of sharable settings.json (shared with team) as well as settings.local.json (only project local) files is as follows:
+An example of sharable settings.json as a starting point (shared with team, git tracked) as well as settings.local.json (personal, git ignored) files is as follows:
 
 ```json
 
 # settings.json
 {
-    "permissions": {
-        "allow": [],
-        "ask": [],
-        "deny": [
-            "Read(./.env)",
-            "Read(./.env.*)",
-            "Read(./secrets/**)",
-            "Read(./build)",
-        ]
-    }
+  "permissions": {
+    "allow": ["Read(./.env.example)"],
+    "ask": [],
+    "deny": [
+        "Read(./.env.local)"
+    ]
+  }
 }
 ```
 
@@ -238,19 +235,19 @@ A recommendation of sharable settings.json (shared with team) as well as setting
 
 # settings.local.json
 {
-    "permissions": {
-        "allow": [
-          "Read(//Users/<username>/.claude/**)", 
-          "Write(//Users/<username>/.claude/**)",
-          "Bash(grep:*)",
-          "Bash(cat:*)",
-          "Bash(mkdir:*)"
-        ],
-        "ask": [],
-        "deny": []
-    },
-    "defaultMode": "acceptEdits",
-    "alwaysThinkingEnabled": true
+  "permissions": {
+    "allow": [
+      "Read((/Users/alireza/.claude/**))",
+      "Write((/Users/alireza/.claude/**))",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "acceptEdits"
+  },
+  "alwaysThinkingEnabled": true
 }
 ```
 
@@ -267,8 +264,6 @@ Claude should be denied to read the .env.local file.
 ---
 
 ## Catch Up
-
-If you fell behind or want to see the completed setup:
 
 ```bash
 git checkout workshop/section-1-setup
