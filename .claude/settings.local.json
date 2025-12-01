@@ -1,9 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//Users/alireza/.claude/**)",
-      "Write(//Users/alireza/.claude/**)",
-
+      "Read(//Users/<username>/.claude/**)",
+      "Write(//Users/<username>/.claude/**)",
       "Bash(grep:*)",
       "Bash(cat:*)",
       "Bash(mkdir:*)"
@@ -12,14 +11,5 @@
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "alwaysThinkingEnabled": true,
-  "enabledMcpjsonServers": [
-    "awslabs.cdk-mcp-server",
-    "context7",
-    "github",
-    "atlassian",
-    "playwright",
-    "Figma",
-    "Notion"
-  ]
+  "alwaysThinkingEnabled": true
 }
