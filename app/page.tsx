@@ -17,21 +17,6 @@ export default function Home() {
     fetchMovies()
   }, [category])
 
-  // useEffect(() => {
-  //   fetchWatchlist()
-  // }, [])
-
-  const fetchWatchlist = async () => {
-    try {
-      const response = await fetch('/api/watchlist')
-      const data: WatchlistItem[] = await response.json()
-      const ids = new Set(data.map((item) => Number(item.movieId)))
-      setWatchlistIds(ids)
-    } catch (error) {
-      console.error('Error fetching watchlist:', error)
-    }
-  }
-
   const fetchMovies = async () => {
     setLoading(true)
     try {
