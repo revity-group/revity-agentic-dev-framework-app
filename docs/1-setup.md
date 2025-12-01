@@ -156,7 +156,7 @@ Both requests succeed! Check `data/reviews.json` and `data/watchlist.json` - inv
    Add proper validation with specific error messages:
    - Reviews: validate email format, rating range 1-10, minimum review length 10 chars
    - Watchlist: validate movieId is a positive number, movieTitle is non-empty string
-   - Both: return specific field-level error messages, make sure we show al fields that are not valid.
+   - Both: return specific field-level error messages, make sure we show all fields that are not valid.
    ```
 
 5. **Review the changes:** Claude will add coordinated validation to both files with specific, helpful error messages
@@ -215,7 +215,7 @@ This demonstrates how surgical selection allows Claude to understand relationshi
   - Choose `Project Settings`
   - Then you will see a file called `.claude/settings.json`
 
-A recommendation of sharable settings.json (shared with team) as well as settings.local.json (only project local) files is as follows:
+An example of sharable settings.json as a starting point (shared with team, git tracked) as well as settings.local.json (personal, git ignored) files is as follows:
 
 ```json
 
@@ -247,9 +247,9 @@ A recommendation of sharable settings.json (shared with team) as well as setting
           "Bash(mkdir:*)"
         ],
         "ask": [],
-        "deny": []
+        "deny": [],
+        "defaultMode": "acceptEdits",
     },
-    "defaultMode": "acceptEdits",
     "alwaysThinkingEnabled": true
 }
 ```
