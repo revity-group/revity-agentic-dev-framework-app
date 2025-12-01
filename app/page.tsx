@@ -17,13 +17,6 @@ export default function Home() {
   const { movies, loading, loadingMore, error, hasMore, loadMore } =
     useMovies(category)
 
-  const sentinelRef = useInfiniteScroll({
-    onLoadMore: loadMore,
-    hasMore,
-    isLoading: loadingMore,
-    threshold: 300,
-  })
-
   const handleWatchlistChange = (movieId: number, inWatchlist: boolean) => {
     setWatchlistIds((prev) => {
       const updated = new Set(prev)
