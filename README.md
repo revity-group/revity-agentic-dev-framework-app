@@ -51,7 +51,10 @@ bun dev
 
 **Best if:** You already have Node.js, Bun, and Claude Code installed.
 
-**Missing tools?** Install with: `brew install node bun` and `brew install --cask claude-code`
+**Missing tools?** Install with:
+- Node.js: `brew install node`
+- Bun: `brew tap oven-sh/bun && brew install bun`
+- Claude Code: `brew install --cask claude-code`
 
 ```bash
 # 1. Clone the repo
