@@ -17,9 +17,9 @@ export default function Home() {
     fetchMovies()
   }, [category])
 
-  useEffect(() => {
-    fetchWatchlist()
-  }, [])
+  // useEffect(() => {
+  //   fetchWatchlist()
+  // }, [])
 
   const fetchWatchlist = async () => {
     try {

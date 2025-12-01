@@ -44,12 +44,12 @@ What happens? Claude reads the code:
 
 Observe what it does and see if it is able to catch a bug we have introduced in the code.
 
-**There's a bug.** Add a movie to your watchlist, refresh the page—the heart icon resets. The data is saved, but the UI doesn't know about it on reload.
+**There's a bug.** Add a movie to your watchlist, refresh the page—the watchlist icon resets. The data is saved, but the UI doesn't know about it on reload.
 
 ```typescript
-// The bug hiding in plain sight
-const [watchlistIds, setWatchlistIds] = useState<Set<number>>(new Set())
-// ^ Initializes empty. Never fetches existing watchlist from API.
+  // useEffect(() => {
+  //   fetchWatchlist()
+  // }, [])
 ```
 
 ### Why Claude Missed It
