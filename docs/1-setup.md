@@ -221,16 +221,16 @@ An example of sharable settings.json as a starting point (shared with team, git 
 
 # settings.json
 {
-    "permissions": {
-        "allow": [],
-        "ask": [],
-        "deny": [
-            "Read(./.env)",
-            "Read(./.env.*)",
-            "Read(./secrets/**)",
-            "Read(./build)",
-        ]
-    }
+  "permissions": {
+    "allow": [],
+    "ask": [],
+    "deny": [
+        "Read(./.env)",
+        "Read(./.env.*)",
+        "Read(./secrets/**)",
+        "Read(./build)"
+    ]
+  }
 }
 ```
 
@@ -238,19 +238,19 @@ An example of sharable settings.json as a starting point (shared with team, git 
 
 # settings.local.json
 {
-    "permissions": {
-        "allow": [
-          "Read(//Users/<username>/.claude/**)", 
-          "Write(//Users/<username>/.claude/**)",
-          "Bash(grep:*)",
-          "Bash(cat:*)",
-          "Bash(mkdir:*)"
-        ],
-        "ask": [],
-        "deny": [],
-        "defaultMode": "acceptEdits",
-    },
-    "alwaysThinkingEnabled": true
+  "permissions": {
+    "allow": [
+      "Read((/Users/alireza/.claude/**))",
+      "Write((/Users/alireza/.claude/**))",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "acceptEdits"
+  },
+  "alwaysThinkingEnabled": true
 }
 ```
 
@@ -267,8 +267,6 @@ Claude should be denied to read the .env.local file.
 ---
 
 ## Catch Up
-
-If you fell behind or want to see the completed setup:
 
 ```bash
 git checkout workshop/section-1-setup
