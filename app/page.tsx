@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Movie } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
@@ -22,6 +22,25 @@ export default function Home() {
     hasMore,
     isLoading: loadingMore,
   })
+
+  // Fetch watchlist on mount to restore persisted state
+  useEffect(() => {
+    const fetchWatchlist = async () => {
+      try {
+        const response = await fetch('/api/watchlist')
+        if (response.ok) {
+          const watchlist = await response.json()
+          const ids = new Set<number>(
+            watchlist.map((item: { movieId: number }) => item.movieId)
+          )
+          setWatchlistIds(ids)
+        }
+      } catch (error) {
+        console.error('Failed to fetch watchlist:', error)
+      }
+    }
+    fetchWatchlist()
+  }, [])
 
   const handleWatchlistChange = (movieId: number, inWatchlist: boolean) => {
     setWatchlistIds((prev) => {

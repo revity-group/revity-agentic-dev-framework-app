@@ -42,3 +42,6 @@ next-env.d.ts
 # AI personal
 .claude/personal-planning/
 .claude/hooks/node_modules/
+
+playwright-report/
+test-results/

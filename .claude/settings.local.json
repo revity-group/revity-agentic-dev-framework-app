@@ -15,5 +15,9 @@
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "alwaysThinkingEnabled": true
+  "enabledMcpjsonServers": [
+    "playwright"
+  ],
+  "alwaysThinkingEnabled": true,
+  "enableAllProjectMcpServers": true
 }
