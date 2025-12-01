@@ -5,20 +5,15 @@
       "Write(//Users/alireza/.claude/**)",
       "Bash(grep:*)",
       "Bash(cat:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(curl:*)",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_wait_for"
     ],
     "deny": [],
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "alwaysThinkingEnabled": true,
-  "enabledMcpjsonServers": [
-    "awslabs.cdk-mcp-server",
-    "context7",
-    "github",
-    "atlassian",
-    "playwright",
-    "Figma",
-    "Notion"
-  ]
+  "alwaysThinkingEnabled": true
 }
