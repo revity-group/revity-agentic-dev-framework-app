@@ -270,7 +270,18 @@ Run `/speckit.analyze` regularly, especially after updating any artifact. If iss
 
 ## Live Demonstration: Adding a Feature to Movie Watchlist
 
-In this session, Pavel will demonstrate the complete spec-kit workflow by adding a new feature to the Movie Watchlist application. The feature is defined in [GitHub Issue #4](https://github.com/poborin/revity-agentic-dev-framework-app/issues/4).
+In this session, I will demonstrate the complete spec-kit workflow by adding a new feature to the Movie Watchlist application. The feature is defined in [GitHub Issue #4](https://github.com/revity-group/revity-agentic-dev-framework-app/issues/4).
+
+### Interactive Participation
+
+Before we begin the demonstration, I'd like to gather some feedback from you about your experience with specification-driven development approaches.
+
+**Please participate in our quick poll by scanning the QR code below:**
+
+![Poll QR Code](assets/images/poll.png)
+
+Your input will help tailor the demonstration to address the most relevant challenges and questions about implementing SDD in real-world projects.
+
 
 ### Demo Outline
 
