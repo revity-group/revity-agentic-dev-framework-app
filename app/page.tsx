@@ -3,19 +3,25 @@
 import { useEffect, useState } from 'react'
 import { Movie, WatchlistItem } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
+import MovieCardSkeleton from '@/components/MovieCardSkeleton'
 import ReviewForm from '@/components/ReviewForm'
 import { Button } from '@/components/ui/button'
+import { useMovies } from '@/hooks/useMovies'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('popular')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [watchlistIds, setWatchlistIds] = useState<Set<number>>(new Set())
 
-  useEffect(() => {
-    fetchMovies()
-  }, [category])
+  const { movies, loading, loadingMore, error, hasMore, loadMore } =
+    useMovies(category)
+
+  const sentinelRef = useInfiniteScroll({
+    onLoadMore: loadMore,
+    hasMore,
+    loading: loading || loadingMore,
+  })
 
   useEffect(() => {
     fetchWatchlist()
@@ -32,19 +38,6 @@ export default function Home() {
     }
   }
 
-  const fetchMovies = async () => {
-    setLoading(true)
-    try {
-      const response = await fetch(`/api/movies?category=${category}`)
-      const data = await response.json()
-      setMovies(data.results || [])
-    } catch (error) {
-      console.error('Error fetching movies:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   const handleWatchlistChange = (movieId: number, inWatchlist: boolean) => {
     setWatchlistIds((prev) => {
       const updated = new Set(prev)
@@ -55,6 +48,12 @@ export default function Home() {
       }
       return updated
     })
+  }
+
+  const renderSkeletons = (count: number) => {
+    return Array.from({ length: count }).map((_, index) => (
+      <MovieCardSkeleton key={`skeleton-${index}`} />
+    ))
   }
 
   return (
@@ -96,17 +95,48 @@ export default function Home() {
           </div>
         </header>
 
+        {error && (
+          <div className="mb-8 rounded-lg bg-red-50 p-4 text-center text-red-600 dark:bg-red-900/20 dark:text-red-400">
+            <p>{error}</p>
+            <Button
+              variant="outline"
+              className="mt-2"
+              onClick={() => window.location.reload()}
+            >
+              Try Again
+            </Button>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-              isInWatchlist={watchlistIds.has(movie.id)}
-              onWatchlistChange={handleWatchlistChange}
-              onReview={() => setSelectedMovie(movie)}
-            />
-          ))}
+          {loading
+            ? renderSkeletons(10)
+            : movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  isInWatchlist={watchlistIds.has(movie.id)}
+                  onWatchlistChange={handleWatchlistChange}
+                  onReview={() => setSelectedMovie(movie)}
+                />
+              ))}
+          {loadingMore && renderSkeletons(5)}
         </div>
+
+        {/* Infinite scroll sentinel */}
+        <div ref={sentinelRef} className="h-4" />
+
+        {!loading && !hasMore && movies.length > 0 && (
+          <p className="mt-8 text-center text-gray-500 dark:text-gray-400">
+            You&apos;ve reached the end of the list
+          </p>
+        )}
+
+        {!loading && !error && movies.length === 0 && (
+          <p className="mt-8 text-center text-gray-500 dark:text-gray-400">
+            No movies found
+          </p>
+        )}
 
         {selectedMovie && (
           <ReviewForm
