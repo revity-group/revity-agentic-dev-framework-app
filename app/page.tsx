@@ -1,21 +1,34 @@
 'use client'
 
-import { useState } from 'react'
-import { Movie } from '@/types/movie'
+import { useEffect, useState } from 'react'
+import { Movie, WatchlistItem } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
 import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
-import { useMovies } from '@/hooks/useMovies'
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 
 export default function Home() {
+  const [movies, setMovies] = useState<Movie[]>([])
+  const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('popular')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [watchlistIds, setWatchlistIds] = useState<Set<number>>(new Set())
 
-  const { movies, loading, loadingMore, error, hasMore, loadMore } =
-    useMovies(category)
+  useEffect(() => {
+    fetchMovies()
+  }, [category])
+
+  const fetchMovies = async () => {
+    setLoading(true)
+    try {
+      const response = await fetch(`/api/movies?category=${category}`)
+      const data = await response.json()
+      setMovies(data.results || [])
+    } catch (error) {
+      console.error('Error fetching movies:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleWatchlistChange = (movieId: number, inWatchlist: boolean) => {
     setWatchlistIds((prev) => {
@@ -68,61 +81,17 @@ export default function Home() {
           </div>
         </header>
 
-        {error && (
-          <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-center text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
-            <p className="font-medium">Error loading movies</p>
-            <p className="text-sm">{error}</p>
-          </div>
-        )}
-
-        {loading ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="space-y-3">
-                <Skeleton className="aspect-[2/3] w-full rounded-lg" />
-                <Skeleton className="h-4 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {movies.map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  movie={movie}
-                  onReview={() => setSelectedMovie(movie)}
-                />
-              ))}
-            </div>
-
-            {/* Loading more indicator */}
-            {loadingMore && (
-              <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="space-y-3">
-                    <Skeleton className="aspect-[2/3] w-full rounded-lg" />
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-4 w-1/2" />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* No more movies message */}
-            {!hasMore && movies.length > 0 && (
-              <div className="mt-8 text-center text-gray-600 dark:text-gray-400">
-                <p className="text-sm">
-                  You've reached the end of the list. No more movies to load.
-                </p>
-              </div>
-            )}
-
-            {/* Infinite scroll sentinel */}
-            <div ref={sentinelRef} className="h-10" />
-          </>
-        )}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {movies.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              isInWatchlist={watchlistIds.has(movie.id)}
+              onWatchlistChange={handleWatchlistChange}
+              onReview={() => setSelectedMovie(movie)}
+            />
+          ))}
+        </div>
 
         {selectedMovie && (
           <ReviewForm
