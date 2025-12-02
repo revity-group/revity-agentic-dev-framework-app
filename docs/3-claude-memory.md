@@ -122,9 +122,7 @@ With CLAUDE.md memory, Claude should:
    describe('useMovies', () => {
      it('should fetch movies on mount', () => {
        // Arrange: Set up mocks and test data
-
        // Act: Execute the hook
-
        // Assert: Verify expected behavior
      })
    })
@@ -173,10 +171,12 @@ Create a new file at `.claude/conventions/unit-test-rules.md`:
 Use the pattern: `"should [action] when [condition]"`
 
 **Good:**
+
 - `"should fetch movies successfully when API returns valid data"`
 - `"should handle error when API request fails"`
 
 **Avoid:**
+
 - `"test fetch"` (not descriptive)
 - `"it works"` (unclear what is being tested)
 
@@ -220,12 +220,15 @@ Use the pattern: `"should [action] when [condition]"`
 Update the `### Testing` section in your `CLAUDE.md`:
 
 **Before:**
+
 ```markdown
 ### Testing
+
 # your testing section in CLAUDE.md
 ```
 
 **After:**
+
 ```markdown
 ### Testing
 

@@ -81,6 +81,7 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) - you should see the Movie Watchlist app.
 
 **If something doesn't work:**
+
 - Make sure you added your TMDB_API_KEY to `.env.local`
 - Try `bun install` again
 - Check that port 3000 isn't already in use
@@ -112,13 +113,13 @@ This is a **Movie Watchlist App** used as a hands-on project for the workshop. F
 
 ## Development Commands
 
-| Command | Description |
-|---------|-------------|
-| `bun dev` | Start development server |
-| `bun lint` | Run ESLint |
-| `bun lint:fix` | Auto-fix ESLint issues |
-| `bun format` | Format code with Prettier |
-| `bun build` | Build for production |
+| Command        | Description               |
+| -------------- | ------------------------- |
+| `bun dev`      | Start development server  |
+| `bun lint`     | Run ESLint                |
+| `bun lint:fix` | Auto-fix ESLint issues    |
+| `bun format`   | Format code with Prettier |
+| `bun build`    | Build for production      |
 
 ---
 

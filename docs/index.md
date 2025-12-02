@@ -18,19 +18,19 @@ In this workshop, you'll transform Claude Code from a simple AI assistant into a
 
 ## Sections
 
-| # | Section | What You'll Learn |
-|---|---------|-------------------|
-| 0 | [Introduction](./0-intro.md) | LLMs, Agents, MCP, and AI in SDLC |
-| 1 | [Setup & Shortcuts](./1-setup.md) | Environment setup, IDE integration & surgical selection |
-| 2 | [Baseline Task](./2-baseline.md) | Observe Claude's behavior without guidance |
-| 3 | [CLAUDE.md](./3-claude-memory.md) | Project memory and conventions |
-| 4 | [Slash Commands](./4-commands.md) | Reusable workflows and team standards |
-| 5 | [Hooks](./5-hooks.md) | Automate quality checks and validation |
-| 6 | [MCP Servers](./6-mcp.md) | Connect to external tools and services |
-| 7 | [SDD](./7-sdd.md) | Spec-Driven Development workflow |
-| 8 | Skills | Custom skills and capabilities *(Coming soon)* |
-| 9 | Subagents & parallel agents | Advanced agent orchestration *(Coming soon)* |
-| 10 | Plugins | Package & share configs across projects *(Coming soon)* |
+| #   | Section                           | What You'll Learn                                       |
+| --- | --------------------------------- | ------------------------------------------------------- |
+| 0   | [Introduction](./0-intro.md)      | LLMs, Agents, MCP, and AI in SDLC                       |
+| 1   | [Setup & Shortcuts](./1-setup.md) | Environment setup, IDE integration & surgical selection |
+| 2   | [Baseline Task](./2-baseline.md)  | Observe Claude's behavior without guidance              |
+| 3   | [CLAUDE.md](./3-claude-memory.md) | Project memory and conventions                          |
+| 4   | [Slash Commands](./4-commands.md) | Reusable workflows and team standards                   |
+| 5   | [Hooks](./5-hooks.md)             | Automate quality checks and validation                  |
+| 6   | [MCP Servers](./6-mcp.md)         | Connect to external tools and services                  |
+| 7   | [SDD](./7-sdd.md)                 | Spec-Driven Development workflow                        |
+| 8   | Skills                            | Custom skills and capabilities _(Coming soon)_          |
+| 9   | Subagents & parallel agents       | Advanced agent orchestration _(Coming soon)_            |
+| 10  | Plugins                           | Package & share configs across projects _(Coming soon)_ |
 
 ---
 
@@ -108,6 +108,7 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) - you should see the Movie Watchlist app.
 
 **If something doesn't work:**
+
 - Make sure you added your TMDB_API_KEY to `.env.local`
 - Try `bun install` again
 - Check that port 3000 isn't already in use

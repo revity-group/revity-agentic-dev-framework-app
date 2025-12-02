@@ -15,16 +15,17 @@ Turn repetitive prompts into reusable one-word commands. And give LLM pre inject
 Slash commands are shortcuts for prompts you use often. Instead of typing the same instructions repeatedly, you save them once and invoke them with `/command-name`.
 
 **Think of them like:**
+
 - Shell aliases for your AI workflow
 - Saved prompts that your whole team can share
 - Standardized workflows that run the same way every time
 
 ## Where Do Commands Live?
 
-| Location | Scope | Use Case |
-|----------|-------|----------|
-| `.claude/commands/` | Project (shared via git) | Team workflows |
-| `~/.claude/commands/` | Personal (all projects) | Your preferences |
+| Location              | Scope                    | Use Case         |
+| --------------------- | ------------------------ | ---------------- |
+| `.claude/commands/`   | Project (shared via git) | Team workflows   |
+| `~/.claude/commands/` | Personal (all projects)  | Your preferences |
 
 ---
 
@@ -105,10 +106,10 @@ It works - Claude can still run `git diff` via tool calls if it decides to. But 
 
 Commands become powerful when they inject **real data**:
 
-| Syntax | What It Does | Example |
-|--------|--------------|---------|
-| `!command` | Inject shell output | `!git diff --staged` |
-| `$ARGUMENTS` | Capture user input | `/deploy $ARGUMENTS` |
+| Syntax       | What It Does        | Example              |
+| ------------ | ------------------- | -------------------- |
+| `!command`   | Inject shell output | `!git diff --staged` |
+| `$ARGUMENTS` | Capture user input  | `/deploy $ARGUMENTS` |
 
 ### Step 4: Upgrade your command
 
@@ -124,24 +125,24 @@ model: claude-haiku-4-5-20251001
 # Conventional Commit Context
 
 - shows working tree state (staged, unstaged, untracked files)
-<git_status>
-!`git status`
-</git_status>
+  <git_status>
+  !`git status`
+  </git_status>
 
 - shows the actual staged changes (what will be committed)
-<staged_diff>
-!`git diff --cached`
-</staged_diff>
+  <staged_diff>
+  !`git diff --cached`
+  </staged_diff>
 
 - shows the actual unstaged changes (what is not staged for commit)
-<unstaged_diff>
-!`git diff`
-</unstaged_diff>
+  <unstaged_diff>
+  !`git diff`
+  </unstaged_diff>
 
 - shows the recent commits (last 5 commits,to match style/conventions)
-<recent_commits>
-!`git log --oneline -5`
-</recent_commits>
+  <recent_commits>
+  !`git log --oneline -5`
+  </recent_commits>
 
 ## Instructions
 
@@ -180,11 +181,11 @@ Let's break down the structure of a slash command:
 
 ![Slash Command Anatomy](./assets/images/slash-command-anatomy.png)
 
-| Section | Purpose |
-|---------|---------|
-| **Front matter** | YAML metadata between `---` markers: description, allowed-tools, model |
-| **Context Injection** | Shell output injected with `!` syntax before Claude sees the prompt |
-| **Instructions** | The actual prompt Claude follows to complete the task |
+| Section               | Purpose                                                                |
+| --------------------- | ---------------------------------------------------------------------- |
+| **Front matter**      | YAML metadata between `---` markers: description, allowed-tools, model |
+| **Context Injection** | Shell output injected with `!` syntax before Claude sees the prompt    |
+| **Instructions**      | The actual prompt Claude follows to complete the task                  |
 
 > **Why Haiku?** You don't need a powerful model to write a commit message. By setting `model: claude-haiku-4-5-20251001` in the front matter, routine tasks run significantly faster and cheaper.
 
@@ -206,23 +207,23 @@ Let's break down the structure of a slash command:
 
 ### 3. Notice what's different now
 
-| Basic Command | Smart Command |
-|---------------|---------------|
-| Claude decides to run `git diff` (extra step) | Git state **pre-injected** instantly |
-| Behavior varies each run | **Predictable**, consistent results |
-| Generic commit format | **Your team's** conventions injected |
-| Uses tool calls (slower) | Context ready **before** Claude reasons |
+| Basic Command                                 | Smart Command                           |
+| --------------------------------------------- | --------------------------------------- |
+| Claude decides to run `git diff` (extra step) | Git state **pre-injected** instantly    |
+| Behavior varies each run                      | **Predictable**, consistent results     |
+| Generic commit format                         | **Your team's** conventions injected    |
+| Uses tool calls (slower)                      | Context ready **before** Claude reasons |
 
 ---
 
 ## Command Features (Reference)
 
-| Feature | Syntax | Example |
-|---------|--------|---------|
-| Arguments | `$ARGUMENTS` | `/fix-issue 123` → `$ARGUMENTS = "123"` |
-| Positional | `$1`, `$2` | `/deploy prod v1.2` → `$1="prod"` |
-| Shell output | `!command` | `!git status` injects output |
-| File content | `@file` | `@package.json` injects file |
+| Feature      | Syntax       | Example                                 |
+| ------------ | ------------ | --------------------------------------- |
+| Arguments    | `$ARGUMENTS` | `/fix-issue 123` → `$ARGUMENTS = "123"` |
+| Positional   | `$1`, `$2`   | `/deploy prod v1.2` → `$1="prod"`       |
+| Shell output | `!command`   | `!git status` injects output            |
+| File content | `@file`      | `@package.json` injects file            |
 
 ---
 
@@ -280,6 +281,7 @@ model: claude-haiku-4-5-20251001
 ### Step 1: Push the Branch
 
 Push the branch to remote if needed:
+
 ```bash
 git push -u origin $(git branch --show-current)
 ```
@@ -287,11 +289,13 @@ git push -u origin $(git branch --show-current)
 ### Step 2: Create the PR
 
 **Option A: Single commit branch** - use `--fill-first` to auto-fill from commit:
+
 ```bash
 gh pr create --base main --fill-first
 ```
 
 **Option B: Multi-commit branch** - craft a custom description using the format below:
+
 ```bash
 gh pr create --base main --title "<title>" --body "$(cat <<'EOF'
 <body>
@@ -300,6 +304,7 @@ EOF
 ```
 
 **Option C: Draft PR** - add `--draft` flag to create as draft:
+
 ```bash
 gh pr create --base main --draft --title "<title>" --body "..."
 ```
@@ -309,6 +314,7 @@ gh pr create --base main --draft --title "<title>" --body "..."
 ### Title Format
 
 Use conventional commit style:
+
 ```text
 <type>(<scope>): <description>
 ```
@@ -337,6 +343,7 @@ Brief 1-2 sentence description of what this PR does and why.
 ### Step 3: Show Result
 
 After creating the PR, display the URL with:
+
 ```bash
 gh pr view --json url --jq '.url'
 ```
@@ -344,12 +351,12 @@ gh pr view --json url --jq '.url'
 
 ### What Makes This Command Powerful
 
-| Feature | How It's Used |
-|---------|---------------|
-| **Rich context** | Branch status, commits, diffs all pre-injected |
+| Feature               | How It's Used                                                     |
+| --------------------- | ----------------------------------------------------------------- |
+| **Rich context**      | Branch status, commits, diffs all pre-injected                    |
 | **Conditional logic** | Instructions handle edge cases (uncommitted changes, existing PR) |
-| **Tool restrictions** | `allowed-tools` limits to only git/gh commands needed |
-| **Cheaper model** | Uses `claude-haiku` for cost efficiency on routine tasks |
+| **Tool restrictions** | `allowed-tools` limits to only git/gh commands needed             |
+| **Cheaper model**     | Uses `claude-haiku` for cost efficiency on routine tasks          |
 
 ### Test It
 
@@ -374,30 +381,30 @@ Commands are just markdown files in `.claude/commands/` - commit them to your re
 
 Please refer [Claude Code documentation](https://code.claude.com/docs/en/slash-commands#built-in-slash-commands) for all available built-in commands.
 
-| Command | What It Does |
-|---------|--------------|
-| `/clear` | Clear conversation history |
-| `/compact [instructions]` | Compact conversation with optional focus instructions |
-| `/config` | Open the Settings interface (Config tab) |
-| `/context` | Visualize current context usage as a colored grid |
-| `/cost` | Show token usage statistics |
-| `/doctor` | Checks the health of your Claude Code installation |
-| `/exit` | Exit the REPL |
-| `/export [filename]` | Export the current conversation to a file or clipboard |
-| `/help` | Get usage help |
-| `/hooks` | Manage hook configurations for tool events |
-| `/ide` | Manage IDE integrations and show status |
-| `/init` | Initialize project with CLAUDE.md guide |
-| `/install-github-app` | Set up Claude GitHub Actions for a repository |
-| `/mcp` | Manage MCP server connections and OAuth authentication |
-| `/memory` | Edit CLAUDE.md memory files |
-| `/model` | Select or change the AI model |
-| `/permissions` | View or update permissions |
-| `/pr-comments` | View pull request comments |
-| `/review` | Request code review |
-| `/rewind` | Rewind the conversation and/or code |
-| `/security-review` | Complete a security review of pending changes on the current branch |
-| `/todos` | List current todo items |
+| Command                   | What It Does                                                        |
+| ------------------------- | ------------------------------------------------------------------- |
+| `/clear`                  | Clear conversation history                                          |
+| `/compact [instructions]` | Compact conversation with optional focus instructions               |
+| `/config`                 | Open the Settings interface (Config tab)                            |
+| `/context`                | Visualize current context usage as a colored grid                   |
+| `/cost`                   | Show token usage statistics                                         |
+| `/doctor`                 | Checks the health of your Claude Code installation                  |
+| `/exit`                   | Exit the REPL                                                       |
+| `/export [filename]`      | Export the current conversation to a file or clipboard              |
+| `/help`                   | Get usage help                                                      |
+| `/hooks`                  | Manage hook configurations for tool events                          |
+| `/ide`                    | Manage IDE integrations and show status                             |
+| `/init`                   | Initialize project with CLAUDE.md guide                             |
+| `/install-github-app`     | Set up Claude GitHub Actions for a repository                       |
+| `/mcp`                    | Manage MCP server connections and OAuth authentication              |
+| `/memory`                 | Edit CLAUDE.md memory files                                         |
+| `/model`                  | Select or change the AI model                                       |
+| `/permissions`            | View or update permissions                                          |
+| `/pr-comments`            | View pull request comments                                          |
+| `/review`                 | Request code review                                                 |
+| `/rewind`                 | Rewind the conversation and/or code                                 |
+| `/security-review`        | Complete a security review of pending changes on the current branch |
+| `/todos`                  | List current todo items                                             |
 
 ---
 

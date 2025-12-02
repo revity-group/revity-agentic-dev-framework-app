@@ -18,28 +18,34 @@ Hooks run automatically without Claude needing to decide to run them, and withou
 ### Available Hook Types
 
 **Tool-related:**
+
 - `PreToolUse` - Before Claude uses any tool (can block/allow)
 - `PostToolUse` - After Claude uses any tool
 - `PermissionRequest` - When permission dialog is shown (can allow/deny)
 
 **User interaction:**
+
 - `UserPromptSubmit` - When user submits a prompt (can block)
 - `Notification` - When Claude Code sends notifications
 
 **Session lifecycle:**
+
 - `SessionStart` - At the beginning of sessions
 - `SessionEnd` - At the end of sessions
 
 **Stopping:**
+
 - `Stop` - When Claude attempts to stop
 - `SubagentStop` - When a subagent attempts to stop
 
 **Maintenance:**
+
 - `PreCompact` - Before conversation history is compacted
 
 ---
 
 ## Step 1: Your First Hook with `/hooks`
+
 The fastest way to create a hook is using Claude Code's built-in `/hooks` command. Let's start with a simple demo to see hooks in action.
 
 ### The Task
@@ -51,6 +57,7 @@ Run the `/hooks` command in Claude Code:
 ```
 
 When prompted:
+
 1. Select **UserPromptSubmit** as the hook type
 2. Press Enter to add a new hook
 3. Set the command to: `echo when you finished say I AM DONE`
@@ -79,6 +86,7 @@ After running `/hooks`, check your project. You'll now have a `.claude` director
 ```
 
 The hook configuration has:
+
 - **matcher**: Empty string means it runs on every prompt (no filtering)
 - **hooks**: An array of commands to execute
 - **type**: "command" indicates a shell command. There are two types of hooks: command and prompt. We are focused on command hooks for this workshop. You can checkout the [hooks documentation](https://docs.anthropic.com/claude/hooks/hooks-reference) for more information.
@@ -89,7 +97,7 @@ The hook configuration has:
 Send the following message to Claude (or try another prompt):
 
 ```text
-Add a new function to lib/utils.ts that formats movie runtime from minutes to "Xh Ym" format (e.g., 142 → "2h 22m"). Then use this to display runtime in MovieCard. Skip linting for now. 
+Add a new function to lib/utils.ts that formats movie runtime from minutes to "Xh Ym" format (e.g., 142 → "2h 22m"). Then use this to display runtime in MovieCard. Skip linting for now.
 ```
 
 ### Observe
@@ -108,7 +116,7 @@ The echo hook works for demos, but it has serious limitations for real automatio
 - **No access to context** - What tool was used? What file was edited?
 - **No conditional logic** - Can't say "only lint TypeScript files"
 - **No blocking** - Can't prevent bad edits from going through
-- **No feedback to Claude** - Can't send errors back for Claude to fix using [JSON Output](https://code.claude.com/docs/en/hooks#advanced:-json-output) 
+- **No feedback to Claude** - Can't send errors back for Claude to fix using [JSON Output](https://code.claude.com/docs/en/hooks#advanced:-json-output)
 
 To do anything useful, you'd need to parse JSON input from stdin, use tools like `jq`, handle escape sequences, and manually construct JSON output. It gets messy fast.
 
@@ -122,12 +130,12 @@ For real automation, we use TypeScript hooks with the official SDK.
 
 ### Why This Pattern Scales
 
-| Feature | Shell Hooks | TypeScript + SDK |
-|---------|-------------|------------------|
-| **Type safety** | None | SDK types catch errors at write-time |
-| **Input parsing** | Complex jq/bash pipes | One-line: `Bun.stdin.json()` |
-| **Logic** | Awkward shell scripts | Full TypeScript |
-| **Ecosystem** | Limited | Any npm package |
+| Feature           | Shell Hooks           | TypeScript + SDK                     |
+| ----------------- | --------------------- | ------------------------------------ |
+| **Type safety**   | None                  | SDK types catch errors at write-time |
+| **Input parsing** | Complex jq/bash pipes | One-line: `Bun.stdin.json()`         |
+| **Logic**         | Awkward shell scripts | Full TypeScript                      |
+| **Ecosystem**     | Limited               | Any npm package                      |
 
 ### Set Up the Hooks Directory
 
@@ -141,6 +149,7 @@ bun add @anthropic-ai/claude-code-sdk
 ```
 
 This gives you:
+
 - A dedicated directory for hook scripts
 - TypeScript support out of the box
 - Type definitions for all hook inputs/outputs
@@ -383,10 +392,15 @@ After the linting section, add:
 
 ```typescript
 // 7. Check if tests exist
-const hasTests = Bun.spawnSync(
-  ['bash', '-c', "find . -name '*.test.ts' -o -name '*.test.tsx' | grep -q ."],
-  { cwd: input.cwd }
-).exitCode === 0
+const hasTests =
+  Bun.spawnSync(
+    [
+      'bash',
+      '-c',
+      "find . -name '*.test.ts' -o -name '*.test.tsx' | grep -q .",
+    ],
+    { cwd: input.cwd }
+  ).exitCode === 0
 
 if (hasTests) {
   console.error('🧪 Running tests...')
@@ -421,25 +435,25 @@ if (hasTests) {
 
 ### When to Use Each
 
-| Scenario | Use |
-|----------|-----|
-| Run linter after edits | `command` |
-| Check if all tasks complete before stopping | `prompt` |
-| Format code on save | `command` |
-| Evaluate if code follows security guidelines | `prompt` |
-| Inject context into prompts | `command` |
+| Scenario                                     | Use       |
+| -------------------------------------------- | --------- |
+| Run linter after edits                       | `command` |
+| Check if all tasks complete before stopping  | `prompt`  |
+| Format code on save                          | `command` |
+| Evaluate if code follows security guidelines | `prompt`  |
+| Inject context into prompts                  | `command` |
 
 ---
 
 ## More Hook Ideas
 
-| Idea | Hook |
-|------|------|
-| Auto-format with Prettier | `PostToolUse` |
-| Block dangerous bash commands | `PreToolUse` |
-| Load project context at startup | `SessionStart` |
-| Verify task completion before stopping | `Stop` using `prompt` type|
-| Auto-approve safe file reads | `PreToolUse` |
+| Idea                                   | Hook                       |
+| -------------------------------------- | -------------------------- |
+| Auto-format with Prettier              | `PostToolUse`              |
+| Block dangerous bash commands          | `PreToolUse`               |
+| Load project context at startup        | `SessionStart`             |
+| Verify task completion before stopping | `Stop` using `prompt` type |
+| Auto-approve safe file reads           | `PreToolUse`               |
 
 ---
 

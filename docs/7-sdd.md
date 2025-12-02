@@ -48,6 +48,7 @@ Use your judgment: if writing a specification feels like overkill, it probably i
 ### Key Features
 
 **1. Structured Templates**
+
 - Feature specification templates with frontmatter metadata
 - Implementation plan templates
 - Task breakdown templates
@@ -55,6 +56,7 @@ Use your judgment: if writing a specification feels like overkill, it probably i
 
 **2. Workflow Commands**
 spec-kit provides slash commands that guide you through the SDD process:
+
 - `/speckit.specify`: Create or update feature specifications
 - `/speckit.clarify`: Identify underspecified areas and ask targeted questions
 - `/speckit.plan`: Generate implementation plans
@@ -136,18 +138,21 @@ The constitution will be created at `.specify/memory/constitution.md` and lives 
 The `/speckit.specify` command is flexible and accepts anything - from simple text to detailed descriptions. You don't need to write in Markdown format; just describe what you want to build:
 
 **Simple input example:**
+
 ```
 /speckit.specify Add a dark mode toggle to the settings page
 ```
 
 **More detailed input example:**
+
 ```
-/speckit.specify Add user authentication with email/password. 
-Users should be able to register, log in, and reset passwords. 
+/speckit.specify Add user authentication with email/password.
+Users should be able to register, log in, and reset passwords.
 Sessions should persist across browser restarts.
 ```
 
 **With additional clarifications:**
+
 ```
 /speckit.specify Add user authentication
 
@@ -175,6 +180,7 @@ Use `/speckit.clarify` to think through edge cases and identify ambiguities. You
 ```
 
 This will ask targeted questions about underspecified areas:
+
 - What password requirements should we enforce?
 - Should we support OAuth providers?
 - What session duration should we use?
@@ -200,6 +206,7 @@ Once the spec is clear, generate a technical plan. This defines HOW to build it,
 ```
 
 This creates a `plan.md` with:
+
 - Technical approach and architecture decisions
 - Technology choices (frameworks, libraries, tools)
 - Dependencies and integrations
@@ -224,6 +231,7 @@ Convert the plan into a granular, dependency-ordered execution plan:
 ```
 
 This generates a `tasks.md` with dependency-ordered tasks:
+
 - Set up database schema
 - Create database migration
 - Implement password hashing utility
@@ -260,6 +268,7 @@ Check consistency across all artifacts to ensure everything aligns:
 ```
 
 This validates:
+
 - Spec defines all requirements that appear in the plan
 - Plan addresses all spec requirements
 - Tasks cover all plan items
@@ -281,7 +290,6 @@ Before we begin the demonstration, I'd like to gather some feedback from you abo
 ![Poll QR Code](assets/images/poll.png)
 
 Your input will help tailor the demonstration to address the most relevant challenges and questions about implementing SDD in real-world projects.
-
 
 ### Demo Outline
 
@@ -315,7 +323,7 @@ By the end of the demonstration, you'll see how spec-kit transforms a simple Git
 - **Iterate Freely**: Run commands multiple times. Refine until you're satisfied with the output.
 - **Move Backward**: If `/speckit.plan` reveals missing requirements, go back to `/speckit.specify` and update it.
 - **Add Context**: Every command accepts additional requirements and clarifications as input.
-- **Think in Stages**: 
+- **Think in Stages**:
   - `/specify` = functional requirements (WHAT)
   - `/clarify` = edge cases and scenarios
   - `/plan` = technical requirements (HOW)
@@ -328,6 +336,7 @@ By the end of the demonstration, you'll see how spec-kit transforms a simple Git
 ### Integration with AI Coding Assistants
 
 spec-kit is designed to work with AI assistants like Claude Code:
+
 - Provide context through specifications rather than repeated explanations
 - Use slash commands to guide the AI through structured workflows
 - Leverage AI to generate comprehensive plans and task breakdowns
@@ -346,6 +355,7 @@ spec-kit is designed to work with AI assistants like Claude Code:
 ## Summary
 
 Specification-Driven Development with spec-kit brings structure and clarity to medium and complex software features. By starting with a clear specification and iteratively refining through spec-kit's workflow commands, you can:
+
 - Reduce miscommunication and rework
 - Think through edge cases before coding
 - Generate consistent implementation artifacts

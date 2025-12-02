@@ -18,11 +18,11 @@ MCP (Model Context Protocol) is an open standard that lets Claude connect to ext
 
 MCP is built on three core layers:
 
-| Layer | Purpose |
-|-------|---------|
-| **Protocol** | JSON-RPC 2.0 messages for standardized communication |
+| Layer         | Purpose                                                  |
+| ------------- | -------------------------------------------------------- |
+| **Protocol**  | JSON-RPC 2.0 messages for standardized communication     |
 | **Transport** | How messages move (stdio for local, HTTP/SSE for remote) |
-| **Features** | What servers expose: Tools, Resources, Prompts, Sampling |
+| **Features**  | What servers expose: Tools, Resources, Prompts, Sampling |
 
 For this workshop, we focus on the **Tools** feature—this is how Claude gains new abilities like controlling a browser.
 
@@ -47,14 +47,14 @@ Observe what it does and see if it is able to catch a bug we have introduced in 
 **There's a bug.** Add a movie to your watchlist, refresh the page—the watchlist icon resets. The data is saved, but the UI doesn't know about it on reload.
 
 ```typescript
-  // useEffect(() => {
-  //   fetchWatchlist()
-  // }, [])
+// useEffect(() => {
+//   fetchWatchlist()
+// }, [])
 ```
 
 ### Why Claude Missed It
 
-Claude analyzed the code statically. It saw *what the code does*, not *what users experience*. This bug only reveals itself through interaction:
+Claude analyzed the code statically. It saw _what the code does_, not _what users experience_. This bug only reveals itself through interaction:
 
 1. Click the `+watchlist` → works
 2. Refresh the page → broken
@@ -107,7 +107,7 @@ bun dev
 
 ### The Prompt
 
-Give Claude a QA task. Notice we're asking it to *verify* behavior, not fix anything:
+Give Claude a QA task. Notice we're asking it to _verify_ behavior, not fix anything:
 
 Try first with a less descriptive prompt to see if it pickups the issue even with a simplified prompt:
 
@@ -199,10 +199,10 @@ Claude should:
 
 ## Why MCP Changes Everything
 
-| Approach | What Claude Knows |
-|----------|-------------------|
-| **Tests from code** | What *should* happen based on implementation |
-| **Tests from MCP exploration** | What *actually* happens in a real browser |
+| Approach                       | What Claude Knows                            |
+| ------------------------------ | -------------------------------------------- |
+| **Tests from code**            | What _should_ happen based on implementation |
+| **Tests from MCP exploration** | What _actually_ happens in a real browser    |
 
 The MCP approach catches:
 
@@ -215,12 +215,12 @@ The MCP approach catches:
 
 ## More MCP Ideas
 
-| MCP Server | Use Case |
-|------------|----------|
-| **Context7** | Fetch up-to-date documentation for libraries |
-| **GitHub** | Create issues, PRs, manage repos |
-| **Figma** | Extract design specs and assets |
-| **PostgreSQL** | Query and explore databases |
+| MCP Server     | Use Case                                     |
+| -------------- | -------------------------------------------- |
+| **Context7**   | Fetch up-to-date documentation for libraries |
+| **GitHub**     | Create issues, PRs, manage repos             |
+| **Figma**      | Extract design specs and assets              |
+| **PostgreSQL** | Query and explore databases                  |
 
 Browse the [MCP Server Registry](https://github.com/modelcontextprotocol/servers) for more.
 

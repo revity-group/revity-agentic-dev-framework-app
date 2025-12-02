@@ -1,0 +1,289 @@
+openapi: 3.0.3
+info:
+  title: Movie Discovery Quiz API
+  description: API endpoints for the movie discovery quiz feature
+  version: 1.0.0
+  contact:
+    name: Revity Workshop Team
+
+servers:
+  - url: http://localhost:3000/api
+    description: Local development server
+
+paths:
+  /quiz/recommendations:
+    post:
+      summary: Get movie recommendations based on quiz selections
+      description: |
+        Fetches personalized movie recommendations from TMDB based on user's quiz answers.
+        Uses strict AND matching logic - movies must match ALL selected criteria.
+      operationId: getRecommendations
+      tags:
+        - Quiz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizSelections'
+            examples:
+              typical:
+                summary: Typical quiz selections
+                value:
+                  genres: [28, 878]
+                  moods: [28, 53]
+                  era:
+                    gte: "1990-01-01"
+                    lte: "1999-12-31"
+                  runtime:
+                    gte: 90
+                    lte: 120
+                  rating: 7
+      responses:
+        '200':
+          description: Successfully retrieved recommendations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recommendations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MovieRecommendation'
+                    minItems: 0
+                    maxItems: 10
+                  totalMatches:
+                    type: integer
+                    description: Total number of movies matching criteria
+                  message:
+                    type: string
+                    description: Optional message (e.g., "No matches found")
+              examples:
+                withResults:
+                  summary: Successful recommendations
+                  value:
+                    recommendations:
+                      - id: 550
+                        title: "Fight Club"
+                        posterPath: "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg"
+                        releaseDate: "1999-10-15"
+                        rating: 8.4
+                        runtime: 139
+                        overview: "A ticking-time-bomb insomniac..."
+                        genreIds: [18, 53]
+                        matchExplanation: "Based on your love of Drama and 1990s films"
+                        matchCriteria:
+                          genres: ["Drama", "Thriller"]
+                          moods: ["Thought-provoking"]
+                          era: "1990s"
+                          runtime: "Medium"
+                          rating: "High (7+)"
+                    totalMatches: 15
+                noResults:
+                  summary: No matches found
+                  value:
+                    recommendations: []
+                    totalMatches: 0
+                    message: "No movies match all your preferences"
+        '400':
+          description: Invalid request body or missing required selections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingGenres:
+                  summary: Missing genre selection
+                  value:
+                    error: "Validation error"
+                    message: "At least one genre must be selected"
+        '500':
+          description: Server error or external API failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                tmdbError:
+                  summary: TMDB API unavailable
+                  value:
+                    error: "External API error"
+                    message: "Unable to fetch recommendations. Please try again later."
+
+components:
+  schemas:
+    QuizSelections:
+      type: object
+      required:
+        - genres
+        - moods
+        - era
+        - runtime
+        - rating
+      properties:
+        genres:
+          type: array
+          items:
+            type: integer
+          description: Selected TMDB genre IDs (must have at least 1)
+          minItems: 1
+          example: [28, 878]
+        moods:
+          type: array
+          items:
+            type: integer
+          description: Selected mood-mapped TMDB genre IDs (must have at least 1)
+          minItems: 1
+          example: [28, 53]
+        era:
+          type: object
+          required:
+            - gte
+            - lte
+          properties:
+            gte:
+              type: string
+              format: date
+              description: Start date of era range (ISO 8601)
+              example: "1990-01-01"
+            lte:
+              type: string
+              format: date
+              description: End date of era range (ISO 8601)
+              example: "1999-12-31"
+        runtime:
+          type: object
+          required:
+            - gte
+            - lte
+          properties:
+            gte:
+              type: integer
+              minimum: 0
+              description: Minimum runtime in minutes
+              example: 90
+            lte:
+              type: integer
+              minimum: 0
+              description: Maximum runtime in minutes
+              example: 120
+        rating:
+          type: number
+          minimum: 0
+          maximum: 10
+          description: Minimum rating threshold
+          example: 7
+
+    MovieRecommendation:
+      type: object
+      required:
+        - id
+        - title
+        - posterPath
+        - releaseDate
+        - rating
+        - runtime
+        - overview
+        - genreIds
+        - matchExplanation
+        - matchCriteria
+      properties:
+        id:
+          type: integer
+          description: TMDB movie ID
+          example: 550
+        title:
+          type: string
+          description: Movie title
+          example: "Fight Club"
+        posterPath:
+          type: string
+          nullable: true
+          description: TMDB poster image path (relative)
+          example: "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg"
+        releaseDate:
+          type: string
+          format: date
+          description: Movie release date (ISO 8601)
+          example: "1999-10-15"
+        rating:
+          type: number
+          minimum: 0
+          maximum: 10
+          description: TMDB vote average
+          example: 8.4
+        runtime:
+          type: integer
+          minimum: 0
+          description: Movie duration in minutes
+          example: 139
+        overview:
+          type: string
+          description: Movie plot summary
+          example: "A ticking-time-bomb insomniac..."
+        genreIds:
+          type: array
+          items:
+            type: integer
+          description: TMDB genre IDs for this movie
+          example: [18, 53]
+        matchExplanation:
+          type: string
+          description: Human-readable explanation of why movie matched
+          example: "Based on your love of Drama and 1990s films"
+        matchCriteria:
+          $ref: '#/components/schemas/MatchCriteria'
+
+    MatchCriteria:
+      type: object
+      required:
+        - genres
+        - moods
+        - era
+        - runtime
+        - rating
+      properties:
+        genres:
+          type: array
+          items:
+            type: string
+          description: Matched genre names
+          example: ["Drama", "Thriller"]
+        moods:
+          type: array
+          items:
+            type: string
+          description: Matched mood labels
+          example: ["Thought-provoking"]
+        era:
+          type: string
+          description: Matched era label
+          example: "1990s"
+        runtime:
+          type: string
+          description: Matched runtime category
+          example: "Medium"
+        rating:
+          type: string
+          description: Matched rating category
+          example: "High (7+)"
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Error type
+          example: "Validation error"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "At least one genre must be selected"
+
+tags:
+  - name: Quiz
+    description: Movie discovery quiz endpoints
