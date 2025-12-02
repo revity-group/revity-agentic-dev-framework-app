@@ -1,34 +1,42 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Movie, WatchlistItem } from '@/types/movie'
+import { useState } from 'react'
+import { Movie } from '@/types/movie'
 import MovieCard from '@/components/MovieCard'
 import ReviewForm from '@/components/ReviewForm'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useInfiniteMovies } from '@/hooks/useInfiniteMovies'
+
+function MovieCardSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-lg border bg-card">
+      <Skeleton className="aspect-[2/3] w-full" />
+      <div className="p-4">
+        <Skeleton className="mb-2 h-6 w-3/4" />
+        <Skeleton className="h-4 w-1/4" />
+      </div>
+      <div className="flex gap-2 p-4 pt-0">
+        <Skeleton className="h-10 flex-1" />
+        <Skeleton className="h-10 flex-1" />
+      </div>
+    </div>
+  )
+}
 
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('popular')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [watchlistIds, setWatchlistIds] = useState<Set<number>>(new Set())
 
-  useEffect(() => {
-    fetchMovies()
-  }, [category])
-
-  const fetchMovies = async () => {
-    setLoading(true)
-    try {
-      const response = await fetch(`/api/movies?category=${category}`)
-      const data = await response.json()
-      setMovies(data.results || [])
-    } catch (error) {
-      console.error('Error fetching movies:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const {
+    movies,
+    isLoading,
+    isLoadingMore,
+    error,
+    hasMore,
+    sentinelRef,
+  } = useInfiniteMovies(category)
 
   const handleWatchlistChange = (movieId: number, inWatchlist: boolean) => {
     setWatchlistIds((prev) => {
@@ -81,17 +89,48 @@ export default function Home() {
           </div>
         </header>
 
+        {error && (
+          <div className="mb-8 rounded-lg bg-red-50 p-4 text-center text-red-600 dark:bg-red-900/20 dark:text-red-400">
+            {error}
+          </div>
+        )}
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-              isInWatchlist={watchlistIds.has(movie.id)}
-              onWatchlistChange={handleWatchlistChange}
-              onReview={() => setSelectedMovie(movie)}
-            />
-          ))}
+          {isLoading
+            ? Array.from({ length: 10 }).map((_, i) => (
+                <MovieCardSkeleton key={i} />
+              ))
+            : movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  movie={movie}
+                  isInWatchlist={watchlistIds.has(movie.id)}
+                  onWatchlistChange={handleWatchlistChange}
+                  onReview={() => setSelectedMovie(movie)}
+                />
+              ))}
         </div>
+
+        {/* Loading more skeletons */}
+        {!isLoading && isLoadingMore && (
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <MovieCardSkeleton key={`loading-more-${i}`} />
+            ))}
+          </div>
+        )}
+
+        {/* Sentinel element for intersection observer */}
+        {!isLoading && hasMore && !isLoadingMore && (
+          <div ref={sentinelRef} className="h-10" />
+        )}
+
+        {/* No more movies indicator */}
+        {!isLoading && !hasMore && movies.length > 0 && (
+          <div className="py-8 text-center text-gray-500 dark:text-gray-400">
+            You&apos;ve reached the end of the list
+          </div>
+        )}
 
         {selectedMovie && (
           <ReviewForm
