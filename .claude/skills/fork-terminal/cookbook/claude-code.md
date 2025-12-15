@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm install -g @anthropic-ai/claude-code
+brew install claude-code
 ```
 
 ## Authentication

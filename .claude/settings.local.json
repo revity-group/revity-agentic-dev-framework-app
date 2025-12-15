@@ -10,13 +10,16 @@
       "mcp__playwright__browser_click",
       "mcp__playwright__browser_navigate",
       "mcp__playwright__browser_wait_for",
-      "Skill"
+      "Skill",
+      "Bash(bun run:*)"
     ],
     "deny": [],
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "enabledMcpjsonServers": ["playwright"],
-  "alwaysThinkingEnabled": true,
-  "enableAllProjectMcpServers": true
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "playwright"
+  ],
+  "alwaysThinkingEnabled": true
 }
