@@ -1,107 +1,186 @@
 ---
-description: Create a new GitHub PR with a well-formatted description
-allowed-tools: Bash(git status), Bash(git branch), Bash(git log), Bash(git diff), Bash(git push),Bash(git pull), Bash(git rev-parse), Bash(gh pr create), Bash(gh pr view:*), Bash(gh pr edit), Bash(echo:*)
-model: claude-haiku-4-5-20251001
+description: Create a GitHub PR with minimal, practical description
+allowed-tools: Bash
+model: haiku
+argument-hint: [ticket-number or "no-ticket"]
 ---
 
-# Create Pull Request Context
+# Create Pull Request Command
 
+You are creating a GitHub Pull Request for the current branch.
+
+## Arguments
+
+- `$1` (optional): Ticket number (e.g., "REV-123") or "no-ticket"
+  - If not provided, prompt user once: "Ticket number (or 'no-ticket'):"
+  - Format: Convert to uppercase (e.g., JIRA-123, REV-456)
+
+## Context
+
+### Current Branch
 <current_branch>
 !`git branch --show-current`
 </current_branch>
 
+### Working Tree Status
 <branch_status>
 !`git status --short`
 </branch_status>
 
+### Commits on This Branch
 <commits_on_branch>
 !`git log main..HEAD --oneline`
 </commits_on_branch>
 
+### Detailed Commit Messages
 <commit_details>
-!`git log main..HEAD --pretty=format:"### %s%n%n%b%n---"`
+!`git log main..HEAD --pretty=format:"%s%n%b" --reverse`
 </commit_details>
 
-<full_diff_stat>
-!`git diff main..HEAD --stat`
-</full_diff_stat>
-
+### Files Changed
 <files_changed>
-!`git diff main..HEAD --name-only`
+!`git diff main..HEAD --name-status`
 </files_changed>
 
+### Existing PR Check
 <existing_pr>
 !`gh pr view --json number,title,state,url --jq '"PR #\(.number): \(.title) [\(.state)]\nURL: \(.url)"' 2>/dev/null || echo "No PR exists for this branch"`
 </existing_pr>
 
 ## Instructions
 
-### Pre-checks
+### Step 1: Pre-flight Checks
 
-1. **Check for uncommitted changes** - if there are uncommitted changes, stop and ask the user to commit first. DO NOT try committing yourself. Your job is to create the PR. If we need to pull, just pull and then stop. DO NOT ASK FOLLOW UP QUESTIONS WHEN THERE ARE UNCOMMITTED CHANGES.
-2. **Verify not on main** - if on main branch, stop and inform the user.
-3. **Check if PR already exists** - if a PR exists, show the URL and ask if user wants to update it with `gh pr edit`.
+1. **Verify not on main** - If on `main` or `master`, STOP and inform user
+2. **Check uncommitted changes** - If `git status` shows changes, STOP and tell user to run `/commit` first
+3. **Check existing PR** - If PR exists, show URL and ask if user wants to update it with `gh pr edit`
+4. **Check sync** - If behind remote, suggest `git pull`
 
-### Step 1: Push the Branch
+If any check fails, STOP. Do not proceed.
 
-Push the branch to remote if needed:
+### Step 2: Push Branch
+
 ```bash
 git push -u origin $(git branch --show-current)
 ```
 
-### Step 2: Create the PR
+### Step 3: Analyze Changes
 
-**Option A: Single commit branch** - use `--fill-first` to auto-fill from commit:
-```bash
-gh pr create --base main --fill-first
+Review ALL commits (not just latest) to understand:
+- Overall purpose of this PR
+- Specific changes made
+- Any breaking changes or important notes
+
+### Step 4: Create PR
+
+Build title in conventional commit format with ticket number:
+
+```
+<type>(<scope>): <description> [TICKET]
 ```
 
-**Option B: Multi-commit branch** - craft a custom description using the format below:
+**Types:** feat, fix, docs, style, refactor, perf, test, build, ci, chore
+
+**Title requirements:**
+- Under 80 characters total
+- Imperative mood ("add" not "added")
+- Ticket in square brackets at end
+- Examples:
+  - `feat(watchlist): add rating system [REV-456]`
+  - `fix(api): handle null TMDB response [JIRA-789]`
+  - `docs: update installation guide [no-ticket]`
+
+**Create the PR with minimal body:**
+
 ```bash
-gh pr create --base main --title "<title>" --body "$(cat <<'EOF'
-<body>
+gh pr create --base main --title "type(scope): description [TICKET]" --body "$(cat <<'EOF'
+## Summary
+
+Brief 1-2 sentence overview of what changed and why.
+
+## Changes
+
+- Specific change 1 (with file/module names)
+- Specific change 2
+- Specific change 3
 EOF
 )"
 ```
 
-**Option C: Draft PR** - add `--draft` flag to create as draft:
+**For draft PR, add `--draft` flag:**
+
 ```bash
-gh pr create --base main --draft --title "<title>" --body "..."
+gh pr create --base main --draft --title "..." --body "..."
 ```
 
-## PR Format
+### Step 5: Display Result
 
-### Title Format
+Show the PR URL:
 
-Use conventional commit style:
-```text
-<type>(<scope>): <description>
+```bash
+gh pr view --json url --jq '.url'
 ```
 
-**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`
+## PR Body Format
 
-### Body Format
+**Keep it minimal and practical:**
 
 ```markdown
 ## Summary
 
-Brief 1-2 sentence description of what this PR does and why.
+What changed and why (1-2 sentences max).
 
 ## Changes
 
-- Bullet point list of specific changes
+- List specific modifications with file/module context
 - Group related changes together
-- Include file/module names when helpful
-
-## Test Plan
-
-- [ ] Manual testing steps or automated tests that verify the change
-- [ ] Edge cases considered
+- Be concise but clear
 ```
 
-### Step 3: Show Result
+**That's it.** No test plans, no screenshots, no breaking changes sections. Add those manually if truly needed.
 
-After creating the PR, display the URL with:
+### Example PR
+
+**Title:**
+```
+feat(watchlist): add movie rating system [REV-456]
+```
+
+**Body:**
+```markdown
+## Summary
+
+Adds 5-star rating system to watchlist for rating watched movies.
+
+## Changes
+
+- Add StarRating component to MovieCard.tsx
+- Create useRatings hook for rating CRUD
+- Add ratings.json storage in data/
+- Update MovieReview interface with rating field
+```
+
+## Constraints
+
+- NEVER push to main/master
+- NEVER proceed if pre-flight checks fail
+- ALWAYS analyze ALL commits, not just the latest
+- ALWAYS include ticket number in title (or [no-ticket])
+- Ticket MUST be in square brackets at END of title
+- Keep PR descriptions SIMPLE and MINIMAL
+
+## Error Handling
+
+If command fails:
+- Show error clearly
+- Explain what went wrong
+- Suggest fix
+- STOP - do not continue
+
+## Usage
+
 ```bash
-gh pr view --json url --jq '.url'
+/pr              # Prompts for ticket number
+/pr REV-123      # With ticket number
+/pr no-ticket    # No associated ticket
 ```

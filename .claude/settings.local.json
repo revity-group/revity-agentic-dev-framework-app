@@ -1,23 +1,22 @@
 {
   "permissions": {
     "allow": [
-      "Read((/Users/<username>/.claude/**))",
-      "Write((/Users/<username>/.claude/**))",
+      "Read((/Users/alireza/.claude/**))",
+      "Write((/Users/alireza/.claude/**))",
       "Bash(grep:*)",
       "Bash(cat:*)",
       "Bash(mkdir:*)",
       "Bash(curl:*)",
       "mcp__playwright__browser_click",
       "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_wait_for"
+      "mcp__playwright__browser_wait_for",
+      "Skill"
     ],
     "deny": [],
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "enabledMcpjsonServers": [
-    "playwright"
-  ],
+  "enabledMcpjsonServers": ["playwright"],
   "alwaysThinkingEnabled": true,
   "enableAllProjectMcpServers": true
 }

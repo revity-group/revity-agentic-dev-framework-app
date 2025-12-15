@@ -157,3 +157,5 @@ This app is part of Revity's Claude Code workshop. The workshop focuses on:
 - Implementing hooks for workflow automation
 
 Workshop documentation is available in the `docs/` directory and published at GitHub Pages.
+
+IMPORTANT: Always use `TodoWrite` and `AskUserQuestion` to create custom workflows and prompts

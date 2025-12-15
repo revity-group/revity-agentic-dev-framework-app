@@ -1,57 +1,128 @@
 ---
 description: Create a conventional commit message and commit staged changes
-allowed-tools: Bash(git diff), Bash(git log), Bash(git add), Bash(git commit), Bash(git status)
-model: claude-haiku-4-5-20251001
+allowed-tools: Bash
+model: haiku
 ---
 
-# Conventional Commit Context
+# Conventional Commit Command
 
-- shows working tree state (staged, unstaged, untracked files)
+You are creating a conventional commit for the current git repository.
+
+## Context
+
+The following git information is loaded automatically:
+
+### Working Tree State
 <git_status>
 !`git status`
 </git_status>
 
-- shows the actual staged changes (what will be committed)
+### Staged Changes (What Will Be Committed)
 <staged_diff>
 !`git diff --cached`
 </staged_diff>
 
-- shows the actual unstaged changes (what is not staged for commit)
+### Unstaged Changes (Not Yet Staged)
 <unstaged_diff>
 !`git diff`
 </unstaged_diff>
 
-- shows the recent commits (last 5 commits,to match style/conventions)
+### Recent Commit History (For Style Reference)
 <recent_commits>
 !`git log --oneline -5`
 </recent_commits>
 
 ## Instructions
 
-Review the changes above and commit using conventional commit format:
+Follow these steps in order:
 
-```text
+### Step 1: Analyze Changes
+
+Review the staged and unstaged changes above. Determine:
+- What is already staged for commit
+- What is unstaged but might need to be included
+- Whether changes are logically related or should be split into multiple commits
+
+### Step 2: Check for Sensitive Files
+
+Before staging anything, verify there are no sensitive files:
+- `.env`, `.env.local`, `.env.production`
+- `credentials.json`, `secrets.yaml`
+- Private keys or certificates
+- Any files containing API keys or passwords
+
+If sensitive files are present, DO NOT stage them. Warn the user.
+
+### Step 3: Stage Files (If Needed)
+
+- If changes are already staged, proceed to commit
+- If nothing is staged, carefully stage relevant files with `git add <file>`
+- NEVER use `git add -A` or `git add .` without explicit user request
+
+### Step 4: Create Commit Message
+
+Draft a commit message following conventional commit format:
+
+```
 <type>(<scope>): <description>
 ```
 
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`
+**Types:**
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation only
+- `style` - Formatting, missing semicolons, etc
+- `refactor` - Code change that neither fixes a bug nor adds a feature
+- `perf` - Performance improvement
+- `test` - Adding or updating tests
+- `build` - Build system or dependencies
+- `ci` - CI configuration
+- `chore` - Routine tasks, maintenance
 
-Scope: Use folder/feature name (e.g., `auth`, `api`, `ui`). Omit if change is broad.
+**Scope:**
+- Use folder/feature name (e.g., `auth`, `api`, `ui`)
+- Omit if change is broad or affects multiple areas
 
-For breaking changes, add \`\`!\`\` after type: `feat(api)!: remove deprecated endpoint`
+**Description:**
+- Use imperative mood ("add" not "added" or "adds")
+- Don't capitalize first letter
+- No period at the end
+- Keep under 72 characters
 
-If changes are unrelated, split into logical commits. Otherwise, one commit is fine.
+**Breaking Changes:**
+- Add `!` after type/scope: `feat(api)!: remove deprecated endpoint`
 
-NEVER EVER mention AI / Claude in the commit message. No need to announce code is co authored by AI.
+### Step 5: Commit
 
-ALWAYS use one line commit message and be clear.
-
-### Staging
-
-- If changes are already staged, commit only what's staged
-- If nothing is staged, review unstaged changes carefully before staging
-- Avoid `git add -A` if sensitive files (.env, credentials) might be included
+Execute the commit:
 
 ```bash
 git commit -m "type(scope): description"
 ```
+
+### Step 6: Verify
+
+After committing, run `git status` to confirm the commit succeeded and show the clean working tree.
+
+## Constraints
+
+- NEVER mention AI, Claude, or automated tools in commit messages
+- NEVER include co-authorship attribution unless explicitly requested by user
+- ALWAYS use single-line commit messages (no multi-line bodies unless user requests)
+- If changes are unrelated, ask user if they want to split into multiple commits
+- If no changes are staged and nothing to commit, inform the user clearly
+
+## Examples
+
+**Good commit messages:**
+- `feat(auth): add OAuth2 login flow`
+- `fix(api): handle null response from TMDB endpoint`
+- `docs: update installation instructions`
+- `refactor(ui): extract MovieCard component logic`
+- `test(hooks): add tests for useMovies hook`
+
+**Bad commit messages (avoid these):**
+- `Updated files` (not descriptive)
+- `Fix bug` (which bug? where?)
+- `Added feature with Claude Code` (no AI attribution)
+- `WIP` (commit should be complete)
