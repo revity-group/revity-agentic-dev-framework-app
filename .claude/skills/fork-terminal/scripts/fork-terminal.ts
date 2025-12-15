@@ -133,7 +133,7 @@ async function forkTerminal(command: string): Promise<boolean> {
     delay 0.3
     tell application "System Events"
       keystroke "t" using {command down}
-      delay 2
+      delay 5
       tell process "Cursor"
         keystroke "v" using command down
         delay 0.2
@@ -180,7 +180,7 @@ async function forkGeminiTerminal(message: string): Promise<boolean> {
     delay 0.3
     tell application "System Events"
       keystroke "t" using {command down}
-      delay 2
+      delay 5
       tell process "Cursor"
         keystroke "v" using command down
         delay 0.2
