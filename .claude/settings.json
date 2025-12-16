@@ -12,11 +12,14 @@
   "hooks": {
     "UserPromptSubmit": [
       {
-        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "bun run .claude/hooks/UserPromptSubmit.ts"
+            "command": "bun run .claude/hooks/user-prompt-submit/timezone-context.ts"
+          },
+          {
+            "type": "command",
+            "command": "bun run .claude/hooks/user-prompt-submit/library-detection.ts"
           }
         ]
       }
@@ -27,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun run .claude/hooks/PostToolUse.ts"
+            "command": "bun run .claude/hooks/post-tool-use/lint-check.ts"
           }
         ]
       }

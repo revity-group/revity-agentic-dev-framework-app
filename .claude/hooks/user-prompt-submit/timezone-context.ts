@@ -22,7 +22,7 @@ const locale = Intl.DateTimeFormat().resolvedOptions().locale || 'en-AU'
 // Build context string with formatted date/time info
 // This gives Claude awareness of when the conversation is happening
 const context = `
-[Context]
+[Timezone Context]
 - Current time: ${now.toLocaleString(locale, { timeZone: timezone })}
 - Timezone: ${timezone}
 - Day: ${now.toLocaleDateString(locale, { weekday: 'long', timeZone: timezone })}
