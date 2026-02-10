@@ -1,76 +1,131 @@
-# Claude Code Agentic Workflow Workshop
+# Agentic Workflow Workshop
 
-## Pre-Workshop Setup (Please Complete Before Tomorrow!)
+## Pre-Workshop Setup (Please Complete Before the Session)
 
-Hey everyone! We're excited to have you join the workshop. To make the most of our time together, **please complete this setup today** so we can dive straight into the fun stuff tomorrow.
+To make the most of workshop time, **please complete this setup before the session**.
+
+If you have questions at any point, ask a workshop facilitator. We can help during remote sessions or face-to-face.
+
+## Workshop Flow
+
+1. Baseline (setup + integrations)
+   - Codex CLI
+   - IDE integrations
+   - "Surgical" context selection (what Codex sees vs ignores)
+   - Demonstrate how Codex behaves without guidance
+   - Highlight common failure modes and limitations
+2. Slash commands
+   - Faster session control for model, permissions, and context
+   - Use `/init` to scaffold an `AGENTS.md` placeholder
+3. AGENTS.md (project guidance)
+   - Project structure, tech stack, conventions
+   - How explicit guidance shapes Codex responses and behaviour
+4. MCP (Model Context Protocol)
+   - Expanding Codex capabilities via external tools/services
+   - Practical examples
+5. Skills
+   - Packaging instructions, resources, and optional scripts
+   - Sharing skills across teams and projects
+
+## Workshop Checkpoints
+
+Use section tags to jump to a specific workshop point:
+
+1. `codex/01-baseline`
+2. `codex/02-slash-commands`
+3. `codex/03-agents-md`
+4. `codex/04-mcp`
+5. `codex/05-skills`
+
+Checkout command:
+
+```bash
+git switch --detach codex/<tag-name>
+```
+
+If tags are missing locally:
+
+```bash
+git fetch --tags
+```
 
 ### What You'll Need (Checklist)
 
 - [ ] **Git** installed and working
-- [ ] **Code editor** (VS Code or Cursor recommended)
+- [ ] **Code editor** (VS Code, JetBrains, Coursor, Windsurf, Zed)
 - [ ] **TMDB API Key** - [Get one here](https://www.themoviedb.org/settings/api) (free)
-- [ ] **Claude Code** installed (we'll share account details soon)
+- [ ] **Codex CLI** installed (if using manual setup)
 - [ ] **GitHub account**
 
 ### Setup Instructions
 
-**Choose your path based on your current setup:**
+**Preferred option: Use Flox (recommended default).** It installs and wires the workshop dependencies automatically.
+Why Flox is better than manual setup: one command, reproducible versions across participants, and fewer environment-specific issues during the workshop.
 
-#### Option 1: Using Flox (Recommended - Zero Config)
-
-**Best if:** You want everything installed automatically, or you're missing any of the tools above.
-
-**What Flox does:** Installs Node.js, Bun, Claude Code, GitHub CLI, and all dependencies automatically.
+#### 1. Project Setup (Required)
 
 ```bash
-# 1. Install Flox if you don't have it: https://flox.dev/docs/install-flox/install/
-
-# 2. Clone the workshop repo
-git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
+# Clone the workshop repo (codex branch)
+git clone --branch codex --single-branch https://github.com/revity-group/revity-agentic-dev-framework-app.git
 cd revity-agentic-dev-framework-app
 
-# 3. Activate environment (installs everything)
-flox activate
-
-# 4. Open Claude Code
-claude
-
-# 5. Set up your TMDB API key
-cp .env.example .env.local
-# Open .env.local and add your TMDB_API_KEY
-
-# 6. Start the app
-bun dev
+# Check out the initial workshop tag on the codex branch
+git switch --detach codex/01-baseline
 ```
 
-**Windows users:** Install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) first, then follow these steps in your WSL2 terminal. Or skip to Option 2 for manual setup without WSL2.
-
----
-
-#### Option 2: Manual Setup (I Have the Tools / I already have a Mac and prefer to setup manually)
-
-**Best if:** You already have Node.js, Bun, and Claude Code installed.
-
-**Missing tools?** Install with:
-
-- Node.js: `brew install node`
-- Bun: `brew tap oven-sh/bun && brew install bun`
-- GitHub CLI: `brew install gh`
-- Claude Code: `brew install --cask claude-code`
+Already cloned the repo? Run:
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/revity-group/revity-agentic-dev-framework-app.git
-cd revity-agentic-dev-framework-app
+git fetch origin
+git checkout codex
+git switch --detach codex/01-baseline
+```
 
-# 2. Install dependencies
+#### 2. Configuration (Choose One)
+
+##### Option A: Flox Setup (Preferred)
+
+**Best if:** You want the fastest setup with the least manual steps.
+
+Install Flox: [flox.dev/docs/install-flox/install](https://flox.dev/docs/install-flox/install/)
+
+```bash
+# Install and activate project dependencies from Flox manifest
+flox activate
+```
+
+Flox config for this project installs `git`, `bun`, `gh`, `ripgrep`, and `codex`, and runs `bun install` on activation.
+
+Note: Flox prioritizes reproducible environments over newest package versions, so tools may be a few releases behind upstream. If a workshop feature is missing (for example, newer skills behavior in Codex CLI), verify with `codex --version` and use the latest manual install if needed.
+
+**Windows users:** Install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) first, then run Flox in your WSL2 terminal.
+
+##### Option B: Manual Setup (Alternative)
+
+Use this only if you prefer not to use Flox.
+
+- Git: [git-scm.com/downloads](https://git-scm.com/downloads)
+- Bun: [bun.sh/docs/installation](https://bun.sh/docs/installation)
+- Codex CLI: [OpenAI Codex CLI docs](https://platform.openai.com/docs/codex/cli)
+- GitHub CLI (optional): [cli.github.com/manual/installation](https://cli.github.com/manual/installation)
+- ripgrep (optional): [github.com/BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep)
+
+```bash
+# Install project dependencies manually
 bun install
+```
 
-# 3. Set up your TMDB API key
+#### 3. Run the App (Required)
+
+```bash
+# Set up your TMDB API key
 cp .env.example .env.local
 # Open .env.local and add your TMDB_API_KEY
 
-# 4. Start the app
+# (Optional) Open Codex
+codex
+
+# Start the app
 bun dev
 ```
 
@@ -84,11 +139,11 @@ Open [http://localhost:3000](http://localhost:3000) - you should see the Movie W
 - Make sure you added your TMDB_API_KEY to `.env.local`
 - Try `bun install` again
 - Check that port 3000 isn't already in use
-- Drop a message in `#tmp-agentic-dev-workshop1` on Slack - we're here to help!
+- Ask a workshop facilitator in session chat or in person to get unblocked.
 
 ### Full Workshop Guide
 
-Complete setup instructions and troubleshooting: [revity-group.github.io/revity-agentic-dev-framework-app](https://revity-group.github.io/revity-agentic-dev-framework-app/)
+Local workshop docs and navigation: [docs/index.md](./docs/index.md)
 
 ---
 

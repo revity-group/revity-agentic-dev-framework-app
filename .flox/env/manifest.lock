@@ -6,18 +6,24 @@
       "bun": {
         "pkg-path": "bun"
       },
-      "claude-code": {
-        "pkg-path": "claude-code"
+      "codex": {
+        "pkg-path": "codex"
       },
       "gh": {
         "pkg-path": "gh"
       },
-      "nodejs": {
-        "pkg-path": "nodejs"
+      "git": {
+        "pkg-path": "git"
+      },
+      "ripgrep": {
+        "pkg-path": "ripgrep"
+      },
+      "uv": {
+        "pkg-path": "uv"
       }
     },
     "hook": {
-      "on-activate": "  # -> Set variables, create files and directories\n  # -> Perform initialization steps, e.g. create a python venv\n  # -> Useful environment variables:\n  #      - FLOX_ENV_PROJECT=/home/user/example\n  #      - FLOX_ENV=/home/user/example/.flox/run\n  #      - FLOX_ENV_CACHE=/home/user/example/.flox/cache\n  bun install\n"
+      "on-activate": "  # -> Set variables, create files and directories\n  # -> Perform initialization steps, e.g. create a python venv\n  # -> Useful environment variables:\n  #      - FLOX_ENV_PROJECT=/home/user/example\n  #      - FLOX_ENV=/home/user/example/.flox/run\n  #      - FLOX_ENV_CACHE=/home/user/example/.flox/cache\n  bun install\n  uv pip install --user pyyaml\n"
     },
     "profile": {},
     "options": {}
@@ -26,27 +32,27 @@
     {
       "attr_path": "bun",
       "broken": false,
-      "derivation": "/nix/store/1cwnpgb3wcrm1wi4ks8n0cnzsja77nhi-bun-1.3.2.drv",
+      "derivation": "/nix/store/1vlvxvb66w89sqkq9p2s4kkdik2ivsz0-bun-1.3.8.drv",
       "description": "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one",
       "install_id": "bun",
       "license": "[ MIT, LGPL-2.1-only ]",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "bun-1.3.2",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "bun-1.3.8",
       "pname": "bun",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T17:33:04.664853Z",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T04:38:28.268895Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "1.3.2",
+      "version": "1.3.8",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/g6f8f0rm7vhn7mld018x0q9zgnk07z0g-bun-1.3.2"
+        "out": "/nix/store/22jgris8cr1isd8z7gy8ipbx5zzv3348-bun-1.3.8"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -55,27 +61,27 @@
     {
       "attr_path": "bun",
       "broken": false,
-      "derivation": "/nix/store/jhrmm85gmzqhi9cwvslfpnpfzzvdsxfs-bun-1.3.2.drv",
+      "derivation": "/nix/store/0nbiaxciaa0qivxjshpkvpkpz6m3k1z4-bun-1.3.8.drv",
       "description": "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one",
       "install_id": "bun",
       "license": "[ MIT, LGPL-2.1-only ]",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "bun-1.3.2",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "bun-1.3.8",
       "pname": "bun",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T18:08:08.507525Z",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:10:35.514954Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "1.3.2",
+      "version": "1.3.8",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/hic2g8c9xp4zam3gf0nv91jr8d3wjn32-bun-1.3.2"
+        "out": "/nix/store/lff5nd9nxn82h9kg9dg3wpc172qv596h-bun-1.3.8"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -84,27 +90,27 @@
     {
       "attr_path": "bun",
       "broken": false,
-      "derivation": "/nix/store/6xqq7balgd4ysj4jw9a61v12ik9hpbxk-bun-1.3.2.drv",
+      "derivation": "/nix/store/562k54jnby31pzb7s9n5hf6mg2mqnqv7-bun-1.3.8.drv",
       "description": "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one",
       "install_id": "bun",
       "license": "[ MIT, LGPL-2.1-only ]",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "bun-1.3.2",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "bun-1.3.8",
       "pname": "bun",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T18:41:42.772734Z",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:44:13.465103Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "1.3.2",
+      "version": "1.3.8",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/3wqb0g131a54yj26sghklr8dbagx9rg2-bun-1.3.2"
+        "out": "/nix/store/hj21vk54ildyyf9fx2ffy2wlychx52wz-bun-1.3.8"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -113,143 +119,143 @@
     {
       "attr_path": "bun",
       "broken": false,
-      "derivation": "/nix/store/3rg5kzzqqalmcpn90qp82xd7iwiyrf24-bun-1.3.2.drv",
+      "derivation": "/nix/store/yqlypm5907dma5snh72q49j1hb546kiv-bun-1.3.8.drv",
       "description": "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one",
       "install_id": "bun",
       "license": "[ MIT, LGPL-2.1-only ]",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "bun-1.3.2",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "bun-1.3.8",
       "pname": "bun",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T19:18:39.806381Z",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T06:20:16.205436Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "1.3.2",
+      "version": "1.3.8",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/a9gabjjwk0617csjlgm5f6gz5fv9jq11-bun-1.3.2"
+        "out": "/nix/store/akich5c8v8cqp55a1lixzlkhsn4bysn0-bun-1.3.8"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
       "priority": 5
     },
     {
-      "attr_path": "claude-code",
+      "attr_path": "codex",
       "broken": false,
-      "derivation": "/nix/store/7c20axj61mmrp53iwdxrxpjf8ghpc7al-claude-code-2.0.49.drv",
-      "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
-      "install_id": "claude-code",
-      "license": "Unfree",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "claude-code-2.0.49",
-      "pname": "claude-code",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T17:33:04.851361Z",
+      "derivation": "/nix/store/ism57ib2j88jzzrri0imdn7z5pqipfxi-codex-0.92.0.drv",
+      "description": "Lightweight coding agent that runs in your terminal",
+      "install_id": "codex",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "codex-0.92.0",
+      "pname": "codex",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T04:38:28.494019Z",
       "stabilities": [
         "unstable"
       ],
-      "unfree": true,
-      "version": "2.0.49",
+      "unfree": false,
+      "version": "0.92.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/ljkva2fmc30128ifrcibkhkp2wlr9kjb-claude-code-2.0.49"
+        "out": "/nix/store/0g6q2y2460gczshlnhkalk73rbim5alh-codex-0.92.0"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
       "priority": 5
     },
     {
-      "attr_path": "claude-code",
+      "attr_path": "codex",
       "broken": false,
-      "derivation": "/nix/store/zwas5s4wpzma3c3n4krhgn6kiajbj59a-claude-code-2.0.49.drv",
-      "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
-      "install_id": "claude-code",
-      "license": "Unfree",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "claude-code-2.0.49",
-      "pname": "claude-code",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T18:08:08.785950Z",
+      "derivation": "/nix/store/3kcnx0gwv1qrz3iw4fypjh75mxzi1msa-codex-0.92.0.drv",
+      "description": "Lightweight coding agent that runs in your terminal",
+      "install_id": "codex",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "codex-0.92.0",
+      "pname": "codex",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:10:35.814744Z",
       "stabilities": [
         "unstable"
       ],
-      "unfree": true,
-      "version": "2.0.49",
+      "unfree": false,
+      "version": "0.92.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/yirla42ypf85bhqdjbvf2710ax1ri8w0-claude-code-2.0.49"
+        "out": "/nix/store/cwiwxk3j1ly7psmq7n04zh30h1h0yzqn-codex-0.92.0"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
       "priority": 5
     },
     {
-      "attr_path": "claude-code",
+      "attr_path": "codex",
       "broken": false,
-      "derivation": "/nix/store/fz06kvvqyq4qgl7qxj32lnivrw7c3g4v-claude-code-2.0.49.drv",
-      "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
-      "install_id": "claude-code",
-      "license": "Unfree",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "claude-code-2.0.49",
-      "pname": "claude-code",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T18:41:42.955079Z",
+      "derivation": "/nix/store/a45sk1f95zd02rr1wwdmcpf6ickywnkd-codex-0.92.0.drv",
+      "description": "Lightweight coding agent that runs in your terminal",
+      "install_id": "codex",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "codex-0.92.0",
+      "pname": "codex",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:44:13.701534Z",
       "stabilities": [
         "unstable"
       ],
-      "unfree": true,
-      "version": "2.0.49",
+      "unfree": false,
+      "version": "0.92.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/sl11w7d3d0s8rq04gisr38cij1c4kmx7-claude-code-2.0.49"
+        "out": "/nix/store/lif2m76n621lcdfng8whp6dzli1bm7j4-codex-0.92.0"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
       "priority": 5
     },
     {
-      "attr_path": "claude-code",
+      "attr_path": "codex",
       "broken": false,
-      "derivation": "/nix/store/h15m2kmizih7d9sndflyr6parydqg4l0-claude-code-2.0.49.drv",
-      "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
-      "install_id": "claude-code",
-      "license": "Unfree",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "claude-code-2.0.49",
-      "pname": "claude-code",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T19:18:40.066615Z",
+      "derivation": "/nix/store/v6l6f56wngmff9ncmbsjd9dxfxi7c6qz-codex-0.92.0.drv",
+      "description": "Lightweight coding agent that runs in your terminal",
+      "install_id": "codex",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "codex-0.92.0",
+      "pname": "codex",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T06:20:16.528758Z",
       "stabilities": [
         "unstable"
       ],
-      "unfree": true,
-      "version": "2.0.49",
+      "unfree": false,
+      "version": "0.92.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/m89wlmm9jbvk50smbd0fxdxp9izfckdb-claude-code-2.0.49"
+        "out": "/nix/store/32i8hyh409ga3qarpky6dlwpc8j3ab3s-codex-0.92.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -258,27 +264,27 @@
     {
       "attr_path": "gh",
       "broken": false,
-      "derivation": "/nix/store/fkszb7gmd37r2qv9frxhiggnmwip188d-gh-2.83.1.drv",
+      "derivation": "/nix/store/8a3nidwpvc9n1bjva4dmw7i7mjj8fky7-gh-2.86.0.drv",
       "description": "GitHub CLI tool",
       "install_id": "gh",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "gh-2.83.1",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "gh-2.86.0",
       "pname": "gh",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T17:33:05.607742Z",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T04:38:29.292034Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "2.83.1",
+      "version": "2.86.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/jcfc6p66x7qnrwf2dn83gaar13swpfka-gh-2.83.1"
+        "out": "/nix/store/y207r5sjcd81gfnsxxssgiiiwl6mcg6f-gh-2.86.0"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -287,27 +293,27 @@
     {
       "attr_path": "gh",
       "broken": false,
-      "derivation": "/nix/store/s3ydm3zpm647dn8nhqld9ail4g5g1gkr-gh-2.83.1.drv",
+      "derivation": "/nix/store/i2nsxinz9xpj7646ladcp57lxl69jj6w-gh-2.86.0.drv",
       "description": "GitHub CLI tool",
       "install_id": "gh",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "gh-2.83.1",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "gh-2.86.0",
       "pname": "gh",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T18:08:10.091523Z",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:10:36.964652Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "2.83.1",
+      "version": "2.86.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/vr17vpprzabs961dj075z5wl6nw6b4w4-gh-2.83.1"
+        "out": "/nix/store/zx4plaf0z1yv06wdhxxhpbm7kmslm2r8-gh-2.86.0"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -316,27 +322,27 @@
     {
       "attr_path": "gh",
       "broken": false,
-      "derivation": "/nix/store/24cdkr039q5jlf6hnxfafc6cfzn97bq1-gh-2.83.1.drv",
+      "derivation": "/nix/store/5gs8iqvhi8qpfnkigm3nibrzajsiggzr-gh-2.86.0.drv",
       "description": "GitHub CLI tool",
       "install_id": "gh",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "gh-2.83.1",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "gh-2.86.0",
       "pname": "gh",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T18:41:43.667841Z",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:44:14.460Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "2.83.1",
+      "version": "2.86.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/v1xrng4rrjshc9ini30l07rsc2dbi7fh-gh-2.83.1"
+        "out": "/nix/store/vhpac8ld4xkaa13bsrbwnyrmlcxsg57q-gh-2.86.0"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -345,151 +351,381 @@
     {
       "attr_path": "gh",
       "broken": false,
-      "derivation": "/nix/store/z8k2mqgc7gfr5m6bs7c5rrgsfi6f61h2-gh-2.83.1.drv",
+      "derivation": "/nix/store/vnv704j0yfg1lg30jrbf0hdnzpkygvv5-gh-2.86.0.drv",
       "description": "GitHub CLI tool",
       "install_id": "gh",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "gh-2.83.1",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "gh-2.86.0",
       "pname": "gh",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T19:18:41.309986Z",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T06:20:17.913633Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "2.83.1",
+      "version": "2.86.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/y12yx7z4g4a3jbzh28h6yrpvcf6px5kl-gh-2.83.1"
+        "out": "/nix/store/xf3rb2kmk19092b1pf50ag0fsj2f6hpa-gh-2.86.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
       "priority": 5
     },
     {
-      "attr_path": "nodejs",
+      "attr_path": "git",
       "broken": false,
-      "derivation": "/nix/store/qn2ya2cwp8bnlzzlndigkjrc5cb08kwy-nodejs-22.21.1.drv",
-      "description": "Event-driven I/O framework for the V8 JavaScript engine",
-      "install_id": "nodejs",
-      "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "nodejs-22.21.1",
-      "pname": "nodejs",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T17:33:26.981887Z",
+      "derivation": "/nix/store/zbqxdvgi7hl7636mav0jjvdzc44fw0w0-git-2.52.0.drv",
+      "description": "Distributed version control system",
+      "install_id": "git",
+      "license": "GPL-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "git-2.52.0",
+      "pname": "git",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T04:38:29.324030Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "22.21.1",
+      "version": "2.52.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "dev": "/nix/store/bkir3agnj2cvpx80a0z1lj50pg2dhddi-nodejs-22.21.1-dev",
-        "libv8": "/nix/store/ivbmw7d10pxzkrz5397bimhqwwlrc8gp-nodejs-22.21.1-libv8",
-        "out": "/nix/store/92igwjsd6av0pg8dvygirhdwahwq2sh7-nodejs-22.21.1"
+        "doc": "/nix/store/p0dx3053175fpr3kjf0fqgs9x6gm3dri-git-2.52.0-doc",
+        "out": "/nix/store/vnhprisb777byfjpp5mdd0mxwkpvhbc0-git-2.52.0"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
       "priority": 5
     },
     {
-      "attr_path": "nodejs",
+      "attr_path": "git",
       "broken": false,
-      "derivation": "/nix/store/v21as4jlvqh2qs8glb1w5kbjrb1bgc96-nodejs-22.21.1.drv",
-      "description": "Event-driven I/O framework for the V8 JavaScript engine",
-      "install_id": "nodejs",
-      "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "nodejs-22.21.1",
-      "pname": "nodejs",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T18:08:50.213411Z",
+      "derivation": "/nix/store/xh28gpzhgrisb6hvk986vvswa75l6bhw-git-2.52.0.drv",
+      "description": "Distributed version control system",
+      "install_id": "git",
+      "license": "GPL-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "git-2.52.0",
+      "pname": "git",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:10:37.010893Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "22.21.1",
+      "version": "2.52.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "dev": "/nix/store/1akvaqvrp0cf6pd7mkqy7m3gnzc3wfd7-nodejs-22.21.1-dev",
-        "libv8": "/nix/store/ykj9hi9qv7gwxnbg2vh6ca00w9zsbhm0-nodejs-22.21.1-libv8",
-        "out": "/nix/store/hps7k16bd9isj7pfsjzg7q0wgvrw47kn-nodejs-22.21.1"
+        "debug": "/nix/store/cx033x4nmr12d9dcn8hxjfrajc3983f0-git-2.52.0-debug",
+        "doc": "/nix/store/ylsmgdrnp78p8hn7n9lxpada78dka41v-git-2.52.0-doc",
+        "out": "/nix/store/sd4bjblxfljbm13mpl50x8g336gw2dri-git-2.52.0"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
       "priority": 5
     },
     {
-      "attr_path": "nodejs",
+      "attr_path": "git",
       "broken": false,
-      "derivation": "/nix/store/kb90gm20fllkjw1h62l5gqx65rnqhn8g-nodejs-22.21.1.drv",
-      "description": "Event-driven I/O framework for the V8 JavaScript engine",
-      "install_id": "nodejs",
-      "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "nodejs-22.21.1",
-      "pname": "nodejs",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T18:42:04.992741Z",
+      "derivation": "/nix/store/r52yqnq99zyf6yvjfb4cvbzq749l2395-git-2.52.0.drv",
+      "description": "Distributed version control system",
+      "install_id": "git",
+      "license": "GPL-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "git-2.52.0",
+      "pname": "git",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:44:14.492801Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "22.21.1",
+      "version": "2.52.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "dev": "/nix/store/haa4773lz7wfhnql05181azh4z5141r7-nodejs-22.21.1-dev",
-        "libv8": "/nix/store/0pswqdxlx8y0v54gq0ixwps19agv6bds-nodejs-22.21.1-libv8",
-        "out": "/nix/store/wfjyiwara336j7r1v0ia3kib8779wzwf-nodejs-22.21.1"
+        "doc": "/nix/store/fky0ci2bhwgyh9klg5682pmqswqg7wk4-git-2.52.0-doc",
+        "out": "/nix/store/sr42bfqa0pc2ysba678mrm49g78jdynp-git-2.52.0"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
       "priority": 5
     },
     {
-      "attr_path": "nodejs",
+      "attr_path": "git",
       "broken": false,
-      "derivation": "/nix/store/k16sz3xygmjy31qpnni5qyj98fxfznap-nodejs-22.21.1.drv",
-      "description": "Event-driven I/O framework for the V8 JavaScript engine",
-      "install_id": "nodejs",
-      "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=050e09e091117c3d7328c7b2b7b577492c43c134",
-      "name": "nodejs-22.21.1",
-      "pname": "nodejs",
-      "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
-      "rev_count": 900642,
-      "rev_date": "2025-11-22T18:20:33Z",
-      "scrape_date": "2025-11-24T19:19:20.193638Z",
+      "derivation": "/nix/store/b5a7flvc1aq2h7pfgr756p7wpyjydzv9-git-2.52.0.drv",
+      "description": "Distributed version control system",
+      "install_id": "git",
+      "license": "GPL-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "git-2.52.0",
+      "pname": "git",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T06:20:17.963767Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "22.21.1",
+      "version": "2.52.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "dev": "/nix/store/l1idqv7ff0m2kbcqnn1yr415wyga1wxf-nodejs-22.21.1-dev",
-        "libv8": "/nix/store/farc7vk89kr367hsx0qchmahf6i6sbk1-nodejs-22.21.1-libv8",
-        "out": "/nix/store/l85fis49agvp5q1ild1rfh4rrgmn92sr-nodejs-22.21.1"
+        "debug": "/nix/store/zd8di23fmzjwrhb5ij1bjnlfqkx9j7d6-git-2.52.0-debug",
+        "doc": "/nix/store/d8kc4kqzcrbcj92msxrpdsdjglh2q5gp-git-2.52.0-doc",
+        "out": "/nix/store/ipwndaag56mm8g8gn8j98z0jvn8x4mk1-git-2.52.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ripgrep",
+      "broken": false,
+      "derivation": "/nix/store/7i500pl67dj4jp3aczzr1i4ah46rmjrk-ripgrep-15.1.0.drv",
+      "description": "Utility that combines the usability of The Silver Searcher with the raw speed of grep",
+      "install_id": "ripgrep",
+      "license": "[ Unlicense, MIT ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "ripgrep-15.1.0",
+      "pname": "ripgrep",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T04:39:54.675837Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "15.1.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/hz3dwqiwxw84mh82j1bnvxlca2ghmhkh-ripgrep-15.1.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ripgrep",
+      "broken": false,
+      "derivation": "/nix/store/ndyi1czsdl8z298cddg5safyan87xm1f-ripgrep-15.1.0.drv",
+      "description": "Utility that combines the usability of The Silver Searcher with the raw speed of grep",
+      "install_id": "ripgrep",
+      "license": "[ Unlicense, MIT ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "ripgrep-15.1.0",
+      "pname": "ripgrep",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:12:33.053727Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "15.1.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/lg9npvx2ddljsd98a370x8di92kc9xbj-ripgrep-15.1.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ripgrep",
+      "broken": false,
+      "derivation": "/nix/store/iy56jr2x8ns75v1rkskykd0gy3k1qmns-ripgrep-15.1.0.drv",
+      "description": "Utility that combines the usability of The Silver Searcher with the raw speed of grep",
+      "install_id": "ripgrep",
+      "license": "[ Unlicense, MIT ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "ripgrep-15.1.0",
+      "pname": "ripgrep",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:45:36.449380Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "15.1.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/iwgyg59m9na9wp424crxxj0dcmhi4ryd-ripgrep-15.1.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ripgrep",
+      "broken": false,
+      "derivation": "/nix/store/yiln896f8sddninpbc4nppi8pv4jq8bl-ripgrep-15.1.0.drv",
+      "description": "Utility that combines the usability of The Silver Searcher with the raw speed of grep",
+      "install_id": "ripgrep",
+      "license": "[ Unlicense, MIT ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "ripgrep-15.1.0",
+      "pname": "ripgrep",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T06:22:13.372553Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "15.1.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/5ij40vzd46x6psvdv5yg5gr6igrpwyd4-ripgrep-15.1.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "uv",
+      "broken": false,
+      "derivation": "/nix/store/wisvr9rhmbi7h8absp8r52hvfjs0p4cv-uv-0.10.0.drv",
+      "description": "Extremely fast Python package installer and resolver, written in Rust",
+      "install_id": "uv",
+      "license": "[ Apache-2.0, MIT ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "uv-0.10.0",
+      "pname": "uv",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T04:40:57.058671Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.10.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/zqcwffhpp76jhzz9s31s5diji00fx3gv-uv-0.10.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "uv",
+      "broken": false,
+      "derivation": "/nix/store/13cvnpg1hffdgrlmwrl2sahjqiinahv4-uv-0.10.0.drv",
+      "description": "Extremely fast Python package installer and resolver, written in Rust",
+      "install_id": "uv",
+      "license": "[ Apache-2.0, MIT ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "uv-0.10.0",
+      "pname": "uv",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:13:53.595899Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.10.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/87widr530fjxqwlaak3my16cddnybxki-uv-0.10.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "uv",
+      "broken": false,
+      "derivation": "/nix/store/w7lnah3hs08wsqrjak5awfclxpqmga5l-uv-0.10.0.drv",
+      "description": "Extremely fast Python package installer and resolver, written in Rust",
+      "install_id": "uv",
+      "license": "[ Apache-2.0, MIT ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "uv-0.10.0",
+      "pname": "uv",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T05:46:35.813375Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.10.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/apnmpw2795ps4pl50k41y0jnqf24n2vg-uv-0.10.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "uv",
+      "broken": false,
+      "derivation": "/nix/store/y4ikgwvfbjjhk45zbgh6g47bzdxjs0n9-uv-0.10.0.drv",
+      "description": "Extremely fast Python package installer and resolver, written in Rust",
+      "install_id": "uv",
+      "license": "[ Apache-2.0, MIT ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=d6c71932130818840fc8fe9509cf50be8c64634f",
+      "name": "uv-0.10.0",
+      "pname": "uv",
+      "rev": "d6c71932130818840fc8fe9509cf50be8c64634f",
+      "rev_count": 942779,
+      "rev_date": "2026-02-08T14:52:16Z",
+      "scrape_date": "2026-02-09T06:23:31.836190Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.10.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/9nvlmhwg9fjy797pza7kjpdhwylj0gfx-uv-0.10.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",

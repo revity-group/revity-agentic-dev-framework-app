@@ -15,10 +15,12 @@ version = 1
 ##  $ flox show gum     <- show all versions of a package
 ## -------------------------------------------------------------------
 [install]
-nodejs.pkg-path = "nodejs"
 bun.pkg-path = "bun"
-claude-code.pkg-path = "claude-code"
 gh.pkg-path = "gh"
+codex.pkg-path = "codex"
+git.pkg-path = "git"
+ripgrep.pkg-path = "ripgrep"
+uv.pkg-path = "uv"
 # gum.pkg-path = "gum"
 # gum.version = "^0.14.5"
 
